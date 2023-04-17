@@ -57,6 +57,32 @@ And if there are no login errors you should see the message painted in purple:
 
 You will need to provide a token to get an answer from this api
 
+#### For User information update
+
+```http
+  PUT /api/users/userInfo
+```
+
+You will need to provide a token to get an answer from this api
+You need to be admin
+
+#### For User information update
+
+```http
+  PUT /api/users/userInfo/:id
+```
+
+You will need to provide a token to get an answer from this api
+You need to be admin to delete
+
+#### For Information about a user
+
+```http
+  DELETE /api/users/deleteUser/:id
+```
+
+You will need to provide a token to get an answer from this api
+
 #### To receive all business cards
 
 ```http
@@ -89,6 +115,14 @@ You will need to provide a token to get an answer from this api
 
 ```http
   PUT /api/cards/:id
+```
+
+You will need to provide a token to get an answer from this api
+
+#### To update a business card
+
+```http
+  PUT /api/cards/bizNumber/:bizId
 ```
 
 You will need to provide a token to get an answer from this api

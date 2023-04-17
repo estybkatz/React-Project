@@ -1,13 +1,12 @@
 const Joi = require("joi");
 
-function validateRegistration(user) {
+function validateEditUser(user) {
   const schema = Joi.object({
     firstName: Joi.string().min(2).max(255).required(),
     middleName: Joi.string().min(2).max(255).allow(""),
     lastName: Joi.string().min(2).max(255).required(),
     phone: Joi.string().min(7).max(14).required(),
     email: Joi.string().min(6).max(255).required().email(),
-    password: Joi.string().min(6).max(1024).required(),
     imageUrl: Joi.string().min(6).max(1024).allow(""),
     imageAlt: Joi.string().min(6).max(256).allow(""),
     state: Joi.string().min(2).max(256).allow(""),
@@ -22,4 +21,4 @@ function validateRegistration(user) {
   return schema.validate(user);
 }
 
-module.exports = validateRegistration;
+module.exports = validateEditUser;

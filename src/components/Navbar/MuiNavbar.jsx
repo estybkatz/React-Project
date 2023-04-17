@@ -20,11 +20,12 @@ import ROUTES from "../../routes/ROUTES";
 import { darkThemeActions } from "../../store/darkTheme";
 import NavLinkComponent from "./NavLinkComponent";
 import { authActions } from "../../store/auth";
+import { Height } from "@mui/icons-material";
 
 // access to all
 const pages = [
   {
-    label: "Home",
+    label: <img src="./logo192.png" alt="logo" />,
     url: ROUTES.HOME,
   },
 ];
@@ -92,7 +93,7 @@ const MuiNavbar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar>
-          <AdbIcon />
+          {/* <AdbIcon /> */}
           <Typography
             variant="h6"
             noWrap

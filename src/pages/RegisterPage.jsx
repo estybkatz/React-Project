@@ -171,4 +171,4 @@ const RegisterPage = () => {
     </Container>
   );
 };
-export default RegisterPage;
+//export default RegisterPage;

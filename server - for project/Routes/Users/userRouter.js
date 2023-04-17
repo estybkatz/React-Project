@@ -1,4 +1,5 @@
 const validateRegistration = require("./usersValidations/registraion");
+const validateEditUser = require("./usersValidations/editUser");
 const validateSignin = require("./usersValidations/signIn");
 const {
   comparePassword,
@@ -10,8 +11,10 @@ const router = require("express").Router();
 const User = require("./userModel");
 const auth = require("../../middlewares/authorization");
 const chalk = require("chalk");
+const cleanInput = require("../../services/cleanInput");
 
 router.post("/register", async (req, res) => {
+  req.body = cleanInput(req.body);
   const { error } = validateRegistration(req.body);
   if (error) {
     console.log(chalk.redBright(error.details[0].message));
@@ -23,7 +26,6 @@ router.post("/register", async (req, res) => {
     console.log(chalk.redBright("Registration Error: User already registered"));
     return res.status(400).send("User already registered.");
   }
-
   user = new User({ ...req.body });
   // user = new User(
   //   _.pick(req.body, ["name", "email", "password", "biz", "cards"])
@@ -35,6 +37,7 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
+  req.body = cleanInput(req.body);
   const { error } = validateSignin(req.body);
   if (error) {
     console.log(chalk.redBright(error.details[0].message));
@@ -65,6 +68,52 @@ router.get("/userInfo", auth, (req, res) => {
     .select(["-password", "-createdAt", "-__v"])
     .then((user) => res.send(user))
     .catch((errorsFromMongoose) => res.status(500).send(errorsFromMongoose));
+});
+
+router.put("/userInfo", auth, async (req, res) => {
+  try {
+    req.body = cleanInput(req.body);
+    const { error } = validateEditUser(req.body);
+    if (error) {
+      console.log(chalk.redBright(error.details[0].message));
+      return res.status(400).send(error.details[0].message);
+    }
+    await User.findByIdAndUpdate(req.user._id, req.body);
+    res.json({ msg: "Done" });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+router.put("/userInfo/:id", auth, async (req, res) => {
+  try {
+    req.body = cleanInput(req.body);
+    const { error } = validateEditUser(req.body);
+    if (error) {
+      console.log(chalk.redBright(error.details[0].message));
+      return res.status(400).send(error.details[0].message);
+    }
+    if (!req.user || !req.user.isAdmin) {
+      throw "you need to be admin!";
+    }
+    await User.findByIdAndUpdate(req.params.id, req.body);
+    res.json({ msg: "Done" });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+router.delete("/deleteUser/:id", auth, async (req, res) => {
+  try {
+    console.log(req.user);
+    if (!req.user || !req.user.isAdmin) {
+      throw "you need to be admin!";
+    }
+    await User.findByIdAndDelete(req.params.id);
+    res.json({ msg: "Done" });
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
 module.exports = router;

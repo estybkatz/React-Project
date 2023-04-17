@@ -16,23 +16,25 @@ import axios from "axios";
 
 import validateRegisterSchema from "../validation/registerValidation";
 import ROUTES from "../routes/ROUTES";
+import { date } from "joi";
+import RegisterComponent from "../components/RegisterComponent";
 
 const registerArray = [
-  firstName,
-  lastName,
-  middleName,
-  email,
-  phone,
-  password,
-  imageUrl,
-  imageAlt,
-  state,
-  country,
-  city,
-  street,
-  houseNumber,
-  zipCode,
-  biz,
+  "firstName",
+  "lastName",
+  "middleName",
+  "email",
+  "phone",
+  "password",
+  "imageUrl",
+  "imageAlt",
+  "state",
+  "country",
+  "city",
+  "street",
+  "houseNumber",
+  "zipCode",
+  "biz",
 ];
 
 const RegisterPage = () => {
@@ -57,6 +59,7 @@ const RegisterPage = () => {
   const [inputsErrorsState, setInputsErrorsState] = useState(null);
   const navigate = useNavigate();
   const handleBtnClick = async (ev) => {
+    ev.preventDefault();
     try {
       const joiResponse = validateRegisterSchema(inputState);
       setInputsErrorsState(joiResponse);
@@ -80,16 +83,19 @@ const RegisterPage = () => {
         zipCode: inputState.zipCode,
         biz: inputState.biz,
       });
+      console.log("poooo");
       navigate(ROUTES.LOGIN);
     } catch (err) {
       console.log("error from axios", err.response.data);
     }
   };
   const handleInputChange = (ev) => {
+    // ev.preventDefault();
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
   };
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -108,27 +114,37 @@ const RegisterPage = () => {
         </Typography>
         <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="given-name"
-                name="firstName"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                value={inputState.firstName}
+            {registerArray.map((item) => (
+              <RegisterComponent
+                key={item + Date.now()}
+                name={item}
+                id={item}
+                label={item}
+                value={inputState[item]}
                 onChange={handleInputChange}
+                //handleInputChange={handleInputChange}
               />
-              {inputsErrorsState && inputsErrorsState.firstName && (
-                <Alert severity="warning">
-                  {inputsErrorsState.firstName.map((item) => (
-                    <div key={"firstName-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
-            </Grid>
-            <Grid item xs={12} sm={6}>
+              // <Grid item xs={12} sm={6} key={item + Date.now()}>
+              //   <TextField
+              //   autoComplete="given-name"
+              //   name={item}
+              //   fullWidth
+              //   id={item}
+              //   label={item}
+              //   autoFocus
+              //   value={inputState[item]}
+              //   onChange={handleInputChange}
+              // />
+              //   {inputsErrorsState && inputsErrorsState[item] && (
+              //     <Alert severity="warning">
+              //       {inputsErrorsState.item.map((item) => (
+              //         <div key={"errors" + item + Date.now()}>{item}</div>
+              //       ))}
+              //     </Alert>
+              //   )}
+              // </Grid>
+            ))}
+            {/* <Grid item xs={12} sm={6}>
               <TextField
                 required
                 fullWidth
@@ -185,7 +201,7 @@ const RegisterPage = () => {
                   ))}
                 </Alert>
               )}
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}

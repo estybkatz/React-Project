@@ -41,11 +41,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     minlength: 6,
     maxlength: 1024,
+    default:
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
   },
   imageAlt: {
     type: String,
     minlength: 6,
     maxlength: 256,
+    default:
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
   },
   state: {
     type: String,
