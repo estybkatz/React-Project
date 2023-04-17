@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const minAllowEmpty = require("../../services/validatorAllowEmpty");
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -9,8 +10,11 @@ const userSchema = new mongoose.Schema({
   },
   middleName: {
     type: String,
-    minlength: 2,
     maxlength: 256,
+    validate: {
+      validator: minAllowEmpty(6),
+      message: "should be empty or minimum",
+    },
   },
   lastName: {
     type: String,
@@ -39,22 +43,31 @@ const userSchema = new mongoose.Schema({
   },
   imageUrl: {
     type: String,
-    minlength: 6,
     maxlength: 1024,
+    validate: {
+      validator: minAllowEmpty(6),
+      message: "should be empty or minimum",
+    },
     default:
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
   },
   imageAlt: {
     type: String,
-    minlength: 6,
     maxlength: 256,
+    validate: {
+      validator: minAllowEmpty(6),
+      message: "should be empty or minimum",
+    },
     default:
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
   },
   state: {
     type: String,
-    minlength: 2,
     maxlength: 255,
+    validate: {
+      validator: minAllowEmpty(2),
+      message: "should be empty or minimum",
+    },
   },
   country: {
     type: String,
@@ -82,8 +95,11 @@ const userSchema = new mongoose.Schema({
   },
   zipCode: {
     type: Number,
-    minlength: 1,
     maxlength: 256,
+    validate: {
+      validator: minAllowEmpty(2, "number"),
+      message: "should be empty or minimum",
+    },
   },
   biz: {
     type: Boolean,

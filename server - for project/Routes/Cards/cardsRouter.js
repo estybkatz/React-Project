@@ -5,7 +5,6 @@ const router = express.Router();
 const chalk = require("chalk");
 const { generateBizNum } = require("./services/generateBizNum");
 const { validateCard } = require("./cardValidation");
-const cleanInput = require("../../services/cleanInput");
 
 /********** סעיף 7 **********/
 router.get("/cards", async (req, res) => {
@@ -119,7 +118,6 @@ router.put("/:id", auth, async (req, res) => {
       );
       return res.status(403).json("You are not authorize to edit card!");
     }
-    req.body = cleanInput(req.body);
     let card = req.body;
     delete card._id;
     const { error } = validateCard(card);

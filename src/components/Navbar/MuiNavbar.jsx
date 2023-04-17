@@ -20,7 +20,7 @@ import ROUTES from "../../routes/ROUTES";
 import { darkThemeActions } from "../../store/darkTheme";
 import NavLinkComponent from "./NavLinkComponent";
 import { authActions } from "../../store/auth";
-import { Height } from "@mui/icons-material";
+//import { Height } from "@mui/icons-material";
 
 // access to all
 const pages = [

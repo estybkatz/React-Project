@@ -11,10 +11,8 @@ const router = require("express").Router();
 const User = require("./userModel");
 const auth = require("../../middlewares/authorization");
 const chalk = require("chalk");
-const cleanInput = require("../../services/cleanInput");
 
 router.post("/register", async (req, res) => {
-  req.body = cleanInput(req.body);
   const { error } = validateRegistration(req.body);
   if (error) {
     console.log(chalk.redBright(error.details[0].message));
@@ -37,7 +35,6 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  req.body = cleanInput(req.body);
   const { error } = validateSignin(req.body);
   if (error) {
     console.log(chalk.redBright(error.details[0].message));
@@ -72,7 +69,6 @@ router.get("/userInfo", auth, (req, res) => {
 
 router.put("/userInfo", auth, async (req, res) => {
   try {
-    req.body = cleanInput(req.body);
     const { error } = validateEditUser(req.body);
     if (error) {
       console.log(chalk.redBright(error.details[0].message));
@@ -87,7 +83,6 @@ router.put("/userInfo", auth, async (req, res) => {
 
 router.put("/userInfo/:id", auth, async (req, res) => {
   try {
-    req.body = cleanInput(req.body);
     const { error } = validateEditUser(req.body);
     if (error) {
       console.log(chalk.redBright(error.details[0].message));
