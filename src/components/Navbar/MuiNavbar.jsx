@@ -13,6 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Link from "@mui/icons-material/Link";
 import { Switch } from "@mui/material";
+//import useSwitch from "@mui/base/useSwitch";
 import { NavLink } from "react-router-dom";
 
 import SearchPartial from "./SearchPartial";
@@ -21,19 +22,21 @@ import { darkThemeActions } from "../../store/darkTheme";
 import NavLinkComponent from "./NavLinkComponent";
 import { authActions } from "../../store/auth";
 //import { Height } from "@mui/icons-material";
+import SwitchUnstyled from "@mui/base/SwitchUnstyled";
 
 // access to all
 const pages = [
   {
-    label: <img src="./logo192.png" alt="logo" />,
+    label: <img src="./logo192.png" alt="logo" className="logo" />,
     url: ROUTES.HOME,
   },
 ];
 
 //not logged in users
 const notAuthPages = [
+  { label: "About", url: ROUTES.ABOUT },
   {
-    label: "Register",
+    label: "Signup",
     url: ROUTES.REGISTER,
   },
   {
@@ -52,10 +55,11 @@ const authedPages = [
     label: "Logout",
     url: ROUTES.LOGOUT,
   },
+  { label: "FAV CARDS", url: ROUTES.FAV },
 ];
 
 //admin/biz pages
-const adminBizPages = [
+const BizPages = [
   {
     label: "Create",
     url: ROUTES.REGISTER,
@@ -93,14 +97,6 @@ const MuiNavbar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar>
-          {/* <AdbIcon /> */}
-          <Typography
-            variant="h6"
-            noWrap
-            sx={{ display: { xs: "none", md: "inline" } }}
-          >
-            LOGO
-          </Typography>
           {/* main navbar */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -132,7 +128,7 @@ const MuiNavbar = () => {
             <Typography sx={{ display: { xs: "none", md: "inline" } }}>
               {isDarkTheme ? "Dark" : "Light"} Mode
             </Typography>
-            <Switch checked={isDarkTheme} onChange={changeTheme} />
+            {<Switch checked={isDarkTheme} onChange={changeTheme} />}
           </Box>
           {/* hamburger with menu */}
           <Box
@@ -197,3 +193,4 @@ const MuiNavbar = () => {
 };
 
 export default MuiNavbar;
+//<Avatar src="/broken-image.jpg" />

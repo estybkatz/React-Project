@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
 
-const HomePage = () => {
+const MyCardsPage = () => {
   const [originalCardsArr, setOriginalCardsArr] = useState(null);
   const [cardsArr, setCardsArr] = useState(null);
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const HomePage = () => {
       this is why we use the old promise way
     */
     axios
-      .get("/cards/cards")
+      .get("/cards/my-cards")
       .then(({ data }) => {
         console.log("data", data);
         // setCardsArr(data);
@@ -86,7 +86,7 @@ const HomePage = () => {
 
   return (
     <Box>
-      <h1>Home page</h1>;
+      <h1>MyCards page</h1>
       <Grid container spacing={2}>
         {cardsArr.map((item) => (
           <Grid item xs={4} key={item._id + Date.now()}>
@@ -132,4 +132,4 @@ const HomePage = () => {
             />
 */
 
-export default HomePage;
+export default MyCardsPage;

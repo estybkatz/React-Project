@@ -54,7 +54,7 @@ const cardSchema = new mongoose.Schema({
   },
   zipCode: {
     type: Number,
-    maxlength: 256,
+    maxlength: 99999999,
     validate: {
       validator: minAllowEmpty(1, "number"),
       message: "should be empty or minimum",
@@ -76,7 +76,7 @@ const cardSchema = new mongoose.Schema({
     type: String,
     maxlength: 255,
     validate: {
-      validator: minAllowEmpty(5, "number"),
+      validator: minAllowEmpty(5, "string"),
       message: "should be empty or minimum",
     },
   },

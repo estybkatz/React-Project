@@ -1,9 +1,13 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage";
+import AboutPage from "../pages/AboutPage";
 import RegisterPage from "../pages/RegisterPage";
+import FavCardsPage from "../pages/FavCardsPage";
+import CreateCardPage from "../pages/CreateCardPage";
 import ROUTES from "./ROUTES";
 import LoginPage from "../pages/LoginPage";
 import EditCardPage from "../pages/EditCardPage";
+import MyCardsPage from "../pages/MyCardsPage";
 import ReRenderPage from "../pages/ReRenderPage/ReRenderPage";
 import UseMemoPage from "../pages/ReRenderPage/UseMemoPage";
 import RP1 from "../pages/RP1";
@@ -15,6 +19,7 @@ import LogoutPage from "../pages/LogoutPage";
 import NestedRoutePage from "../pages/NestedRoutePage";
 import NestedPage1 from "../pages/NestedRoutePage/NestedPage1";
 import NestedPage2 from "../pages/NestedRoutePage/NestedPage2";
+import { formGroupClasses } from "@mui/material";
 
 //element={<ProtectedRoute element={<LogoutPage />} />}
 
@@ -23,8 +28,12 @@ const Router = () => {
     <Routes>
       <Route path={ROUTES.HOME} element={<HomePage />} />
       <Route path={ROUTES.FAKEHOME} element={<Navigate to={ROUTES.HOME} />} />
+      <Route path={ROUTES.ABOUT} element={<AboutPage />} />
       <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+      <Route path={ROUTES.FAV} element={<FavCardsPage />} />
+      <Route path={ROUTES.CREATE} element={<CreateCardPage />} />
+      <Route path={ROUTES.MYCARDS} element={<MyCardsPage />} />
       <Route
         path={ROUTES.LOGOUT}
         element={<ProtectedRoute element={<LogoutPage />} />}

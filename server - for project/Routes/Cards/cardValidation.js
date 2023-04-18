@@ -10,7 +10,7 @@ function validateCard(card) {
     city: Joi.string().min(2).max(256).required(),
     street: Joi.string().min(2).max(256).required(),
     houseNumber: Joi.string().min(1).max(256).required(),
-    zipCode: Joi.number().min(1).max(256).allow(""),
+    zipCode: Joi.number().min(1).max(999999999).allow(""),
     phone: Joi.string().min(9).max(14).required(),
     email: Joi.string().min(5).max(255).required().email(),
     web: Joi.string().min(5).max(255).allow(""),

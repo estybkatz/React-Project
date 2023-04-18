@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     maxlength: 256,
     validate: {
-      validator: minAllowEmpty(6),
+      validator: minAllowEmpty(2),
       message: "should be empty or minimum",
     },
   },

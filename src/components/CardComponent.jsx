@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { Fragment } from "react";
-
+import PhoneIcon from "@mui/icons-material/Phone";
 /*
     img
     title
@@ -34,11 +34,15 @@ const CardComponent = ({
   img,
   title,
   subTitle,
-  description,
+  phone,
+  address,
+  cardNumber,
   id,
   onDelete,
   onEdit,
   canEdit,
+  canDelete,
+  canFav,
 }) => {
   const handleDeleteBtnClick = () => {
     console.log("id", id);
@@ -54,11 +58,30 @@ const CardComponent = ({
       </CardActionArea>
       <CardHeader title={title} subheader={subTitle}></CardHeader>
       <CardContent>
-        <Typography>{description}</Typography>
+        <hr />
+        <Typography>{"Phone: " + phone}</Typography>
+        <Typography>{"Address: " + address}</Typography>
+        <Typography>{"Card Number: " + cardNumber}</Typography>
       </CardContent>
       <CardActions>
-        <Button variant="text" color="primary">
-          Buy now
+        <Button
+          variant="text"
+          color="primary"
+          sx={{
+            flexGrow: 1,
+            flex: 1,
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          <PhoneIcon
+            sx={{
+              flexGrow: 1,
+              flex: 1,
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          />
         </Button>
         {canEdit ? (
           <Fragment>
