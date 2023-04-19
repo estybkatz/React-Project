@@ -1,3 +1,5 @@
+import FavoriteIcon from "@mui/icons-material/Favorite";
+
 import {
   Card,
   CardActionArea,
@@ -11,6 +13,8 @@ import {
 import PropTypes from "prop-types";
 import { Fragment } from "react";
 import PhoneIcon from "@mui/icons-material/Phone";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 /*
     img
     title
@@ -44,12 +48,21 @@ const CardComponent = ({
   canDelete,
   canFav,
 }) => {
+  // const { _id } = useParams();
+
   const handleDeleteBtnClick = () => {
     console.log("id", id);
     onDelete(id);
   };
   const handleEditBtnClick = () => {
     onEdit(id);
+  };
+  const handleFavBtnClick = async () => {
+    try {
+      await axios.patch("/cards/card-like/" + id);
+    } catch (err) {
+      console.log("error when change fav", err.response.data);
+    }
   };
   return (
     <Card square raised>
@@ -75,6 +88,26 @@ const CardComponent = ({
           }}
         >
           <PhoneIcon
+            sx={{
+              flexGrow: 1,
+              flex: 1,
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          />
+        </Button>
+        <Button
+          variant="text"
+          color="primary"
+          sx={{
+            flexGrow: 1,
+            flex: 1,
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+          onClick={handleFavBtnClick}
+        >
+          <FavoriteIcon
             sx={{
               flexGrow: 1,
               flex: 1,

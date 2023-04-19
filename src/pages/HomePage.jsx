@@ -86,12 +86,16 @@ const HomePage = () => {
 
   return (
     <Box>
-      <h1>Home page</h1>;
+      <h1>Cards page</h1>
+      <h3>Here you can find cards of all categories</h3>
       <Grid container spacing={2}>
         {cardsArr.map((item) => (
           <Grid item xs={4} key={item._id + Date.now()}>
             <CardComponent
               id={item._id}
+              phone={item.phone}
+              address={item.street + " " + item.houseNumber + ", " + item.city}
+              cardNumber={item.bizNumber}
               title={item.title}
               subTitle={item.subTitle}
               description={item.description}
