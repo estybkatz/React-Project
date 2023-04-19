@@ -77,7 +77,6 @@ import ButtonComponent from "../components/ButtonComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
-import jwtDecode from "jwt-decode";
 
 const FavCardsPage = () => {
   const [originalCardsArr, setOriginalCardsArr] = useState(null);
@@ -91,30 +90,46 @@ const FavCardsPage = () => {
       useEffect cant handle async ()=>{}
       this is why we use the old promise way
     */
-    let cardsArrToFilter = axios
+    axios
       .get("/cards/cards")
       .then(({ data }) => {
         console.log("data", data);
-        filterFunc(data);
+        //  console.log("'cardsarr:", cardsArrToFilter);
+        let dataArr = Object.entries(data);
+        console.log("dataArr before change", dataArr);
+        console.log("cardsArr after creating dataArr", data);
+        setCardsArr(
+          dataArr.filter((card) =>
+            card[1]["likes"].includes(jwt_decode(localStorage.token)._id)
+          )
+        );
       })
+      // console.log("hi - cards Arr");
+      // console.log("data Arr", dataArr);
+      // console.log("data after filter", data);
+      // console.log("cardes arr - :", cardsArr);
       .catch((err) => {
         console.log("err from axios", err);
 
         toast.error("Oops");
       });
-
     console.log("decrypted token -", jwt_decode(localStorage.token));
-    console.log("cards to filter:", cardsArrToFilter);
+    console.log("cards after change", cardsArr);
+    //console.log("cards to filter:", );
     // setCardsArr(data);
-    let cardArrToFiler2 = Object.keys(cardsArrToFilter);
-    console.log(cardArrToFiler2);
-    favCards = cardArrToFiler2.filter((card) =>
-      card["likes"].includes(jwt_decode(localStorage.token))
-    );
-    console.log("fav cards are - ", favCards);
-    setCardsArr(favCards);
-    console.log("cards arr is :", cardsArr);
-  }, []);
+    // let cardsArrToFilter2 = Object.keys(cardsArrToFilter);
+    //alert(cardsArrToFilter2);
+    //console.log("cardstofilrer2 " + cardArrToFiler2);
+    //let { likes } = cardsArrToFilter2;
+    // setCardsArr(
+    //   cardsArrToFilter2.filter((card) =>
+    //     card.likes.includes.jwt_decode(localStorage.token)
+    //   )
+    // );
+    // console.log("fav cards are - ", favCards);
+
+    // console.log("cards arr is :", cardsArr);
+  }, [{ likes }= cardsArr[]]);
   const filterFunc = (data) => {
     if (!originalCardsArr && !data) {
       return;
@@ -167,20 +182,22 @@ const FavCardsPage = () => {
 
   return (
     <Box>
-      <h1>Cards page</h1>
-      <h3>Here you can find cards of all categories</h3>
+      <h1>fav page</h1>
+      <h3>Here you can fav</h3>
       <Grid container spacing={2}>
         {cardsArr.map((item) => (
-          <Grid item xs={4} key={item._id + Date.now()}>
+          <Grid item xs={4} key={item[1]._id + Date.now()}>
             <CardComponent
-              id={item._id}
-              phone={item.phone}
-              address={item.street + " " + item.houseNumber + ", " + item.city}
-              cardNumber={item.bizNumber}
-              title={item.title}
-              subTitle={item.subTitle}
-              description={item.description}
-              img={item.image ? item.image.url : ""}
+              id={item[1]._id}
+              phone={item[1].phone}
+              address={
+                item[1].street + " " + item[1].houseNumber + ", " + item[1].city
+              }
+              cardNumber={item[1].bizNumber}
+              title={item[1].title}
+              subTitle={item[1].subTitle}
+              description={item[1].description}
+              img={item[1].image ? item[1].image.url : ""}
               onDelete={handleDeleteFromInitialCardsArr}
               onEdit={handleEditFromInitialCardsArr}
               canEdit={payload && (payload.biz || payload.isAdmin)}
