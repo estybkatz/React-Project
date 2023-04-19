@@ -95,13 +95,16 @@ const FavCardsPage = () => {
       .then(({ data }) => {
         console.log("data", data);
         //  console.log("'cardsarr:", cardsArrToFilter);
-        let dataArr = Object.entries(data);
-        console.log("dataArr before change", dataArr);
+        // let dataArr = Object.entries(data);
+        //console.log("dataArr before change", dataArr);
         console.log("cardsArr after creating dataArr", data);
-        setCardsArr(
-          dataArr.filter((card) =>
-            card[1]["likes"].includes(jwt_decode(localStorage.token)._id)
-          )
+        // setCardsArr((newCardsArr) =>
+        //   newCardsArr.filter((item) =>
+        //     item.likes.includes(jwt_decode(localStorage.token)._id)
+        //   )
+        // );
+        setCardsArr((newCardsArr) =>
+          newCardsArr.filter((item) => item._id != id)
         );
       })
       // console.log("hi - cards Arr");
