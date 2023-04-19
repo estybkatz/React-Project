@@ -129,7 +129,7 @@ const FavCardsPage = () => {
     // console.log("fav cards are - ", favCards);
 
     // console.log("cards arr is :", cardsArr);
-  }, [{ likes }= cardsArr[]]);
+  }, []);
   const filterFunc = (data) => {
     if (!originalCardsArr && !data) {
       return;
