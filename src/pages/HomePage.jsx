@@ -84,6 +84,7 @@ const HomePage = () => {
     return <CircularProgress />;
   }
 
+  const delete1 = () => {};
   return (
     <Box>
       <h1>Cards page</h1>
@@ -101,6 +102,7 @@ const HomePage = () => {
               description={item.description}
               img={item.image ? item.image.url : ""}
               onDelete={handleDeleteFromInitialCardsArr}
+              onDeletefav={delete1}
               onEdit={handleEditFromInitialCardsArr}
               canEdit={payload && (payload.biz || payload.isAdmin)}
             />

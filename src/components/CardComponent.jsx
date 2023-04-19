@@ -1,4 +1,6 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import jwt_decode from "jwt-decode";
+import { toast } from "react-toastify";
 
 import {
   Card,
@@ -15,6 +17,8 @@ import { Fragment } from "react";
 import PhoneIcon from "@mui/icons-material/Phone";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+//import { renderHook } from "@testing-library/react";
+//import { handleFavBtnClick } from "../pages/FavCardsPage";
 /*
     img
     title
@@ -43,6 +47,7 @@ const CardComponent = ({
   cardNumber,
   id,
   onDelete,
+  onDeletefav,
   onEdit,
   canEdit,
   canDelete,
@@ -60,10 +65,30 @@ const CardComponent = ({
   const handleFavBtnClick = async () => {
     try {
       await axios.patch("/cards/card-like/" + id);
+      onDeletefav(id);
     } catch (err) {
       console.log("error when change fav", err.response.data);
     }
   };
+  //   try {
+  //     axios.get("/cards/cards").then(({ data }) => {
+  //       console.log("data", data);
+  //       //  console.log("'cardsarr:", cardsArrToFilter);
+  //       let dataArr = Object.entries(data);
+  //       console.log("dataArr before change", dataArr);
+  //       console.log("cardsArr after creating dataArr", data);
+  //       setCardsArr(
+  //         dataArr.filter((card) =>
+  //           card[1]["likes"].includes(jwt_decode(localStorage.token)._id)
+  //         )
+  //       );
+  //     });
+  //   } catch (err) {
+  //     console.log("err from axios", err);
+
+  //     toast.error("Oops");
+  //   }
+  //};
   return (
     <Card square raised>
       <CardActionArea>
