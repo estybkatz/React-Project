@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Link from "@mui/icons-material/Link";
-import { Switch } from "@mui/material";
+import { Avatar, Switch } from "@mui/material";
 //import useSwitch from "@mui/base/useSwitch";
 import { NavLink } from "react-router-dom";
 
@@ -47,6 +47,12 @@ const notAuthPages = [
 
 //logged in users
 const authedPages = [
+  { label: "About", url: ROUTES.ABOUT },
+
+  { label: "FAV CARDS", url: ROUTES.FAV },
+];
+
+const avatarPages = [
   {
     label: "Profile",
     url: ROUTES.PROFILE,
@@ -55,7 +61,6 @@ const authedPages = [
     label: "Logout",
     url: ROUTES.LOGOUT,
   },
-  { label: "FAV CARDS", url: ROUTES.FAV },
 ];
 
 //admin/biz pages
@@ -71,6 +76,7 @@ const MuiNavbar = () => {
     (bigPieBigState) => bigPieBigState.authSlice.isLoggedIn
   );
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorAvatar, setanchorAvatar] = React.useState(true);
   const dispatch = useDispatch();
   const isDarkTheme = useSelector(
     (bigPie) => bigPie.darkThemeSlice.isDarkTheme
@@ -91,6 +97,10 @@ const MuiNavbar = () => {
   const logoutClick = () => {
     localStorage.clear();
     dispatch(authActions.logout());
+  };
+
+  const handleOpenAvatarMenu = () => {
+    setanchorAvatar(!anchorAvatar);
   };
 
   return (
@@ -117,6 +127,24 @@ const MuiNavbar = () => {
               : notAuthPages.map((page) => (
                   <NavLinkComponent key={page.url} {...page} />
                 ))}
+            {isLoggedIn ? (
+              <React.Fragment>
+                <IconButton
+                  size="large"
+                  onClick={handleOpenAvatarMenu}
+                  color="inherit"
+                >
+                  <Avatar src="/broken-image.jpg" />
+                </IconButton>
+                {anchorAvatar
+                  ? avatarPages.map((page) => (
+                      <NavLinkComponent key={page.url} {...page} />
+                    ))
+                  : ""}
+              </React.Fragment>
+            ) : (
+              ""
+            )}
           </Box>
           <SearchPartial />
           <Box

@@ -1,6 +1,8 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import jwt_decode from "jwt-decode";
 import { toast } from "react-toastify";
+import { authActions } from "../store/auth";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   Card,
@@ -17,6 +19,7 @@ import { Fragment } from "react";
 import PhoneIcon from "@mui/icons-material/Phone";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { Block } from "@mui/icons-material";
 //import { renderHook } from "@testing-library/react";
 //import { handleFavBtnClick } from "../pages/FavCardsPage";
 /*
@@ -54,7 +57,9 @@ const CardComponent = ({
   canFav,
 }) => {
   // const { _id } = useParams();
-
+  const isLoggedIn = useSelector(
+    (bigPieBigState) => bigPieBigState.authSlice.isLoggedIn
+  );
   const handleDeleteBtnClick = () => {
     console.log("id", id);
     onDelete(id);
@@ -121,26 +126,30 @@ const CardComponent = ({
             }}
           />
         </Button>
-        <Button
-          variant="text"
-          color="primary"
-          sx={{
-            flexGrow: 1,
-            flex: 1,
-            display: "flex",
-            justifyContent: "flex-end",
-          }}
-          onClick={handleFavBtnClick}
-        >
-          <FavoriteIcon
+        {isLoggedIn ? (
+          <Button
+            variant="text"
+            color="primary"
             sx={{
               flexGrow: 1,
               flex: 1,
               display: "flex",
               justifyContent: "flex-end",
             }}
-          />
-        </Button>
+            onClick={handleFavBtnClick}
+          >
+            <FavoriteIcon
+              sx={{
+                flexGrow: 1,
+                flex: 1,
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            />
+          </Button>
+        ) : (
+          ""
+        )}
         {canEdit ? (
           <Fragment>
             <Button variant="text" color="error" onClick={handleDeleteBtnClick}>
