@@ -50,7 +50,12 @@ const HomePage = () => {
         when component loaded and states not loaded
       */
       setOriginalCardsArr(data);
-      setCardsArr(data.filter((card) => card.title.startsWith(filter)));
+      setCardsArr(
+        data.filter(
+          (card) =>
+            card.title.startsWith(filter) || card.bizNumber.startsWith(filter)
+        )
+      );
       return;
     }
     if (originalCardsArr) {
@@ -59,7 +64,10 @@ const HomePage = () => {
       */
       let newOriginalCardsArr = JSON.parse(JSON.stringify(originalCardsArr));
       setCardsArr(
-        newOriginalCardsArr.filter((card) => card.title.startsWith(filter))
+        newOriginalCardsArr.filter(
+          (card) =>
+            card.title.startsWith(filter) || card.bizNumber.startsWith(filter)
+        )
       );
     }
   };
@@ -73,7 +81,7 @@ const HomePage = () => {
     try {
       await axios.delete("/cards/" + id); // /cards/:id
       setCardsArr((newCardsArr) =>
-        newCardsArr.filter((item) => item._id != id)
+        newCardsArr.filter((item) => item._id !== id)
       );
     } catch (err) {
       console.log("error when deleting", err.response.data);
@@ -121,7 +129,7 @@ const HomePage = () => {
               onDelete={handleDeleteFromInitialCardsArr}
               onDeletefav={delete1}
               onEdit={handleEditFromInitialCardsArr}
-              canEdit={payload && payload.isAdmin}
+              canEdit={payload && payload.biz && payload.isAdmin}
               canEditPrivate={payload && payload.biz}
               card={item}
               user_id={item.user_id}

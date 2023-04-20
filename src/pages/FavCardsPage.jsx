@@ -6,7 +6,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
 import CardComponent from "../components/CardComponent";
-import ButtonComponent from "../components/ButtonComponent";
+//import ButtonComponent from "../components/ButtonComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
@@ -68,7 +68,7 @@ const FavCardsPage = () => {
   }, []);
 
   const delete1 = (id) => {
-    setCardsArr(cardsArr.filter((card) => card[1]._id !== id));
+    setCardsArr(cardsArr.filter((card) => card._id !== id));
   };
   // const handleFavBtnClick = async () => {
   //   try {
@@ -114,7 +114,12 @@ const FavCardsPage = () => {
         when component loaded and states not loaded
       */
       setOriginalCardsArr(data);
-      setCardsArr(data.filter((card) => card.title.startsWith(filter)));
+      setCardsArr(
+        data.filter(
+          (card) =>
+            card.title.startsWith(filter) || card.bizNumber.startsWith(filter)
+        )
+      );
       return;
     }
     if (originalCardsArr) {
@@ -123,7 +128,10 @@ const FavCardsPage = () => {
       */
       let newOriginalCardsArr = JSON.parse(JSON.stringify(originalCardsArr));
       setCardsArr(
-        newOriginalCardsArr.filter((card) => card.title.startsWith(filter))
+        newOriginalCardsArr.filter(
+          (card) =>
+            card.title.startsWith(filter) || card.bizNumber.startsWith(filter)
+        )
       );
     }
   };
@@ -137,7 +145,7 @@ const FavCardsPage = () => {
     try {
       await axios.delete("/cards/" + id); // /cards/:id
       setCardsArr((newCardsArr) =>
-        newCardsArr.filter((item) => item._id != id)
+        newCardsArr.filter((item) => item._id !== id)
       );
     } catch (err) {
       console.log("error when deleting", err.response.data);

@@ -3,7 +3,8 @@ import jwt_decode from "jwt-decode";
 import { toast } from "react-toastify";
 import { authActions } from "../store/auth";
 import { useDispatch, useSelector } from "react-redux";
-
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Card,
   CardActionArea,
@@ -155,36 +156,36 @@ const CardComponent = ({
         ) : (
           ""
         )}
-        {canEditPrivate && payload._id === user_id ? (
+        {(canEdit || canEditPrivate) && payload._id === user_id ? (
+          <Fragment>
+            {/* <Button variant="text" color="error" onClick={handleDeleteBtnClick}>
+              <DeleteIcon />
+            </Button> */}
+            <Button variant="text" color="warning" onClick={handleEditBtnClick}>
+              <EditIcon />
+            </Button>
+          </Fragment>
+        ) : (
+          ""
+        )}
+        {canEdit || (canEditPrivate && payload._id === user_id) ? (
           <Fragment>
             <Button variant="text" color="error" onClick={handleDeleteBtnClick}>
-              Delete
-            </Button>
-            <Button variant="text" color="warning" onClick={handleEditBtnClick}>
-              Edit
+              <DeleteIcon />
             </Button>
           </Fragment>
         ) : (
           ""
         )}
-        {canEdit ? (
-          <Fragment>
-            <Button variant="text" color="error" onClick={handleDeleteBtnClick}>
-              Delete
-            </Button>
-          </Fragment>
-        ) : (
-          ""
-        )}
-        {canEdit && payload._id === user_id ? (
+        {/* {canEdit && payload._id === user_id ? (
           <Fragment>
             <Button variant="text" color="warning" onClick={handleEditBtnClick}>
-              Edit
+              <EditIcon />
             </Button>
           </Fragment>
         ) : (
           ""
-        )}
+        )} */}
       </CardActions>
     </Card>
   );

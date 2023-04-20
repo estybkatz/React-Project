@@ -24,6 +24,8 @@ import { authActions } from "../../store/auth";
 //import { Height } from "@mui/icons-material";
 import SwitchUnstyled from "@mui/base/SwitchUnstyled";
 //import { PayloadAction } from "@reduxjs/toolkit";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 // access to all
 const pages = [
@@ -72,6 +74,8 @@ const BizPages = [
   },
 ];
 
+const AdminPages = [{ label: "SANDBOX", url: ROUTES.SANDBOX }];
+
 const MuiNavbar = () => {
   const isLoggedIn = useSelector(
     (bigPieBigState) => bigPieBigState.authSlice.isLoggedIn
@@ -79,7 +83,7 @@ const MuiNavbar = () => {
   const payload = useSelector((bigPie) => bigPie.authSlice.payload);
   console.log(payload);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorAvatar, setanchorAvatar] = React.useState(true);
+  const [anchorAvatar, setanchorAvatar] = React.useState(false);
   const dispatch = useDispatch();
   const isDarkTheme = useSelector(
     (bigPie) => bigPie.darkThemeSlice.isDarkTheme
@@ -161,6 +165,11 @@ const MuiNavbar = () => {
                   <NavLinkComponent key={page.url} {...page} />
                 ))
               : ""}
+            {isLoggedIn && payload.isAdmin
+              ? AdminPages.map((page) => (
+                  <NavLinkComponent key={page.url} {...page} />
+                ))
+              : ""}
           </Box>
           <SearchPartial />
           <Box
@@ -172,7 +181,13 @@ const MuiNavbar = () => {
             <Typography sx={{ display: { xs: "none", md: "inline" } }}>
               {isDarkTheme ? "Dark" : "Light"} Mode
             </Typography>
-            {<Switch checked={isDarkTheme} onChange={changeTheme} />}
+            {/* {<Switch checked={isDarkTheme} onChange={changeTheme} />} */}
+            {/* {<DarkModeIcon checked={isDarkTheme} onClick={changeTheme} />} */}
+            {isDarkTheme ? (
+              <DarkModeIcon checked={isDarkTheme} onClick={changeTheme} />
+            ) : (
+              <WbSunnyIcon onClick={changeTheme} />
+            )}
           </Box>
           {/* hamburger with menu */}
           <Box
