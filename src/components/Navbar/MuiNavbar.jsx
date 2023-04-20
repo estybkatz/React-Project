@@ -23,6 +23,7 @@ import NavLinkComponent from "./NavLinkComponent";
 import { authActions } from "../../store/auth";
 //import { Height } from "@mui/icons-material";
 import SwitchUnstyled from "@mui/base/SwitchUnstyled";
+//import { PayloadAction } from "@reduxjs/toolkit";
 
 // access to all
 const pages = [
@@ -66,8 +67,8 @@ const avatarPages = [
 //admin/biz pages
 const BizPages = [
   {
-    label: "Create",
-    url: ROUTES.REGISTER,
+    label: "MY CARDS",
+    url: ROUTES.MYCARDS,
   },
 ];
 
@@ -75,6 +76,8 @@ const MuiNavbar = () => {
   const isLoggedIn = useSelector(
     (bigPieBigState) => bigPieBigState.authSlice.isLoggedIn
   );
+  const payload = useSelector((bigPie) => bigPie.authSlice.payload);
+  console.log(payload);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorAvatar, setanchorAvatar] = React.useState(true);
   const dispatch = useDispatch();
@@ -153,6 +156,11 @@ const MuiNavbar = () => {
             ) : (
               ""
             )}
+            {isLoggedIn && payload.biz
+              ? BizPages.map((page) => (
+                  <NavLinkComponent key={page.url} {...page} />
+                ))
+              : ""}
           </Box>
           <SearchPartial />
           <Box

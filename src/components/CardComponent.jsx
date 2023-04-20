@@ -53,13 +53,18 @@ const CardComponent = ({
   onDeletefav,
   onEdit,
   canEdit,
+  canEditPrivate,
+  user_id,
   canDelete,
   canFav,
+  card,
 }) => {
   // const { _id } = useParams();
   const isLoggedIn = useSelector(
     (bigPieBigState) => bigPieBigState.authSlice.isLoggedIn
   );
+  const payload = useSelector((bigPie) => bigPie.authSlice.payload);
+  console.log(payload);
   const handleDeleteBtnClick = () => {
     console.log("id", id);
     onDelete(id);
@@ -150,11 +155,29 @@ const CardComponent = ({
         ) : (
           ""
         )}
+        {canEditPrivate && payload._id === user_id ? (
+          <Fragment>
+            <Button variant="text" color="error" onClick={handleDeleteBtnClick}>
+              Delete
+            </Button>
+            <Button variant="text" color="warning" onClick={handleEditBtnClick}>
+              Edit
+            </Button>
+          </Fragment>
+        ) : (
+          ""
+        )}
         {canEdit ? (
           <Fragment>
             <Button variant="text" color="error" onClick={handleDeleteBtnClick}>
               Delete
             </Button>
+          </Fragment>
+        ) : (
+          ""
+        )}
+        {canEdit && payload._id === user_id ? (
+          <Fragment>
             <Button variant="text" color="warning" onClick={handleEditBtnClick}>
               Edit
             </Button>

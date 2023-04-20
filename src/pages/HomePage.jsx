@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Grid } from "@mui/material";
+import { Box, Button, CircularProgress, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import ROUTES from "../routes/ROUTES";
+//import { authActions } from "../../store/auth";
 
 const HomePage = () => {
   const [originalCardsArr, setOriginalCardsArr] = useState(null);
@@ -16,7 +18,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   let qparams = useQueryParams();
   const payload = useSelector((bigPie) => bigPie.authSlice.payload);
-
+  console.log(payload);
   useEffect(() => {
     /*
       useEffect cant handle async ()=>{}
@@ -86,11 +88,24 @@ const HomePage = () => {
   }
 
   const delete1 = () => {};
+
+  const createCard = () => {
+    navigate(ROUTES.CREATE);
+  };
+
   return (
     <Box>
       <h1>Cards page</h1>
       <h3>Here you can find cards of all categories</h3>
-      <AddCircleIcon />
+
+      {payload && payload.biz ? (
+        <Button>
+          <AddCircleIcon onClick={createCard} />
+        </Button>
+      ) : (
+        ""
+      )}
+
       <Grid container spacing={2}>
         {cardsArr.map((item) => (
           <Grid item xs={4} key={item._id + Date.now()}>
@@ -106,7 +121,10 @@ const HomePage = () => {
               onDelete={handleDeleteFromInitialCardsArr}
               onDeletefav={delete1}
               onEdit={handleEditFromInitialCardsArr}
-              canEdit={payload && (payload.biz || payload.isAdmin)}
+              canEdit={payload && payload.isAdmin}
+              canEditPrivate={payload && payload.biz}
+              card={item}
+              user_id={item.user_id}
             />
           </Grid>
         ))}
