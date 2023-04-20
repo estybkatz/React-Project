@@ -137,9 +137,17 @@ const MuiNavbar = () => {
                   <Avatar src="/broken-image.jpg" />
                 </IconButton>
                 {anchorAvatar
-                  ? avatarPages.map((page) => (
-                      <NavLinkComponent key={page.url} {...page} />
-                    ))
+                  ? avatarPages.map((page) =>
+                      page.url === ROUTES.LOGOUT ? (
+                        <NavLinkComponent
+                          key={page.url}
+                          {...page}
+                          onClick={logoutClick}
+                        />
+                      ) : (
+                        <NavLinkComponent key={page.url} {...page} />
+                      )
+                    )
                   : ""}
               </React.Fragment>
             ) : (
