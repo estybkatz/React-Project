@@ -8,6 +8,7 @@ import ButtonComponent from "../components/ButtonComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 const HomePage = () => {
   const [originalCardsArr, setOriginalCardsArr] = useState(null);
@@ -89,6 +90,7 @@ const HomePage = () => {
     <Box>
       <h1>Cards page</h1>
       <h3>Here you can find cards of all categories</h3>
+      <AddCircleIcon />
       <Grid container spacing={2}>
         {cardsArr.map((item) => (
           <Grid item xs={4} key={item._id + Date.now()}>
