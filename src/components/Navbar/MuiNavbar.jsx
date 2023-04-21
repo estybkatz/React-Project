@@ -61,7 +61,7 @@ const avatarPages = [
     url: ROUTES.PROFILE,
   },
   {
-    label: "Logout",
+    label: "LOGOUT",
     url: ROUTES.LOGOUT,
   },
 ];
@@ -178,9 +178,9 @@ const MuiNavbar = () => {
               p: 1,
             }}
           >
-            <Typography sx={{ display: { xs: "none", md: "inline" } }}>
+            {/* <Typography sx={{ display: { xs: "none", md: "inline" } }}>
               {isDarkTheme ? "Dark" : "Light"} Mode
-            </Typography>
+            </Typography> */}
             {/* {<Switch checked={isDarkTheme} onChange={changeTheme} />} */}
             {/* {<DarkModeIcon checked={isDarkTheme} onClick={changeTheme} />} */}
             {isDarkTheme ? (

@@ -19,8 +19,9 @@ import PropTypes from "prop-types";
 import { Fragment } from "react";
 import PhoneIcon from "@mui/icons-material/Phone";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Block } from "@mui/icons-material";
+import ROUTES from "../routes/ROUTES";
 //import { renderHook } from "@testing-library/react";
 //import { handleFavBtnClick } from "../pages/FavCardsPage";
 /*
@@ -53,6 +54,7 @@ const CardComponent = ({
   onDelete,
   onDeletefav,
   onEdit,
+  onInfo,
   canEdit,
   canEditPrivate,
   user_id,
@@ -60,7 +62,8 @@ const CardComponent = ({
   canFav,
   card,
 }) => {
-  // const { _id } = useParams();
+  const navigate = useNavigate();
+  //const { id } = useParams();
   const isLoggedIn = useSelector(
     (bigPieBigState) => bigPieBigState.authSlice.isLoggedIn
   );
@@ -73,6 +76,9 @@ const CardComponent = ({
   const handleEditBtnClick = () => {
     onEdit(id);
   };
+  const handleInfoBtnClick = () => {
+    onInfo(id);
+  };
   const handleFavBtnClick = async () => {
     try {
       await axios.patch("/cards/card-like/" + id);
@@ -81,6 +87,9 @@ const CardComponent = ({
       console.log("error when change fav", err.response.data);
     }
   };
+  // const moreInformation = (id) => {
+  //   navigate(ROUTES.MOREINFORMATIOMPAGE);
+  // };
   //   try {
   //     axios.get("/cards/cards").then(({ data }) => {
   //       console.log("data", data);
@@ -102,11 +111,15 @@ const CardComponent = ({
   //};
   return (
     <Card square raised>
-      <CardActionArea>
+      <CardActionArea onClick={handleInfoBtnClick}>
         <CardMedia component="img" image={img} />
       </CardActionArea>
-      <CardHeader title={title} subheader={subTitle}></CardHeader>
-      <CardContent>
+      <CardHeader
+        title={title}
+        subheader={subTitle}
+        onClick={handleInfoBtnClick}
+      ></CardHeader>
+      <CardContent onClick={handleInfoBtnClick}>
         <hr />
         <Typography>{"Phone: " + phone}</Typography>
         <Typography>{"Address: " + address}</Typography>

@@ -91,6 +91,10 @@ const HomePage = () => {
     navigate(`/edit/${id}`); //localhost:3000/edit/123213
   };
 
+  const handleMoreInformationFromInitialCardsArr = (id) => {
+    navigate(`/MInfo/${id}`); //localhost:3000/edit/123213
+  };
+
   if (!cardsArr) {
     return <CircularProgress />;
   }
@@ -129,6 +133,7 @@ const HomePage = () => {
               onDelete={handleDeleteFromInitialCardsArr}
               onDeletefav={delete1}
               onEdit={handleEditFromInitialCardsArr}
+              onInfo={handleMoreInformationFromInitialCardsArr}
               canEdit={payload && payload.biz && payload.isAdmin}
               canEditPrivate={payload && payload.biz}
               card={item}

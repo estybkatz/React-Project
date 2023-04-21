@@ -19,7 +19,7 @@ import { CircularProgress } from "@mui/material";
 import atom from "../logo.svg";
 import { toast } from "react-toastify";
 
-const EditCardPage = () => {
+const MoreInformationPage = () => {
   const { id } = useParams();
   /*
     router: /edit/:id
@@ -127,7 +127,7 @@ const EditCardPage = () => {
           <EditIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Edit card
+          More Information
         </Typography>
         <Box
           component="img"
@@ -404,7 +404,7 @@ const EditCardPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
               <Button
                 fullWidth
                 variant="contained"
@@ -413,7 +413,7 @@ const EditCardPage = () => {
               >
                 Save
               </Button>
-            </Grid>
+            </Grid> */}
             <Grid item xs={6}>
               <Button
                 fullWidth
@@ -421,7 +421,7 @@ const EditCardPage = () => {
                 sx={{ mt: 3, mb: 2 }}
                 onClick={handleCancelBtnClick}
               >
-                Cancel
+                Return to HomePage
               </Button>
             </Grid>
           </Grid>
@@ -587,4 +587,4 @@ const EditCardPage = () => {
     </Container>
   );
 };
-export default EditCardPage;
+export default MoreInformationPage;

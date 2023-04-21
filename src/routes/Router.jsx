@@ -21,6 +21,7 @@ import NestedPage1 from "../pages/NestedRoutePage/NestedPage1";
 import NestedPage2 from "../pages/NestedRoutePage/NestedPage2";
 import { formGroupClasses } from "@mui/material";
 import SandboxPage from "../pages/SandboxPage";
+import MoreInformationPage from "../pages/MoreInformation";
 
 //element={<ProtectedRoute element={<LogoutPage />} />}
 
@@ -36,6 +37,10 @@ const Router = () => {
       <Route path={ROUTES.CREATE} element={<CreateCardPage />} />
       <Route path={ROUTES.MYCARDS} element={<MyCardsPage />} />
       <Route path={ROUTES.SANDBOX} element={<SandboxPage />} />
+      <Route
+        path={ROUTES.MOREINFORMATIOMPAGE}
+        element={<MoreInformationPage />}
+      />
 
       <Route
         path={ROUTES.LOGOUT}
@@ -51,6 +56,9 @@ const Router = () => {
           />
         }
       />
+
+      <Route path="/MInfo/:id" element={<MoreInformationPage />} />
+
       <Route
         path={ROUTES.PROFILE}
         element={<ProtectedRoute element={<ProfilePage />} />}
