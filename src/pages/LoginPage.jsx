@@ -11,6 +11,7 @@ import Alert from "@mui/material/Alert";
 import CachedIcon from "@mui/icons-material/Cached";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { sizing } from "@mui/system";
 
 import ROUTES from "../routes/ROUTES";
 import validateLoginSchema from "../validation/loginValidation";
@@ -24,6 +25,7 @@ const LoginPage = () => {
   const [inputsErrorsState, setInputsErrorsState] = useState(null);
   const loggedIn = useLoggedIn();
   const navigate = useNavigate();
+  let joiResponse = validateLoginSchema(inputState);
 
   const resetForm = () => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
@@ -32,7 +34,7 @@ const LoginPage = () => {
       password: "",
     };
     setInputState(newInputState);
-    let joiResponse = validateLoginSchema(inputState);
+    joiResponse = validateLoginSchema(inputState);
     if (!joiResponse) {
       return;
     }
@@ -45,7 +47,7 @@ const LoginPage = () => {
   };
   const handleBtnClick = async (ev) => {
     try {
-      const joiResponse = validateLoginSchema(inputState);
+      joiResponse = validateLoginSchema(inputState);
       setInputsErrorsState(joiResponse);
       if (joiResponse) {
         return;
@@ -124,7 +126,8 @@ const LoginPage = () => {
               )}
             </Grid>
           </Grid>
-          <Grid item xs={6} sm={12}>
+
+          {/* <Grid item xs={6} sm={12}>
             <Button
               variant="contained"
               fullWidth
@@ -134,8 +137,8 @@ const LoginPage = () => {
             >
               CANCEL
             </Button>
-          </Grid>
-          <Grid item xs={6} sm={12}>
+          </Grid> */}
+          {/* <Grid item xs={6} sm={12}>
             <Button
               size="large"
               fullWidth
@@ -144,16 +147,16 @@ const LoginPage = () => {
               onClick={resetForm}
               endIcon={<CachedIcon />}
             ></Button>
-          </Grid>
-          <Button
+          </Grid> */}
+          {/* <Button
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
             onClick={handleBtnClick}
           >
             Sign In
-          </Button>
-          <Grid container justifyContent="flex-end">
+          </Button> */}
+          {/* <Grid container justifyContent="flex-end">
             <Grid item>
               <Link to={ROUTES.REGISTER}>
                 <Typography variant="body2">
@@ -161,8 +164,42 @@ const LoginPage = () => {
                 </Typography>
               </Link>
             </Grid>
-          </Grid>
+          </Grid> */}
         </Box>
+
+        <Grid item xs={6} sm={12}>
+          <Button
+            variant="contained"
+            fullWidth
+            sx={{ mt: 1, mb: 1 }}
+            color="primary"
+            href={ROUTES.HOME}
+          >
+            CANCEL
+          </Button>
+        </Grid>
+        <Grid item xs={6} sm={12}>
+          <Button
+            size="large"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 1, mb: 1 }}
+            //href={ROUTES.REGISTER}
+            onClick={resetForm}
+            endIcon={<CachedIcon />}
+          ></Button>
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{ mt: 1, mb: 1 }}
+            {...(!joiResponse ? { disabled: false } : { disabled: true })}
+            onClick={handleBtnClick}
+          >
+            SUBMIT
+          </Button>
+        </Grid>
       </Box>
     </Container>
   );

@@ -445,7 +445,7 @@ const RegisterPage = () => {
                 {...(!joiResponse ? { disabled: false } : { disabled: true })}
                 onClick={handeleBtnClick}
               >
-                Sign Up
+                SUBMIT
               </Button>
             </Grid>
           </Grid>

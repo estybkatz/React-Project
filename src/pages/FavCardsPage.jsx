@@ -1,6 +1,6 @@
 import jwt_decode from "jwt-decode";
 
-import { Box, CircularProgress, Grid } from "@mui/material";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
@@ -68,7 +68,8 @@ const FavCardsPage = () => {
   }, []);
 
   const delete1 = (id) => {
-    setCardsArr(cardsArr.filter((card) => card._id !== id));
+    setCardsArr(cardsArr.filter((card) => card[1]._id !== id));
+    console.log("in delete", cardsArr);
   };
   // const handleFavBtnClick = async () => {
   //   try {
@@ -162,30 +163,42 @@ const FavCardsPage = () => {
 
   return (
     <Box>
-      <h1>fav page</h1>
-      <h3>Here you can fav</h3>
-      <Grid container spacing={2}>
-        {cardsArr.map((item) => (
-          <Grid item xs={4} key={item[1]._id + Date.now()}>
-            <CardComponent
-              id={item[1]._id}
-              phone={item[1].phone}
-              address={
-                item[1].street + " " + item[1].houseNumber + ", " + item[1].city
-              }
-              cardNumber={item[1].bizNumber}
-              title={item[1].title}
-              subTitle={item[1].subTitle}
-              description={item[1].description}
-              img={item[1].image ? item[1].image.url : ""}
-              onDeletefav={delete1}
-              onDelete={handleDeleteFromInitialCardsArr}
-              onEdit={handleEditFromInitialCardsArr}
-              canEdit={payload && (payload.biz || payload.isAdmin)}
-            />
+      {cardsArr.length === 0 ? (
+        <Typography>You don't have favorites cards </Typography>
+      ) : (
+        <Box>
+          <h1>fav page</h1>
+          <h3>Here you view your favorites cards</h3>
+          <Grid container spacing={2}>
+            {cardsArr.map((item) => (
+              <Grid item xs={4} key={item[1]._id + Date.now()}>
+                <CardComponent
+                  id={item[1]._id}
+                  phone={item[1].phone}
+                  address={
+                    item[1].street +
+                    " " +
+                    item[1].houseNumber +
+                    ", " +
+                    item[1].city
+                  }
+                  cardNumber={item[1].bizNumber}
+                  title={item[1].title}
+                  subTitle={item[1].subTitle}
+                  description={item[1].description}
+                  img={item[1].image ? item[1].image.url : ""}
+                  onDeletefav={delete1}
+                  onDelete={handleDeleteFromInitialCardsArr}
+                  onEdit={handleEditFromInitialCardsArr}
+                  canEdit={payload && (payload.biz || payload.isAdmin)}
+                  canEditPrivate={payload && payload.biz}
+                  user_id={item[1].user_id}
+                />
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
+        </Box>
+      )}
     </Box>
   );
 };

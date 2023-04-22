@@ -181,7 +181,7 @@ const CardComponent = ({
         ) : (
           ""
         )}
-        {canEdit || (canEditPrivate && payload._id === user_id) ? (
+        {payload.isAdmin || (canEditPrivate && payload._id === user_id) ? (
           <Fragment>
             <Button variant="text" color="error" onClick={handleDeleteBtnClick}>
               <DeleteIcon />

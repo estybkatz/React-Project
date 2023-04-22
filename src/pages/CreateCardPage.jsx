@@ -14,6 +14,7 @@ import ROUTES from "../routes/ROUTES";
 import validateCreateSchema from "../validation/createValidation";
 import atom from "../logo.svg";
 import { toast } from "react-toastify";
+import CachedIcon from "@mui/icons-material/Cached";
 
 const CreateCardPage = () => {
   const [inputState, setInputState] = useState({
@@ -32,6 +33,7 @@ const CreateCardPage = () => {
     houseNumber: "",
     zipCode: "",
   });
+  let joiResponse = validateCreateSchema(inputState);
   const [inputsErrorsState, setInputsErrorsState] = useState(null);
   const navigate = useNavigate();
   const handleSaveBtnClick = async (ev) => {
@@ -61,6 +63,39 @@ const CreateCardPage = () => {
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
   };
+
+  const resetForm = () => {
+    let newInputState = JSON.parse(JSON.stringify(inputState));
+    newInputState = {
+      url: "",
+      alt: "",
+      title: "",
+      subTitle: "",
+      description: "",
+      phone: "",
+      email: "",
+      web: "",
+      state: "",
+      country: "",
+      city: "",
+      street: "",
+      houseNumber: "",
+      zipCode: "",
+    };
+
+    setInputState(newInputState);
+
+    joiResponse = validateCreateSchema(inputState);
+    if (!joiResponse) {
+      return;
+    }
+
+    let newjoiResponse = JSON.parse(JSON.stringify(joiResponse));
+    Object.keys(newjoiResponse).forEach((index) => {
+      newjoiResponse[index] = "";
+    });
+    setInputsErrorsState(newjoiResponse);
+  };
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -76,6 +111,9 @@ const CreateCardPage = () => {
         </Avatar>
         <Typography component="h1" variant="h5">
           Create card
+        </Typography>
+        <Typography component="h2" variant="h5">
+          Here you can create a new cards
         </Typography>
         <Box
           component="img"
@@ -359,8 +397,19 @@ const CreateCardPage = () => {
                 sx={{ mt: 3, mb: 2 }}
                 onClick={handleSaveBtnClick}
               >
-                Save
+                SUBMIT
               </Button>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Button
+                size="large"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 1, mb: 1 }}
+                //href={ROUTES.REGISTER}
+                onClick={resetForm}
+                endIcon={<CachedIcon />}
+              ></Button>
             </Grid>
             <Grid item xs={6}>
               <Button
@@ -369,7 +418,7 @@ const CreateCardPage = () => {
                 sx={{ mt: 3, mb: 2 }}
                 onClick={handleCancelBtnClick}
               >
-                Cancel
+                CANCEL
               </Button>
             </Grid>
           </Grid>
