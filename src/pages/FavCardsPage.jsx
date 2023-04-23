@@ -51,56 +51,12 @@ const FavCardsPage = () => {
       });
     console.log("decrypted token -", jwt_decode(localStorage.token));
     console.log("cards after change", cardsArr);
-    //console.log("cards to filter:", );
-    // setCardsArr(data);
-    // let cardsArrToFilter2 = Object.keys(cardsArrToFilter);
-    //alert(cardsArrToFilter2);
-    //console.log("cardstofilrer2 " + cardArrToFiler2);
-    //let { likes } = cardsArrToFilter2;
-    // setCardsArr(
-    //   cardsArrToFilter2.filter((card) =>
-    //     card.likes.includes.jwt_decode(localStorage.token)
-    //   )
-    // );
-    // console.log("fav cards are - ", favCards);
-
-    // console.log("cards arr is :", cardsArr);
   }, []);
 
   const delete1 = (id) => {
     setCardsArr(cardsArr.filter((card) => card[1]._id !== id));
     console.log("in delete", cardsArr);
   };
-  // const handleFavBtnClick = async () => {
-  //   try {
-  //     await axios.patch("/cards/card-like/" + id);
-  //   } catch (err) {
-  //     console.log("error when change fav", err.response.data);
-  //   }
-  //   try {
-  //     axios.get("/cards/cards").then(({ data }) => {
-  //       console.log("data", data);
-  //       //  console.log("'cardsarr:", cardsArrToFilter);
-  //       let dataArr = Object.entries(data);
-  //       console.log("dataArr before change", dataArr);
-  //       console.log("cardsArr after creating dataArr", data);
-  //       setCardsArr(
-  //         dataArr.filter((card) =>
-  //           card[1]["likes"].includes(jwt_decode(localStorage.token)._id)
-  //         )
-  //       );
-  //     });
-  //   } catch (err) {
-  //     console.log("err from axios", err);
-
-  //     toast.error("Oops");
-  //     // setCardsArr(
-  //     //     dataArr.filter((card) =>
-  //     //       card[1]["likes"].includes(jwt_decode(localStorage.token)._id)
-  //     //     )
-  //     //   );
-  //   }
-  // };
 
   const filterFunc = (data) => {
     if (!originalCardsArr && !data) {
@@ -203,97 +159,4 @@ const FavCardsPage = () => {
   );
 };
 
-/*
-  <CardComponent
-              id={item.id}
-              title={item.title}
-              price={item.price}
-              ----
-              onDelete={handleDeleteFromInitialCardsArr}
-              onEdit={handleEditFromInitialCardsArr}
-            />
-  component 1:
-    <CardComponent
-              id={1}
-              ----
-              onDelete={handleDeleteFromInitialCardsArr}
-              onEdit={handleEditFromInitialCardsArr}
-            />
-  component 2:
-    <CardComponent
-              id={2}
-              ----
-              onDelete={handleDeleteFromInitialCardsArr}
-              onEdit={handleEditFromInitialCardsArr}
-            />
-*/
-
 export default FavCardsPage;
-
-// import { Box, Grid } from "@mui/material";
-// import axios from "axios";
-// import CardComponent from "../components/CardComponent";
-// import { useNavigate } from "react-router-dom";
-// import { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
-
-// const FavCardsPage = () => {
-//   const navigate = useNavigate();
-//   const [cardsArr, setCardsArr] = useState(null);
-//   const payload = useSelector((bigPie) => bigPie.authSlice.payload);
-//   let favCards;
-//   let cardsArrToFilter;
-//   useEffect(() => {
-//     try {
-//       cardsArrToFilter = axios.get("/cards/cards/");
-//     } catch (err) {
-//       console.log("error when change fav", err.response.data);
-//     }
-//     const getFavCards = async (id) => {
-//       favCards = cardsArrToFilter.filter((card) => card.likes.includes(id));
-//     }; // setCardsArr(favCards);
-//   }, []);
-//   const handleDeleteFromInitialCardsArr = async (id) => {
-//     // let newCardsArr = JSON.parse(JSON.stringify(cardsArr));
-//     // newCardsArr = newCardsArr.filter((item) => item.id != id);
-//     // setCardsArr(newCardsArr);
-//     try {
-//       await axios.delete("/cards/" + id); // /cards/:id
-//       setCardsArr((newCardsArr) =>
-//         newCardsArr.filter((item) => item._id != id)
-//       );
-//     } catch (err) {
-//       console.log("error when deleting", err.response.data);
-//     }
-//   };
-//   const handleEditFromInitialCardsArr = (id) => {
-//     navigate(`/edit/${id}`); //localhost:3000/edit/123213
-//   };
-//   return (
-//     <Box>
-//       <h1>fav page</h1>
-//       <h3>Here you can fav</h3>
-//       <Grid container spacing={2}>
-//         {favCards.map((item) => (
-//           <Grid item xs={4} key={item._id + Date.now()}>
-//             <CardComponent
-//               id={item._id}
-//               phone={item.phone}
-//               address={item.street + " " + item.houseNumber + ", " + item.city}
-//               cardNumber={item.bizNumber}
-//               title={item.title}
-//               subTitle={item.subTitle}
-//               description={item.description}
-//               img={item.image ? item.image.url : ""}
-//               onDelete={handleDeleteFromInitialCardsArr}
-//               onEdit={handleEditFromInitialCardsArr}
-//               canEdit={payload && (payload.biz || payload.isAdmin)}
-//             />
-//           </Grid>
-//         ))}
-//       </Grid>
-//     </Box>
-//   );
-// };
-
-// export default FavCardsPage;

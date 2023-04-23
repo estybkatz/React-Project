@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Link from "@mui/icons-material/Link";
-import { Avatar, Switch } from "@mui/material";
+import { Avatar, Switch, TextField, Fragment } from "@mui/material";
 //import useSwitch from "@mui/base/useSwitch";
 import { NavLink } from "react-router-dom";
 
@@ -26,11 +26,12 @@ import SwitchUnstyled from "@mui/base/SwitchUnstyled";
 //import { PayloadAction } from "@reduxjs/toolkit";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import useQueryParams from "../../hooks/useQueryParams";
 
 // access to all
 const pages = [
   {
-    label: <img src="./logo192.png" alt="logo" className="logo" />,
+    label: <img src="../logo.PNG" alt="logo" className="logo" />,
     url: ROUTES.HOME,
   },
 ];
@@ -50,14 +51,14 @@ const notAuthPages = [
 
 //logged in users
 const authedPages = [
-  { label: "About", url: ROUTES.ABOUT },
+  { label: "ABOUT", url: ROUTES.ABOUT },
 
   { label: "FAV CARDS", url: ROUTES.FAV },
 ];
 
 const avatarPages = [
   {
-    label: "Profile",
+    label: "PROFILE",
     url: ROUTES.PROFILE,
   },
   {
@@ -83,18 +84,37 @@ const MuiNavbar = () => {
   const payload = useSelector((bigPie) => bigPie.authSlice.payload);
   console.log(payload);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElNavAvatar, setAnchorElNavAvatar] = React.useState(null);
   const [anchorAvatar, setanchorAvatar] = React.useState(false);
   const dispatch = useDispatch();
   const isDarkTheme = useSelector(
     (bigPie) => bigPie.darkThemeSlice.isDarkTheme
   );
+  const [originalCardsArr, setOriginalCardsArr] = React.useState(null);
+  let qparams = useQueryParams();
+  const [cardsArr, setCardsArr] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
+    console.log("open");
+    console.log("ancor", anchorElNav);
+  };
+
+  const handleOpenNavMenuAvatar = (event) => {
+    setAnchorElNavAvatar(event.currentTarget);
+    console.log("open");
+    console.log(event.currentTarget);
+    //console.log("ancor", anchorElNavAvatar);
+  };
+
+  const handleCloseNavMenuAvatar = () => {
+    setAnchorElNavAvatar(null);
+    console.log("close");
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+    console.log("close");
   };
 
   const changeTheme = () => {
@@ -109,6 +129,52 @@ const MuiNavbar = () => {
   const handleOpenAvatarMenu = () => {
     setanchorAvatar(!anchorAvatar);
   };
+
+  const filterFunc = (data) => {
+    if (!originalCardsArr && !data) {
+      return;
+    }
+    let filter = "";
+    if (qparams.filter) {
+      filter = qparams.filter;
+    }
+    if (!originalCardsArr && data) {
+      /*
+        when component loaded and states not loaded
+      */
+      setOriginalCardsArr(data);
+      setCardsArr(
+        data.filter(
+          (card) =>
+            card.title.startsWith(filter) || card.bizNumber.startsWith(filter)
+        )
+      );
+      return;
+    }
+    if (originalCardsArr) {
+      /*
+        when all loaded and states loaded
+      */
+      let newOriginalCardsArr = JSON.parse(JSON.stringify(originalCardsArr));
+      setCardsArr(
+        newOriginalCardsArr.filter(
+          (card) =>
+            card.title.startsWith(filter) || card.bizNumber.startsWith(filter)
+        )
+      );
+    }
+  };
+
+  const handleSearchInputChange = (event) => {
+    const newFilter = event.target.value;
+    filterFunc(newFilter);
+  };
+  // const { onChange } = props;
+
+  // const handleInput = (event) => {
+  //   const query = event.target.value;
+  //   onChange(query);
+  // };
 
   return (
     <AppBar position="static">
@@ -134,32 +200,7 @@ const MuiNavbar = () => {
               : notAuthPages.map((page) => (
                   <NavLinkComponent key={page.url} {...page} />
                 ))}
-            {isLoggedIn ? (
-              <React.Fragment>
-                <IconButton
-                  size="large"
-                  onClick={handleOpenAvatarMenu}
-                  color="inherit"
-                >
-                  <Avatar src="/broken-image.jpg" />
-                </IconButton>
-                {anchorAvatar
-                  ? avatarPages.map((page) =>
-                      page.url === ROUTES.LOGOUT ? (
-                        <NavLinkComponent
-                          key={page.url}
-                          {...page}
-                          onClick={logoutClick}
-                        />
-                      ) : (
-                        <NavLinkComponent key={page.url} {...page} />
-                      )
-                    )
-                  : ""}
-              </React.Fragment>
-            ) : (
-              ""
-            )}
+
             {isLoggedIn && payload.biz
               ? BizPages.map((page) => (
                   <NavLinkComponent key={page.url} {...page} />
@@ -171,7 +212,16 @@ const MuiNavbar = () => {
                 ))
               : ""}
           </Box>
-          <SearchPartial />
+          {/* <Box>
+            <TextField
+              label="Search"
+              variant="outlined"
+              onInput={handleInput}
+            />
+          </Box> */}
+          <Box>
+            <SearchPartial onChange={handleSearchInputChange} />
+          </Box>
           <Box
             sx={{
               my: 2,
@@ -189,6 +239,33 @@ const MuiNavbar = () => {
               <WbSunnyIcon onClick={changeTheme} />
             )}
           </Box>
+          {isLoggedIn ? (
+            <React.Fragment>
+              <IconButton
+                size="large"
+                onClick={handleOpenAvatarMenu}
+                color="inherit"
+              >
+                <Avatar src="/broken-image.jpg" />
+              </IconButton>
+              {anchorAvatar
+                ? avatarPages.map((page) =>
+                    page.url === ROUTES.LOGOUT ? (
+                      <NavLinkComponent
+                        key={page.url}
+                        {...page}
+                        onClick={logoutClick}
+                      />
+                    ) : (
+                      <NavLinkComponent key={page.url} {...page} />
+                    )
+                  )
+                : ""}
+            </React.Fragment>
+          ) : (
+            ""
+          )}
+
           {/* hamburger with menu */}
           <Box
             sx={{
@@ -250,6 +327,4 @@ const MuiNavbar = () => {
     </AppBar>
   );
 };
-
 export default MuiNavbar;
-//<Avatar src="/broken-image.jpg" />

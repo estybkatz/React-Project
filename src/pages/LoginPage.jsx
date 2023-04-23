@@ -125,9 +125,8 @@ const LoginPage = () => {
                 </Alert>
               )}
             </Grid>
-          </Grid>
 
-          {/* <Grid item xs={6} sm={12}>
+            {/* <Grid item xs={6} sm={12}>
             <Button
               variant="contained"
               fullWidth
@@ -138,7 +137,7 @@ const LoginPage = () => {
               CANCEL
             </Button>
           </Grid> */}
-          {/* <Grid item xs={6} sm={12}>
+            {/* <Grid item xs={6} sm={12}>
             <Button
               size="large"
               fullWidth
@@ -148,7 +147,7 @@ const LoginPage = () => {
               endIcon={<CachedIcon />}
             ></Button>
           </Grid> */}
-          {/* <Button
+            {/* <Button
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
@@ -156,7 +155,7 @@ const LoginPage = () => {
           >
             Sign In
           </Button> */}
-          {/* <Grid container justifyContent="flex-end">
+            {/* <Grid container justifyContent="flex-end">
             <Grid item>
               <Link to={ROUTES.REGISTER}>
                 <Typography variant="body2">
@@ -165,41 +164,43 @@ const LoginPage = () => {
               </Link>
             </Grid>
           </Grid> */}
-        </Box>
+            {/* </Box> */}
 
-        <Grid item xs={6} sm={12}>
-          <Button
-            variant="contained"
-            fullWidth
-            sx={{ mt: 1, mb: 1 }}
-            color="primary"
-            href={ROUTES.HOME}
-          >
-            CANCEL
-          </Button>
-        </Grid>
-        <Grid item xs={6} sm={12}>
-          <Button
-            size="large"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 1, mb: 1 }}
-            //href={ROUTES.REGISTER}
-            onClick={resetForm}
-            endIcon={<CachedIcon />}
-          ></Button>
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            fullWidth
-            variant="contained"
-            sx={{ mt: 1, mb: 1 }}
-            {...(!joiResponse ? { disabled: false } : { disabled: true })}
-            onClick={handleBtnClick}
-          >
-            SUBMIT
-          </Button>
-        </Grid>
+            <Grid item xs={12} sm={6}>
+              <Button
+                variant="contained"
+                fullWidth
+                sx={{ mt: 1, mb: 1 }}
+                color="primary"
+                href={ROUTES.HOME}
+              >
+                CANCEL
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Button
+                size="large"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 1, mb: 1 }}
+                //href={ROUTES.REGISTER}
+                onClick={resetForm}
+                endIcon={<CachedIcon />}
+              ></Button>
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{ mt: 1, mb: 1 }}
+                {...(!joiResponse ? { disabled: false } : { disabled: true })}
+                onClick={handleBtnClick}
+              >
+                SUBMIT
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
       </Box>
     </Container>
   );

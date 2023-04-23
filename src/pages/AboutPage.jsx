@@ -1,10 +1,10 @@
-import { Typography } from "@mui/material";
+import { Typography, cardActionAreaClasses } from "@mui/material";
 import { Fragment } from "react";
 
 const AboutPage = () => {
   return (
     <Fragment>
-      <h1> About Us </h1>;
+      <h1> About Us </h1>
       <Typography>
         Welcome to our website! Our platform is dedicated to providing small
         businesses with the resources they need to succeed. We offer a
@@ -37,6 +37,7 @@ const AboutPage = () => {
         always looking for ways to improve our platform and better serve our
         users. ---
       </Typography>
+      <img src="../card.PNG" alt="card" />
     </Fragment>
   );
 };

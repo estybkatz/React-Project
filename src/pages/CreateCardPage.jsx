@@ -390,11 +390,11 @@ const CreateCardPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <Button
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 1, mb: 1 }}
                 onClick={handleSaveBtnClick}
               >
                 SUBMIT
@@ -411,11 +411,11 @@ const CreateCardPage = () => {
                 endIcon={<CachedIcon />}
               ></Button>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <Button
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 1, mb: 1 }}
                 onClick={handleCancelBtnClick}
               >
                 CANCEL

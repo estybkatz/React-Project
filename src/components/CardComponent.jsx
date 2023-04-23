@@ -14,10 +14,15 @@ import {
   Typography,
   CardActions,
   Button,
+  Box,
+  IconButton,
 } from "@mui/material";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import CreateIcon from "@mui/icons-material/Create";
 import PropTypes from "prop-types";
 import { Fragment } from "react";
 import PhoneIcon from "@mui/icons-material/Phone";
+import CallIcon from "@mui/icons-material/Call";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { Block } from "@mui/icons-material";
@@ -125,8 +130,51 @@ const CardComponent = ({
         <Typography>{"Address: " + address}</Typography>
         <Typography>{"Card Number: " + cardNumber}</Typography>
       </CardContent>
-      <CardActions>
-        <Button
+
+      <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-start" }}>
+          {payload.isAdmin || (canEditPrivate && payload._id === user_id) ? (
+            <Fragment>
+              <IconButton
+                color="primary"
+                aria-label="add to shopping cart"
+                onClick={handleDeleteBtnClick}
+              >
+                <DeleteOutlineIcon />
+              </IconButton>
+            </Fragment>
+          ) : (
+            ""
+          )}
+          {(canEdit || canEditPrivate) && payload._id === user_id ? (
+            <Fragment>
+              <IconButton
+                color="primary"
+                aria-label="add to shopping cart"
+                onClick={handleEditBtnClick}
+              >
+                <CreateIcon />
+              </IconButton>
+            </Fragment>
+          ) : (
+            ""
+          )}
+        </Box>
+        <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
+          <IconButton color="primary" aria-label="add to shopping cart">
+            <CallIcon />
+          </IconButton>
+          {/* <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} /> */}
+          <IconButton
+            color="primary"
+            aria-label="add to shopping cart"
+            onClick={handleFavBtnClick}
+          >
+            <FavoriteIcon />
+          </IconButton>
+        </Box>
+      </CardActions>
+      {/* <Button
           variant="text"
           color="primary"
           sx={{
@@ -171,9 +219,7 @@ const CardComponent = ({
         )}
         {(canEdit || canEditPrivate) && payload._id === user_id ? (
           <Fragment>
-            {/* <Button variant="text" color="error" onClick={handleDeleteBtnClick}>
-              <DeleteIcon />
-            </Button> */}
+           
             <Button variant="text" color="warning" onClick={handleEditBtnClick}>
               <EditIcon />
             </Button>
@@ -190,16 +236,7 @@ const CardComponent = ({
         ) : (
           ""
         )}
-        {/* {canEdit && payload._id === user_id ? (
-          <Fragment>
-            <Button variant="text" color="warning" onClick={handleEditBtnClick}>
-              <EditIcon />
-            </Button>
-          </Fragment>
-        ) : (
-          ""
-        )} */}
-      </CardActions>
+        */}
     </Card>
   );
 };

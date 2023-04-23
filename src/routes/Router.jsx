@@ -22,10 +22,14 @@ import NestedPage2 from "../pages/NestedRoutePage/NestedPage2";
 import { formGroupClasses } from "@mui/material";
 import SandboxPage from "../pages/SandboxPage";
 import MoreInformationPage from "../pages/MoreInformation";
+import { useSelector } from "react-redux";
 
 //element={<ProtectedRoute element={<LogoutPage />} />}
 
 const Router = () => {
+  const isLoggedIn = useSelector(
+    (bigPieBigState) => bigPieBigState.authSlice.isLoggedIn
+  );
   return (
     <Routes>
       <Route path={ROUTES.HOME} element={<HomePage />} />
@@ -33,10 +37,36 @@ const Router = () => {
       <Route path={ROUTES.ABOUT} element={<AboutPage />} />
       <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-      <Route path={ROUTES.FAV} element={<FavCardsPage />} />
+      <Route
+        path={ROUTES.FAV}
+        element={
+          <SuperProtectedRoute
+            isAdmin={true}
+            isBiz={true}
+            isLoggedIn={true}
+            element={<FavCardsPage />}
+          />
+        }
+      />
       <Route path={ROUTES.CREATE} element={<CreateCardPage />} />
-      <Route path={ROUTES.MYCARDS} element={<MyCardsPage />} />
-      <Route path={ROUTES.SANDBOX} element={<SandboxPage />} />
+      <Route
+        path={ROUTES.MYCARDS}
+        element={
+          <SuperProtectedRoute
+            isAdmin={true}
+            isBiz={true}
+            isLoggedIn={true}
+            element={<MyCardsPage />}
+          />
+        }
+        // element={<MyCardsPage />}
+      />
+      <Route
+        path={ROUTES.SANDBOX}
+        element={
+          <SuperProtectedRoute isAdmin={true} element={<SandboxPage />} />
+        }
+      />
       <Route
         path={ROUTES.MOREINFORMATIOMPAGE}
         element={<MoreInformationPage />}
