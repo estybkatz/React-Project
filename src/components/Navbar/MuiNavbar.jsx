@@ -85,7 +85,7 @@ const MuiNavbar = () => {
   console.log(payload);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElNavAvatar, setAnchorElNavAvatar] = React.useState(null);
-  const [anchorAvatar, setanchorAvatar] = React.useState(false);
+  const [anchorAvatar, setAnchorAvatar] = React.useState(false);
   const dispatch = useDispatch();
   const isDarkTheme = useSelector(
     (bigPie) => bigPie.darkThemeSlice.isDarkTheme
@@ -108,7 +108,7 @@ const MuiNavbar = () => {
   };
 
   const handleCloseNavMenuAvatar = () => {
-    setAnchorElNavAvatar(null);
+    setAnchorAvatar(null);
     console.log("close");
   };
 
@@ -126,8 +126,8 @@ const MuiNavbar = () => {
     dispatch(authActions.logout());
   };
 
-  const handleOpenAvatarMenu = () => {
-    setanchorAvatar(!anchorAvatar);
+  const handleOpenAvatarMenu = (event) => {
+    setAnchorAvatar(event.currentTarget);
   };
 
   const filterFunc = (data) => {
@@ -239,7 +239,7 @@ const MuiNavbar = () => {
               <WbSunnyIcon onClick={changeTheme} />
             )}
           </Box>
-          {isLoggedIn ? (
+          {/* {isLoggedIn ? (
             <React.Fragment>
               <IconButton
                 size="large"
@@ -266,7 +266,53 @@ const MuiNavbar = () => {
             ""
           )}
 
-          {/* hamburger with menu */}
+          hamburger with menu */}
+          {isLoggedIn ? (
+            <React.Fragment>
+              <IconButton
+                size="large"
+                onClick={handleOpenAvatarMenu}
+                color="inherit"
+              >
+                <Avatar src="/broken-image.jpg" />
+              </IconButton>
+              <Menu
+                anchorEl={anchorAvatar}
+                open={Boolean(anchorAvatar)}
+                onClose={handleCloseNavMenuAvatar}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                onBackdropClick={handleCloseNavMenuAvatar}
+              >
+                {anchorAvatar
+                  ? avatarPages.map((page) =>
+                      page.url === ROUTES.LOGOUT ? (
+                        <MenuItem key={page.url}>
+                          <NavLinkComponent
+                            key={page.url}
+                            {...page}
+                            onClick={logoutClick}
+                          />
+                        </MenuItem>
+                      ) : (
+                        <MenuItem key={page.url}>
+                          <NavLinkComponent key={page.url} {...page} />
+                        </MenuItem>
+                      )
+                    )
+                  : ""}{" "}
+              </Menu>
+            </React.Fragment>
+          ) : (
+            ""
+          )}
           <Box
             sx={{
               flexGrow: 1,
