@@ -107,9 +107,11 @@ const Router = () => {
       <Route path="/usememo" element={<UseMemoPage />} />
       <Route path="/rp1" element={<RP1 />} />
       <Route path="/rp2" element={<RP2 />} />
-      <Route path="/nr" element={<NestedRoutePage />}>
+      <Route path="/sandbox" element={<SandboxPage />}>
         <Route path="nestedpage1" element={<NestedPage1 />} />
         <Route path="nestedpage2" element={<NestedPage2 />} />
+        <Route path="RP1" element={<RP1 />} />
+        <Route path="RP2" element={<RP2 />} />
       </Route>
       <Route path="*" element={<h1>404</h1>} />
     </Routes>

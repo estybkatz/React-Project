@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Grid } from "@mui/material";
+import { Box, Button, CircularProgress, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
@@ -8,6 +8,8 @@ import ButtonComponent from "../components/ButtonComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
+import ROUTES from "../routes/ROUTES";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 const MyCardsPage = () => {
   const [originalCardsArr, setOriginalCardsArr] = useState(null);
@@ -87,6 +89,9 @@ const MyCardsPage = () => {
   const handleEditFromInitialCardsArr = (id) => {
     navigate(`/edit/${id}`); //localhost:3000/edit/123213
   };
+  const createCard = () => {
+    navigate(ROUTES.CREATE);
+  };
 
   if (!cardsArr) {
     return <CircularProgress />;
@@ -94,28 +99,45 @@ const MyCardsPage = () => {
 
   return (
     <Box>
-      <h1>MyCards page</h1>
-      <Grid container spacing={2}>
-        {cardsArr.map((item) => (
-          <Grid item xs={4} key={item._id + Date.now()}>
-            <CardComponent
-              id={item._id}
-              title={item.title}
-              subTitle={item.subTitle}
-              description={item.description}
-              img={item.image ? item.image.url : ""}
-              onDelete={handleDeleteFromInitialCardsArr}
-              onEdit={handleEditFromInitialCardsArr}
-              canEdit={payload && (payload.biz || payload.isAdmin)}
-            />
+      {cardsArr.length === 0 ? (
+        <Box>
+          <Typography>You didn't created cards</Typography>
+
+          <Button onClick={createCard}>
+            <AddCircleIcon />
+          </Button>
+        </Box>
+      ) : (
+        <Box>
+          <h1>MyCards page</h1>
+          <Button onClick={createCard}>
+            <AddCircleIcon />
+          </Button>
+          <Grid container spacing={2}>
+            {cardsArr.map((item) => (
+              <Grid item xs={4} key={item._id + Date.now()}>
+                <CardComponent
+                  id={item._id}
+                  title={item.title}
+                  subTitle={item.subTitle}
+                  description={item.description}
+                  img={item.image ? item.image.url : ""}
+                  onDelete={handleDeleteFromInitialCardsArr}
+                  onEdit={handleEditFromInitialCardsArr}
+                  canEdit={payload && (payload.biz || payload.isAdmin)}
+                />
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
+        </Box>
+      )}
     </Box>
   );
 };
+export default MyCardsPage;
 
-/*
+{
+  /* 
   <CardComponent
               id={item.id}
               title={item.title}
@@ -139,5 +161,4 @@ const MyCardsPage = () => {
               onEdit={handleEditFromInitialCardsArr}
             />
 */
-
-export default MyCardsPage;
+}

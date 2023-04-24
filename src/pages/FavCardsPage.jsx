@@ -120,7 +120,7 @@ const FavCardsPage = () => {
   return (
     <Box>
       {cardsArr.length === 0 ? (
-        <Typography>You don't have favorites cards </Typography>
+        <Typography>You don't have favorites cards</Typography>
       ) : (
         <Box>
           <h1>fav page</h1>

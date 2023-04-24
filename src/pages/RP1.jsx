@@ -25,6 +25,7 @@ const RP1 = () => {
 
   return (
     <Fragment>
+      <br></br>
       <button onClick={handleAdd1}>+1</button>
       <button onClick={handleSub1}>-1</button>
       <input type="text" value={txt} onChange={handleInputChange} />

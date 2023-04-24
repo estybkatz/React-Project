@@ -38,13 +38,13 @@ const pages = [
 
 //not logged in users
 const notAuthPages = [
-  { label: "About", url: ROUTES.ABOUT },
+  { label: "ABOUT", url: ROUTES.ABOUT },
   {
-    label: "Signup",
+    label: "SIGNUP",
     url: ROUTES.REGISTER,
   },
   {
-    label: "Login",
+    label: "LOGIN",
     url: ROUTES.LOGIN,
   },
 ];
@@ -234,9 +234,9 @@ const MuiNavbar = () => {
             {/* {<Switch checked={isDarkTheme} onChange={changeTheme} />} */}
             {/* {<DarkModeIcon checked={isDarkTheme} onClick={changeTheme} />} */}
             {isDarkTheme ? (
-              <DarkModeIcon checked={isDarkTheme} onClick={changeTheme} />
+              <WbSunnyIcon checked={isDarkTheme} onClick={changeTheme} />
             ) : (
-              <WbSunnyIcon onClick={changeTheme} />
+              <DarkModeIcon onClick={changeTheme} />
             )}
           </Box>
           {/* {isLoggedIn ? (
