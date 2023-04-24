@@ -22,31 +22,12 @@ import { toast } from "react-toastify";
 
 const MoreInformationPage = () => {
   const { id } = useParams();
-  /*
-    router: /edit/:id
-    url: /edit/magafaiim
-    params = {
-      id: "magafaiim"
-    }
-    const params = useParams()
-    const id = params.id
-  */
+
   const [inputState, setInputState] = useState(null);
-  // const [inputState, setInputState] = useState({
-  //   img: "",
-  //   title: "",
-  //   price: "",
-  //   description: "",
-  // });
+
   const [inputsErrorsState, setInputsErrorsState] = useState({});
   const navigate = useNavigate();
-  /*
-    const params = useParams();
-    params = {
-      id:1
-    }
-    const id = params.id
-  */
+
   useEffect(() => {
     (async () => {
       try {
@@ -84,36 +65,13 @@ const MoreInformationPage = () => {
       }
     })();
   }, [id]);
-  const handleSaveBtnClick = async (ev) => {
-    try {
-      const joiResponse = validateEditSchema(inputState);
-      setInputsErrorsState(joiResponse);
-      console.log(joiResponse);
-      if (!joiResponse) {
-        //move to homepage
-        await axios.put("/cards/" + id, inputState);
-        navigate(ROUTES.HOME);
-      }
-    } catch (err) {
-      console.log("err", err);
-      toast.error("errrrrrrrrrrrrrrrror");
-    }
-  };
-
   const handleCancelBtnClick = (ev) => {
     //move to homepage
     navigate(ROUTES.HOME);
   };
-  const handleInputChange = (ev) => {
-    let newInputState = JSON.parse(JSON.stringify(inputState));
-    newInputState[ev.target.id] = ev.target.value;
-    setInputState(newInputState);
-  };
-
   if (!inputState) {
     return <CircularProgress />;
   }
-
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -144,277 +102,89 @@ const MoreInformationPage = () => {
         <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField
-                fullWidth
-                id="url"
-                label="Image Url"
-                name="url"
-                autoComplete="url"
-                value={inputState.url}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.url && (
-                <Alert severity="warning">
-                  {inputsErrorsState.url.map((item) => (
-                    <div key={"url-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
+              <Typography>
+                Url: <br></br>
+                {inputState.url ? inputState.url : ""}
+              </Typography>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="title"
-                label="Title"
-                name="title"
-                autoComplete="title"
-                value={inputState.title}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.title && (
-                <Alert severity="warning">
-                  {inputsErrorsState.title.map((item) => (
-                    <div key={"title-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
+              <Typography>
+                Title:<br></br> {inputState.title ? inputState.title : ""}
+              </Typography>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="subTitle"
-                label="Subtitle"
-                type="text"
-                id="subTitle"
-                autoComplete="subTitle"
-                value={inputState.subTitle}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.subTitle && (
-                <Alert severity="warning">
-                  {inputsErrorsState.subTitle.map((item) => (
-                    <div key={"subTitle-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
+              <Typography>
+                SubTiTle:<br></br>
+                {inputState.subTitle ? inputState.subTitle : ""}
+              </Typography>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="description"
-                label="Description"
-                id="description"
-                autoComplete="description"
-                value={inputState.description}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.description && (
-                <Alert severity="warning">
-                  {inputsErrorsState.description.map((item) => (
-                    <div key={"description-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
+              <Typography>
+                Description:<br></br>
+                {inputState.description ? inputState.description : ""}
+              </Typography>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                fullWidth
-                name="alt"
-                label="imgAlt"
-                id="alt"
-                autoComplete="imgAlt"
-                value={inputState.alt}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.alt && (
-                <Alert severity="warning">
-                  {inputsErrorsState.alt.map((item) => (
-                    <div key={"alt-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
+              <Typography>
+                Alt:<br></br>
+                {inputState.alt ? inputState.alt : ""}
+              </Typography>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="phone"
-                label="Phone"
-                id="phone"
-                autoComplete="phone"
-                value={inputState.phone}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.phone && (
-                <Alert severity="warning">
-                  {inputsErrorsState.phone.map((item) => (
-                    <div key={"phone-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
+              <Typography>
+                Phone:<br></br>
+                {inputState.phone ? inputState.phone : ""}
+              </Typography>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                fullWidth
-                id="state"
-                label="State"
-                name="state"
-                autoComplete="state"
-                value={inputState.state}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.state && (
-                <Alert severity="warning">
-                  {inputsErrorsState.state.map((item) => (
-                    <div key={"state-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
+              <Typography>
+                State:<br></br>
+                {inputState.state ? inputState.state : ""}
+              </Typography>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="country"
-                label="Country"
-                name="country"
-                autoComplete="country"
-                value={inputState.country}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.country && (
-                <Alert severity="warning">
-                  {inputsErrorsState.country.map((item) => (
-                    <div key={"country-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
+              <Typography>
+                Country:<br></br>
+                {inputState.country ? inputState.country : ""}
+              </Typography>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="city"
-                label="City"
-                name="city"
-                autoComplete="city"
-                value={inputState.city}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.city && (
-                <Alert severity="warning">
-                  {inputsErrorsState.city.map((item) => (
-                    <div key={"city-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
+              <Typography>
+                City:<br></br>
+                {inputState.city ? inputState.city : ""}
+              </Typography>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="street"
-                label="Street"
-                name="street"
-                autoComplete="street"
-                value={inputState.street}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.street && (
-                <Alert severity="warning">
-                  {inputsErrorsState.street.map((item) => (
-                    <div key={"street-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
+              <Typography>
+                Street:<br></br>
+                {inputState.street ? inputState.street : ""}
+              </Typography>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="houseNumber"
-                label="House Number"
-                name="houseNumber"
-                autoComplete="houseNumber"
-                value={inputState.houseNumber}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.houseNumber && (
-                <Alert severity="warning">
-                  {inputsErrorsState.houseNumber.map((item) => (
-                    <div key={"houseNumber-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
+              <Typography>
+                houseNumber:<br></br>
+                {inputState.houseNumber ? inputState.houseNumber : ""}
+              </Typography>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                fullWidth
-                id="zipCode"
-                label="Zip Code"
-                name="zipCode"
-                autoComplete="zipCode"
-                value={inputState.zipCode}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.zipCode && (
-                <Alert severity="warning">
-                  {inputsErrorsState.zipCode.map((item) => (
-                    <div key={"zipCode-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
+              {" "}
+              <Typography>
+                zipCode:<br></br>
+                {inputState.zipCode ? inputState.zipCode : ""}
+              </Typography>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="email"
-                label="Email"
-                name="email"
-                autoComplete="email"
-                value={inputState.email}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.email && (
-                <Alert severity="warning">
-                  {inputsErrorsState.email.map((item) => (
-                    <div key={"email-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
+              {" "}
+              <Typography>
+                Email:<br></br>
+                {inputState.email ? inputState.email : ""}
+              </Typography>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                fullWidth
-                id="web"
-                label="web"
-                name="web"
-                autoComplete="web"
-                value={inputState.web}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.web && (
-                <Alert severity="warning">
-                  {inputsErrorsState.web.map((item) => (
-                    <div key={"web-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
+              <Typography>
+                Web:<br></br> {inputState.web ? inputState.web : ""}
+              </Typography>
             </Grid>
-            {/* <Grid item xs={6}>
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                onClick={handleSaveBtnClick}
-              >
-                Save
-              </Button>
-            </Grid> */}
             <Grid item xs={6}>
               <Button
                 fullWidth
@@ -427,163 +197,6 @@ const MoreInformationPage = () => {
             </Grid>
           </Grid>
         </Box>
-        {/* <Box component="div" noValidate sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                id="url"
-                label="Url"
-                name="url"
-                autoComplete="url"
-                value={inputState.url ? inputState.url : ""}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.url && (
-                <Alert severity="warning">
-                  {inputsErrorsState.url.map((item) => (
-                    <div key={"url-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="title"
-                label="Title"
-                name="title"
-                autoComplete="title"
-                value={inputState.title}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.title && (
-                <Alert severity="warning">
-                  {inputsErrorsState.title.map((item) => (
-                    <div key={"title-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="subTitle"
-                label="Sub title"
-                type="text"
-                id="subTitle"
-                autoComplete="subTitle"
-                value={inputState.subTitle}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.subTitle && (
-                <Alert severity="warning">
-                  {inputsErrorsState.subTitle.map((item) => (
-                    <div key={"subTitle-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="description"
-                label="Description"
-                id="description"
-                autoComplete="description"
-                value={inputState.description}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.description && (
-                <Alert severity="warning">
-                  {inputsErrorsState.description.map((item) => (
-                    <div key={"description-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="address"
-                label="Address"
-                id="address"
-                autoComplete="address"
-                value={inputState.address}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.description && (
-                <Alert severity="warning">
-                  {inputsErrorsState.description.map((item) => (
-                    <div key={"description-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="phone"
-                label="Phone"
-                id="phone"
-                autoComplete="phone"
-                value={inputState.phone}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState && inputsErrorsState.description && (
-                <Alert severity="warning">
-                  {inputsErrorsState.description.map((item) => (
-                    <div key={"description-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
-            </Grid>
-            <Grid item xs={6}>
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                onClick={handleSaveBtnClick}
-              >
-                Save
-              </Button>
-            </Grid>
-            <Grid item xs={6}>
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                onClick={handleCancelBtnClick}
-              >
-                Cancel
-              </Button>
-            </Grid>
-          </Grid> */}
-        {/* <Button
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            onClick={() => {
-              navigate("/edit/2");
-            }}
-          >
-            edit 2
-          </Button> */}
-        {/* <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link to={ROUTES.REGISTER}>
-                <Typography variant="body2">
-                  Did not have an account? Sign up
-                </Typography>
-              </Link>
-            </Grid>
-          </Grid> */}
-        {/* </Box> */}
       </Box>
     </Container>
   );
