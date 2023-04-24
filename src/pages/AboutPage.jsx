@@ -13,7 +13,7 @@ const AboutPage = () => {
         potential customers.
         <br></br>
         <br />
-        ## Our Mission Our mission is to empower small business owners by
+        ## Our Mission- Our mission is to empower small business owners by
         providing them with the tools and resources they need to establish a
         strong online presence. We believe that every business, no matter how
         small, deserves the opportunity to succeed. Our platform is designed to

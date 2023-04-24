@@ -15,7 +15,7 @@ import Link from "@mui/icons-material/Link";
 import { Avatar, Switch, TextField, Fragment } from "@mui/material";
 //import useSwitch from "@mui/base/useSwitch";
 import { NavLink } from "react-router-dom";
-
+import NavArrayComponent from "./NavArrayComponent";
 import SearchPartial from "./SearchPartial";
 import ROUTES from "../../routes/ROUTES";
 import { darkThemeActions } from "../../store/darkTheme";
@@ -182,35 +182,22 @@ const MuiNavbar = () => {
         <Toolbar>
           {/* main navbar */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <NavLinkComponent key={page.url} {...page} />
-            ))}
-            {isLoggedIn
-              ? authedPages.map((page) =>
-                  page.url === ROUTES.LOGOUT ? (
-                    <NavLinkComponent
-                      key={page.url}
-                      {...page}
-                      onClick={logoutClick}
-                    />
-                  ) : (
-                    <NavLinkComponent key={page.url} {...page} />
-                  )
-                )
-              : notAuthPages.map((page) => (
-                  <NavLinkComponent key={page.url} {...page} />
-                ))}
-
-            {isLoggedIn && payload.biz
-              ? BizPages.map((page) => (
-                  <NavLinkComponent key={page.url} {...page} />
-                ))
-              : ""}
-            {isLoggedIn && payload.isAdmin
-              ? AdminPages.map((page) => (
-                  <NavLinkComponent key={page.url} {...page} />
-                ))
-              : ""}
+            <NavArrayComponent linkArray={pages} />
+            {isLoggedIn ? (
+              <NavArrayComponent linkArray={authedPages} />
+            ) : (
+              <NavArrayComponent linkArray={notAuthPages} />
+            )}
+            {isLoggedIn && payload.biz ? (
+              <NavArrayComponent linkArray={BizPages} />
+            ) : (
+              ""
+            )}
+            {isLoggedIn && payload.isAdmin ? (
+              <NavArrayComponent linkArray={AdminPages} />
+            ) : (
+              ""
+            )}
           </Box>
           {/* <Box>
             <TextField
@@ -265,8 +252,8 @@ const MuiNavbar = () => {
           ) : (
             ""
           )}
+*/}
 
-          hamburger with menu */}
           {isLoggedIn ? (
             <React.Fragment>
               <IconButton
@@ -291,7 +278,15 @@ const MuiNavbar = () => {
                 }}
                 onBackdropClick={handleCloseNavMenuAvatar}
               >
-                {anchorAvatar
+                {anchorAvatar ? (
+                  <NavArrayComponent
+                    linkArray={avatarPages}
+                    logoutClick={logoutClick}
+                  />
+                ) : (
+                  ""
+                )}
+                {/* {anchorAvatar
                   ? avatarPages.map((page) =>
                       page.url === ROUTES.LOGOUT ? (
                         <MenuItem key={page.url}>
@@ -307,12 +302,14 @@ const MuiNavbar = () => {
                         </MenuItem>
                       )
                     )
-                  : ""}{" "}
+                  : ""}{" "} */}
               </Menu>
             </React.Fragment>
           ) : (
             ""
           )}
+
+          {/*hamburger with menu */}
           <Box
             sx={{
               flexGrow: 1,
@@ -357,7 +354,7 @@ const MuiNavbar = () => {
                       <Typography
                         sx={{
                           textAlign: "center",
-                          color: `${isActive ? "red" : ""}`,
+                          color: `${isActive ? "red" : "yellow"}`,
                         }}
                       >
                         {page.label}
@@ -366,6 +363,113 @@ const MuiNavbar = () => {
                   </NavLink>
                 </MenuItem>
               ))}
+
+              {isLoggedIn
+                ? authedPages.map((page) =>
+                    page.url === ROUTES.LOGOUT ? (
+                      <MenuItem
+                        key={"miniLinks" + page.url}
+                        onClick={logoutClick}
+                      >
+                        <NavLink to={page.url}>
+                          {({ isActive }) => (
+                            <Typography
+                              sx={{
+                                textAlign: "center",
+                                color: `${isActive ? "red" : "yellow"}`,
+                              }}
+                            >
+                              {"Log out"}
+                            </Typography>
+                          )}
+                        </NavLink>
+                      </MenuItem>
+                    ) : (
+                      <MenuItem
+                        key={"miniLinks" + page.url}
+                        onClick={handleCloseNavMenu}
+                      >
+                        <NavLink to={page.url}>
+                          {({ isActive }) => (
+                            <Typography
+                              sx={{
+                                textAlign: "center",
+                                color: `${isActive ? "red" : "yellow"}`,
+                              }}
+                            >
+                              {page.label}
+                            </Typography>
+                          )}
+                        </NavLink>
+                      </MenuItem>
+                    )
+                  )
+                : notAuthPages.map((page) => (
+                    <MenuItem
+                      key={"miniLinks" + page.url}
+                      onClick={handleCloseNavMenu}
+                    >
+                      <NavLink to={page.url}>
+                        {/* if the current page and the link is the same then it will change the color of the link */}
+                        {({ isActive }) => (
+                          <Typography
+                            sx={{
+                              textAlign: "center",
+                              color: `${isActive ? "red" : "yellow"}`,
+                            }}
+                          >
+                            {page.label}
+                          </Typography>
+                        )}
+                      </NavLink>
+                    </MenuItem>
+                  ))}
+
+              {isLoggedIn && payload.biz
+                ? BizPages.map((page) => (
+                    <MenuItem
+                      key={"miniLinks" + page.url}
+                      onClick={handleCloseNavMenu}
+                    >
+                      <NavLink to={page.url}>
+                        {/* if the current page and the link is the same then it will change the color of the link */}
+                        {({ isActive }) => (
+                          <Typography
+                            sx={{
+                              textAlign: "center",
+                              color: `${isActive ? "red" : "yellow"}`,
+                            }}
+                          >
+                            {page.label}
+                          </Typography>
+                        )}
+                      </NavLink>
+                    </MenuItem>
+                  ))
+                : ""}
+
+              {isLoggedIn && payload.isAdmin
+                ? AdminPages.map((page) => (
+                    <MenuItem
+                      key={"miniLinks" + page.url}
+                      onClick={handleCloseNavMenu}
+                    >
+                      <NavLink to={page.url}>
+                        {/* if the current page and the link is the same then it will change the color of the link */}
+                        {({ isActive }) => (
+                          <Typography
+                            sx={{
+                              textAlign: "center",
+                              color: `${isActive ? "red" : "yellow"}`,
+                            }}
+                          >
+                            {page.label}
+                          </Typography>
+                        )}
+                      </NavLink>
+                    </MenuItem>
+                  ))
+                : ""}
             </Menu>
           </Box>
         </Toolbar>
@@ -374,3 +478,60 @@ const MuiNavbar = () => {
   );
 };
 export default MuiNavbar;
+
+//   <Box
+//     sx={{
+//       flexGrow: 1,
+//       flex: 1,
+//       display: { xs: "flex", md: "none" },
+//       justifyContent: "flex-end",
+//     }}
+//   >
+//     <IconButton
+//       size="large"
+//       onClick={handleOpenNavMenu}
+//       color="inherit"
+//     >
+//       <MenuIcon />
+//     </IconButton>
+//     <Menu
+//       id="menu-appbar"
+//       anchorEl={anchorElNav}
+//       anchorOrigin={{
+//         vertical: "bottom",
+//         horizontal: "left",
+//       }}
+//       keepMounted
+//       transformOrigin={{
+//         vertical: "top",
+//         horizontal: "left",
+//       }}
+//       open={Boolean(anchorElNav)}
+//       onClose={handleCloseNavMenu}
+//       sx={{
+//         display: { xs: "block", md: "none" },
+//       }}
+//     >
+//       {pages.map((page) => (
+//         <MenuItem
+//           key={"miniLinks" + page.url}
+//           onClick={handleCloseNavMenu}
+//         >
+//           <NavLink to={page.url}>
+//
+//             {({ isActive }) => (
+//               <Typography
+//                 sx={{
+//                   textAlign: "center",
+//                   color: `${isActive ? "red" : ""}`,
+//                 }}
+//               >
+//                 {page.label}
+//               </Typography>
+//             )}
+//           </NavLink>
+//         </MenuItem>
+//       ))}
+//     </Menu>
+//   </Box>
+//

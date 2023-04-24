@@ -1,13 +1,10 @@
 import { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Alert from "@mui/material/Alert";
-import EditIcon from "@mui/icons-material/Edit";
 import ContactEmergencyIcon from "@mui/icons-material/ContactEmergency";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -66,12 +63,15 @@ const MoreInformationPage = () => {
     })();
   }, [id]);
   const handleCancelBtnClick = (ev) => {
-    //move to homepage
     navigate(ROUTES.HOME);
   };
   if (!inputState) {
     return <CircularProgress />;
   }
+  const newInputState = Object.keys(inputState).map((key) => {
+    return { [key]: inputState[key] };
+  });
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -101,6 +101,7 @@ const MoreInformationPage = () => {
         />
         <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
+            {/* newInputState.map */}
             <Grid item xs={12}>
               <Typography>
                 Url: <br></br>
