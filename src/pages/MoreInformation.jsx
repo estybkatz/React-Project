@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
 import EditIcon from "@mui/icons-material/Edit";
+import ContactEmergencyIcon from "@mui/icons-material/ContactEmergency";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -124,7 +125,7 @@ const MoreInformationPage = () => {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <EditIcon />
+          <ContactEmergencyIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           More Information

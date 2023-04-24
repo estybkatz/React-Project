@@ -2,7 +2,7 @@ import { Box, Button, CircularProgress, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
-
+import jwt_decode from "jwt-decode";
 import CardComponent from "../components/CardComponent";
 import ButtonComponent from "../components/ButtonComponent";
 import { toast } from "react-toastify";
@@ -134,6 +134,17 @@ const HomePage = () => {
               onDeletefav={delete1}
               onEdit={handleEditFromInitialCardsArr}
               onInfo={handleMoreInformationFromInitialCardsArr}
+              // canEdit={payload && payload.biz && payload.isAdmin}
+              // canEdit={
+              //   payload &&
+              //   (payload.biz || payload.isAdmin) &&
+              //   item.user_id == jwt_decode(localStorage.token)._id
+              // }
+              // canDelete={
+              //   (payload && payload.isAdmin) ||
+              //   (payload.biz &&
+              //     item.user_id == jwt_decode(localStorage.token)._id)
+              // }
               canEdit={payload && payload.biz && payload.isAdmin}
               canEditPrivate={payload && payload.biz}
               card={item}

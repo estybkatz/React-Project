@@ -16,6 +16,7 @@ import { sizing } from "@mui/system";
 import ROUTES from "../routes/ROUTES";
 import validateLoginSchema from "../validation/loginValidation";
 import useLoggedIn from "../hooks/useLoggedIn";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [inputState, setInputState] = useState({
@@ -59,6 +60,7 @@ const LoginPage = () => {
       navigate(ROUTES.HOME);
     } catch (err) {
       console.log("login error", err);
+      toast.error("User does not exist in the system");
     }
   };
 

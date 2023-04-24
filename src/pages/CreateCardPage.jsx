@@ -50,7 +50,7 @@ const CreateCardPage = () => {
       }
     } catch (err) {
       console.log("err", err);
-      toast.error("errrrrrrrrrrrrrrrror");
+      toast.error("errrrrrror Your new card didn't saved");
     }
   };
 
@@ -62,6 +62,9 @@ const CreateCardPage = () => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
+    //
+    joiResponse = validateCreateSchema(inputState);
+    setInputsErrorsState(joiResponse);
   };
 
   const resetForm = () => {
@@ -390,16 +393,7 @@ const CreateCardPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{ mt: 1, mb: 1 }}
-                onClick={handleSaveBtnClick}
-              >
-                SUBMIT
-              </Button>
-            </Grid>
+
             <Grid item xs={12} sm={6}>
               <Button
                 size="large"
@@ -411,7 +405,7 @@ const CreateCardPage = () => {
                 endIcon={<CachedIcon />}
               ></Button>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
               <Button
                 fullWidth
                 variant="contained"
@@ -419,6 +413,17 @@ const CreateCardPage = () => {
                 onClick={handleCancelBtnClick}
               >
                 CANCEL
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{ mt: 1, mb: 1 }}
+                onClick={handleSaveBtnClick}
+                {...(!joiResponse ? { disabled: false } : { disabled: true })}
+              >
+                SUBMIT
               </Button>
             </Grid>
           </Grid>
