@@ -18,6 +18,7 @@ import validateEditSchema, {
 import { CircularProgress } from "@mui/material";
 import atom from "../logo.svg";
 import { toast } from "react-toastify";
+import CreateEditComponent from "../components/Navbar/CreateAndEditComponent";
 
 const EditCardPage = () => {
   const { id } = useParams();
@@ -112,7 +113,7 @@ const EditCardPage = () => {
   if (!inputState) {
     return <CircularProgress />;
   }
-
+  const keys = Object.keys(inputState);
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -160,8 +161,17 @@ const EditCardPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={12}>
-              <TextField
+            {keys.map((item) => (
+              <CreateEditComponent
+                key={item}
+                item={item}
+                inputState={inputState}
+                handleInputChange={handleInputChange}
+                inputsErrorsState={inputsErrorsState}
+              />
+            ))}
+            {/*<Grid item xs={12}>
+              {/* <TextField
                 required
                 fullWidth
                 id="title"
@@ -403,7 +413,7 @@ const EditCardPage = () => {
                   ))}
                 </Alert>
               )}
-            </Grid>
+            </Grid> */}
             <Grid item xs={6}>
               <Button
                 fullWidth

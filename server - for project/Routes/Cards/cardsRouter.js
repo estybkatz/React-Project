@@ -42,6 +42,17 @@ router.get("/my-cards", auth, async (req, res) => {
   }
 });
 
+router.get("/get-my-fav-cards", auth, async (req, res) => {
+  try {
+    let user = req.user;
+    const cards = await Card.find({ likes: user._id });
+    res.json(cards);
+  } catch (err) {
+    console.log(chalk.redBright(err));
+    return res.status(500).send(err);
+  }
+});
+
 /********** סעיף 10 **********/
 router.post("/", auth, async (req, res) => {
   try {
@@ -112,6 +123,7 @@ router.post("/", auth, async (req, res) => {
 router.put("/:id", auth, async (req, res) => {
   try {
     let user = req.user;
+    console.log("user", user);
     if (!user.biz && !user.isAdmin) {
       console.log(
         chalk.redBright("A non-business user attempted to create a card!")

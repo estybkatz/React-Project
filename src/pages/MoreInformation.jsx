@@ -10,30 +10,18 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import ROUTES from "../routes/ROUTES";
-import validateEditSchema, {
-  validateEditCardParamsSchema,
-} from "../validation/editValidation";
+
 import { CircularProgress } from "@mui/material";
 import atom from "../logo.svg";
 import { toast } from "react-toastify";
 
 const MoreInformationPage = () => {
   const { id } = useParams();
-
   const [inputState, setInputState] = useState(null);
-
-  const [inputsErrorsState, setInputsErrorsState] = useState({});
   const navigate = useNavigate();
-
   useEffect(() => {
     (async () => {
       try {
-        const errors = validateEditCardParamsSchema({ id });
-        if (errors) {
-          // there was errors = incorrect id
-          navigate("/");
-          return;
-        }
         const { data } = await axios.get("/cards/card/" + id);
         let newInputState = {
           ...data,
@@ -60,6 +48,8 @@ const MoreInformationPage = () => {
       } catch (err) {
         console.log("error from axios", err);
       }
+
+      console.log(inputState);
     })();
   }, [id]);
   const handleCancelBtnClick = (ev) => {
@@ -68,9 +58,6 @@ const MoreInformationPage = () => {
   if (!inputState) {
     return <CircularProgress />;
   }
-  const newInputState = Object.keys(inputState).map((key) => {
-    return { [key]: inputState[key] };
-  });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -101,7 +88,6 @@ const MoreInformationPage = () => {
         />
         <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            {/* newInputState.map */}
             <Grid item xs={12}>
               <Typography>
                 Url: <br></br>

@@ -135,30 +135,3 @@ const MyCardsPage = () => {
   );
 };
 export default MyCardsPage;
-
-{
-  /* 
-  <CardComponent
-              id={item.id}
-              title={item.title}
-              price={item.price}
-              ----
-              onDelete={handleDeleteFromInitialCardsArr}
-              onEdit={handleEditFromInitialCardsArr}
-            />
-  component 1:
-    <CardComponent
-              id={1}
-              ----
-              onDelete={handleDeleteFromInitialCardsArr}
-              onEdit={handleEditFromInitialCardsArr}
-            />
-  component 2:
-    <CardComponent
-              id={2}
-              ----
-              onDelete={handleDeleteFromInitialCardsArr}
-              onEdit={handleEditFromInitialCardsArr}
-            />
-*/
-}

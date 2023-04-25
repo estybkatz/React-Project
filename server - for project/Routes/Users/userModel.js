@@ -25,8 +25,8 @@ const userSchema = new mongoose.Schema({
   phone: {
     type: String,
     required: true,
-    minlength: 7,
-    maxlength: 12,
+    minlength: 9,
+    maxlength: 14,
   },
   email: {
     type: String,
@@ -63,7 +63,7 @@ const userSchema = new mongoose.Schema({
   },
   state: {
     type: String,
-    maxlength: 255,
+    maxlength: 256,
     validate: {
       validator: minAllowEmpty(2),
       message: "should be empty or minimum",
@@ -95,9 +95,9 @@ const userSchema = new mongoose.Schema({
   },
   zipCode: {
     type: Number,
-    maxlength: 256,
+    maxlength: 99999999,
     validate: {
-      validator: minAllowEmpty(2, "number"),
+      validator: minAllowEmpty(1, "number"),
       message: "should be empty or minimum",
     },
   },

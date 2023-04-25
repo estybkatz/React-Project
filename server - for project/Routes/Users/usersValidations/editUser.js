@@ -2,11 +2,15 @@ const Joi = require("joi");
 
 function validateEditUser(user) {
   const schema = Joi.object({
-    firstName: Joi.string().min(2).max(255).required(),
-    middleName: Joi.string().min(2).max(255).allow(""),
-    lastName: Joi.string().min(2).max(255).required(),
-    phone: Joi.string().min(7).max(14).required(),
-    email: Joi.string().min(6).max(255).required().email(),
+    firstName: Joi.string().min(2).max(256).required(),
+    middleName: Joi.string().min(2).max(256).allow(""),
+    lastName: Joi.string().min(2).max(256).required(),
+    phone: Joi.string().min(9).max(14).required(),
+    email: Joi.string()
+      .min(6)
+      .max(256)
+      .required()
+      .email({ tlds: { allow: false } }),
     imageUrl: Joi.string().min(6).max(1024).allow(""),
     imageAlt: Joi.string().min(6).max(256).allow(""),
     state: Joi.string().min(2).max(256).allow(""),
@@ -14,7 +18,7 @@ function validateEditUser(user) {
     city: Joi.string().min(2).max(256).required(),
     street: Joi.string().min(2).max(256).required(),
     houseNumber: Joi.string().min(1).max(256).required(),
-    zipCode: Joi.number().min(1).max(256).allow(""),
+    zipCode: Joi.number().min(1).max(99999999).allow(null),
     biz: Joi.boolean(),
   });
 

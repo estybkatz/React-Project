@@ -15,6 +15,7 @@ import validateCreateSchema from "../validation/createValidation";
 import atom from "../logo.svg";
 import { toast } from "react-toastify";
 import CachedIcon from "@mui/icons-material/Cached";
+import CreateEditComponent from "../components/Navbar/CreateAndEditComponent";
 
 const CreateCardPage = () => {
   const [inputState, setInputState] = useState({
@@ -99,6 +100,7 @@ const CreateCardPage = () => {
     });
     setInputsErrorsState(newjoiResponse);
   };
+  const keys = Object.keys(inputState);
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -131,7 +133,16 @@ const CreateCardPage = () => {
         />
         <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            {keys.map((item) => (
+              <CreateEditComponent
+                key={item}
+                item={item}
+                inputState={inputState}
+                handleInputChange={handleInputChange}
+                inputsErrorsState={inputsErrorsState}
+              />
+            ))}
+            {/* <Grid item xs={12}>
               <TextField
                 fullWidth
                 id="url"
@@ -392,7 +403,7 @@ const CreateCardPage = () => {
                   ))}
                 </Alert>
               )}
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12} sm={6}>
               <Button

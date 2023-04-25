@@ -32,9 +32,7 @@ const data = {
       subTitle: "My First Card",
       description:
         "This is the description of this respectable business card. It is a successful business in some field with a very high demand for its products",
-      street: "bla",
-      city: "bla",
-      houseNumber: "1",
+      address: "bla bla",
       phone: "0500000000",
       image: {
         url: "https://cdn.pixabay.com/photo/2022/02/09/17/22/cat-7003849_960_720.jpg",
@@ -49,9 +47,7 @@ const data = {
       subTitle: "My Second Card",
       description:
         "This is the description of this respectable business card. It is a successful business in some field with a very high demand for its products",
-      street: "bla",
-      city: "bla",
-      houseNumber: "2",
+      address: "bla bla",
       phone: "0500000000",
       image: {
         url: "https://cdn.pixabay.com/photo/2020/05/08/16/06/dog-5146351_960_720.jpg",
@@ -66,9 +62,7 @@ const data = {
       subTitle: "My Third Card",
       description:
         "This is the description of this respectable business card. It is a successful business in some field with a very high demand for its products",
-      street: "bla",
-      city: "bla",
-      houseNumber: "3",
+      address: "bla bla",
       phone: "0500000000",
       image: {
         url: "https://cdn.pixabay.com/photo/2022/01/07/07/08/seal-6921267_960_720.jpg",

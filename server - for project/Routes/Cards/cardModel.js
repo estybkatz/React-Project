@@ -22,7 +22,7 @@ const cardSchema = new mongoose.Schema({
   },
   state: {
     type: String,
-    maxlength: 255,
+    maxlength: 256,
     validate: {
       validator: minAllowEmpty(2),
       message: "should be empty or minimum",
@@ -69,8 +69,8 @@ const cardSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    minlength: 5,
-    maxlength: 255,
+    minlength: 6,
+    maxlength: 256,
   },
   web: {
     type: String,
@@ -84,10 +84,10 @@ const cardSchema = new mongoose.Schema({
     url: {
       type: String,
       required: true,
-      minlength: 2,
+      minlength: 6,
       maxlength: 1024,
     },
-    alt: { type: String, required: true, minlength: 2, maxlength: 256 },
+    alt: { type: String, required: true, minlength: 6, maxlength: 256 },
   },
   bizNumber: {
     type: String,

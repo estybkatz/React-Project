@@ -128,45 +128,7 @@ const LoginPage = () => {
               )}
             </Grid>
 
-            {/* <Grid item xs={6} sm={12}>
-            <Button
-              variant="contained"
-              fullWidth
-              sx={{ mt: 1, mb: 1 }}
-              color="primary"
-              href={ROUTES.HOME}
-            >
-              CANCEL
-            </Button>
-          </Grid> */}
-            {/* <Grid item xs={6} sm={12}>
-            <Button
-              size="large"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 1, mb: 1 }}
-              onClick={resetForm}
-              endIcon={<CachedIcon />}
-            ></Button>
-          </Grid> */}
-            {/* <Button
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            onClick={handleBtnClick}
-          >
-            Sign In
-          </Button> */}
-            {/* <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link to={ROUTES.REGISTER}>
-                <Typography variant="body2">
-                  Did not have an account? Sign up
-                </Typography>
-              </Link>
-            </Grid>
-          </Grid> */}
-            {/* </Box> */}
+         
 
             <Grid item xs={12} sm={6}>
               <Button
