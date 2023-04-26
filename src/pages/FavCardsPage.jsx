@@ -10,6 +10,7 @@ import CardComponent from "../components/CardComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
+import { blue } from "@mui/material/colors";
 
 const FavCardsPage = () => {
   const [originalCardsArr, setOriginalCardsArr] = useState(null);
@@ -116,7 +117,12 @@ const FavCardsPage = () => {
   if (!cardsArr) {
     return <CircularProgress />;
   }
-
+  //let like = cardsArr[0][1].likes.includes(jwt_decode(localStorage.token)._id);
+  // const likes = () => {
+  //   if (cardsArr[likes].includes(jwt_decode(localStorage.token)._id)) {
+  //     like = true;
+  //   }
+  //};
   return (
     <Box>
       {cardsArr.length === 0 ? (
@@ -149,6 +155,7 @@ const FavCardsPage = () => {
                   canEdit={payload && (payload.biz || payload.isAdmin)}
                   canEditPrivate={payload && payload.biz}
                   user_id={item[1].user_id}
+                  isFav={true}
                 />
               </Grid>
             ))}

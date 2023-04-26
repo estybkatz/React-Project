@@ -10,7 +10,7 @@ import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
 import ROUTES from "../routes/ROUTES";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-
+import jwt_decode from "jwt-decode";
 const MyCardsPage = () => {
   const [originalCardsArr, setOriginalCardsArr] = useState(null);
   const [cardsArr, setCardsArr] = useState(null);
@@ -125,6 +125,9 @@ const MyCardsPage = () => {
                   onDelete={handleDeleteFromInitialCardsArr}
                   onEdit={handleEditFromInitialCardsArr}
                   canEdit={payload && (payload.biz || payload.isAdmin)}
+                  isFav={Boolean(
+                    item.likes.includes(jwt_decode(localStorage.token)._id)
+                  )}
                 />
               </Grid>
             ))}

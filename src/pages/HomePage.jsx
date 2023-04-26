@@ -15,6 +15,8 @@ import ROUTES from "../routes/ROUTES";
 const HomePage = () => {
   const [originalCardsArr, setOriginalCardsArr] = useState(null);
   const [cardsArr, setCardsArr] = useState(null);
+
+  const [newInputState, setNewInputState] = useState(null);
   const navigate = useNavigate();
   let qparams = useQueryParams();
   const payload = useSelector((bigPie) => bigPie.authSlice.payload);
@@ -75,9 +77,6 @@ const HomePage = () => {
     filterFunc();
   }, [qparams.filter]);
   const handleDeleteFromInitialCardsArr = async (id) => {
-    // let newCardsArr = JSON.parse(JSON.stringify(cardsArr));
-    // newCardsArr = newCardsArr.filter((item) => item.id != id);
-    // setCardsArr(newCardsArr);
     try {
       await axios.delete("/cards/" + id); // /cards/:id
       setCardsArr((newCardsArr) =>
@@ -99,12 +98,24 @@ const HomePage = () => {
     return <CircularProgress />;
   }
 
-  const delete1 = () => {};
+  const delete1 = () => {
+    // cardsArr.find(item._id).((item) => {
+    //   if (item.likes.includes(jwt_decode(localStorage.token)._id)) {
+    //     setfavState(!favState);
+    //   } else {
+    //     setfavState(favState);
+    //   }
+    // });
+  };
+  // useEffect(() => {
+  //   setCardsArr(cardsArr);
+  // }, [favState]);
 
   const createCard = () => {
     navigate(ROUTES.CREATE);
   };
-
+  //let keys = Object.keys(cardsArr);
+  //let like = cardsArr.likes.includes(jwt_decode(localStorage.token)._id);
   return (
     <Box>
       <h1>Cards page</h1>
@@ -120,7 +131,7 @@ const HomePage = () => {
 
       <Grid container spacing={2}>
         {cardsArr.map((item) => (
-          <Grid item xs={4} key={item._id + Date.now()}>
+          <Grid item sm={6} xs={12} md={4} key={item._id + Date.now()}>
             <CardComponent
               id={item._id}
               phone={item.phone}
@@ -134,21 +145,13 @@ const HomePage = () => {
               onDeletefav={delete1}
               onEdit={handleEditFromInitialCardsArr}
               onInfo={handleMoreInformationFromInitialCardsArr}
-              // canEdit={payload && payload.biz && payload.isAdmin}
-              // canEdit={
-              //   payload &&
-              //   (payload.biz || payload.isAdmin) &&
-              //   item.user_id == jwt_decode(localStorage.token)._id
-              // }
-              // canDelete={
-              //   (payload && payload.isAdmin) ||
-              //   (payload.biz &&
-              //     item.user_id == jwt_decode(localStorage.token)._id)
-              // }
               canEdit={payload && payload.biz && payload.isAdmin}
               canEditPrivate={payload && payload.biz}
               card={item}
               user_id={item.user_id}
+              isFav={Boolean(
+                item.likes.includes(jwt_decode(localStorage.token)._id)
+              )}
             />
           </Grid>
         ))}

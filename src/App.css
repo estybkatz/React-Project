@@ -36,7 +36,14 @@
     transform: rotate(360deg);
   }
 }
-.logo{
+/* .logo {
   width: 3vw;
   height: 5vh;
+} */
+.body {
+  overflow-y: hidden;
+}
+.cardMedia {
+  width: 100%;
+  height: 200px;
 }

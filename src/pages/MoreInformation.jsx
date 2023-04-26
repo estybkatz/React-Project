@@ -13,7 +13,10 @@ import ROUTES from "../routes/ROUTES";
 
 import { CircularProgress } from "@mui/material";
 import atom from "../logo.svg";
+
 import { toast } from "react-toastify";
+import InformationComponent from "../components/MoreinformationComponent";
+import { object } from "joi";
 
 const MoreInformationPage = () => {
   const { id } = useParams();
@@ -41,7 +44,7 @@ const MoreInformationPage = () => {
         delete newInputState._id;
         delete newInputState.user_id;
         delete newInputState.bizNumber;
-        delete newInputState.createdAt;
+
         delete newInputState.__v;
 
         setInputState(newInputState);
@@ -58,7 +61,7 @@ const MoreInformationPage = () => {
   if (!inputState) {
     return <CircularProgress />;
   }
-
+  let keys = Object.keys(inputState);
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -88,7 +91,14 @@ const MoreInformationPage = () => {
         />
         <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            {keys.map((item) => (
+              <InformationComponent
+                item={item}
+                inputState={inputState}
+                key={item}
+              />
+            ))}
+            {/* <Grid item xs={12}>
               <Typography>
                 Url: <br></br>
                 {inputState.url ? inputState.url : ""}
@@ -171,7 +181,7 @@ const MoreInformationPage = () => {
               <Typography>
                 Web:<br></br> {inputState.web ? inputState.web : ""}
               </Typography>
-            </Grid>
+            </Grid> */}
             <Grid item xs={6}>
               <Button
                 fullWidth

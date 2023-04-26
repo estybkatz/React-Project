@@ -19,51 +19,65 @@ const Footer = () => {
   const payload = useSelector((bigPie) => bigPie.authSlice.payload);
 
   return (
-    <Box sx={{ width: 500, margin: "auto" }}>
-      <br></br>
-      <br></br>
-      <br></br>
-      <hr></hr>
-      <BottomNavigation
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
+    <footer>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          // position: "fixed",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          bgcolor: "background.paper",
+          boxShadow: "0px -1px 3px rgba(0, 0, 0, 0.25)",
         }}
       >
-        <BottomNavigationAction
-          label="About"
-          icon={<InfoIcon />}
-          component={Link}
-          to="/about"
-        />
-        {/* <Box> */}
-        {isLoggedIn ? (
-          <BottomNavigationAction
-            label="Favorites"
-            icon={<FavoriteIcon />}
-            component={Link}
-            to="/favCards"
-          />
-        ) : (
-          ""
-        )}
-        {/* </Box> */}
+        <br></br>
+        <br></br>
+        <br></br>
 
-        {/* <Box> */}
-        {isLoggedIn && (payload.biz || payload.isAdmin) ? (
+        <BottomNavigation
+          showLabels
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+          sx={{ maxWidth: 500, width: "100%" }}
+        >
           <BottomNavigationAction
-            label="My Cards"
-            icon={<CoPresentTwoToneIcon />}
+            label="About"
+            icon={<InfoIcon />}
             component={Link}
-            to="/myCards"
+            to="/about"
           />
-        ) : (
-          ""
-        )}
-        {/* </Box> */}
-      </BottomNavigation>
-    </Box>
+          {/* <Box> */}
+          {isLoggedIn ? (
+            <BottomNavigationAction
+              label="Favorites"
+              icon={<FavoriteIcon />}
+              component={Link}
+              to="/favCards"
+            />
+          ) : (
+            ""
+          )}
+          {/* </Box> */}
+
+          {/* <Box> */}
+          {isLoggedIn && (payload.biz || payload.isAdmin) ? (
+            <BottomNavigationAction
+              label="My Cards"
+              icon={<CoPresentTwoToneIcon />}
+              component={Link}
+              to="/myCards"
+            />
+          ) : (
+            ""
+          )}
+          {/* </Box> */}
+        </BottomNavigation>
+      </Box>
+    </footer>
   );
 };
 export default Footer;

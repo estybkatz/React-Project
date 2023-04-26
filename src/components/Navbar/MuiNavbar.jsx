@@ -31,7 +31,7 @@ import useQueryParams from "../../hooks/useQueryParams";
 // access to all
 const pages = [
   {
-    label: <img src="../logo.PNG" alt="logo" className="logo" />,
+    label: <img width={50} src="../logo.PNG" alt="logo" />,
     url: ROUTES.HOME,
   },
 ];

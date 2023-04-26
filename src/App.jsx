@@ -58,7 +58,8 @@ function App() {
         pauseOnHover
         theme="colored"
       />
-      <Container>
+
+      <Container className="body">
         <header>
           <MuiNavbar />
         </header>

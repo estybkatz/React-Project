@@ -70,6 +70,9 @@ const EditCardPage = () => {
         } else {
           newInputState.alt = "";
         }
+        if (data.zipCode == null) {
+          newInputState.zipCode = "";
+        }
         delete newInputState.image;
         delete newInputState.likes;
         delete newInputState._id;

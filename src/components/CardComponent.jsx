@@ -20,7 +20,7 @@ import {
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import CreateIcon from "@mui/icons-material/Create";
 import PropTypes from "prop-types";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import PhoneIcon from "@mui/icons-material/Phone";
 import CallIcon from "@mui/icons-material/Call";
 import axios from "axios";
@@ -43,6 +43,7 @@ const CardComponent = ({
   canEdit,
   canEditPrivate,
   user_id,
+  isFav,
   canDelete,
   canFav,
   card,
@@ -53,6 +54,7 @@ const CardComponent = ({
     (bigPieBigState) => bigPieBigState.authSlice.isLoggedIn
   );
   const payload = useSelector((bigPie) => bigPie.authSlice.payload);
+  const [favState, setfavState] = useState(isFav);
   console.log(payload);
   const handleDeleteBtnClick = () => {
     console.log("id", id);
@@ -68,36 +70,16 @@ const CardComponent = ({
     try {
       await axios.patch("/cards/card-like/" + id);
       onDeletefav(id);
+      setfavState(!favState);
     } catch (err) {
-      console.log("error when change fav", err.response.data);
+      console.log("error when change fav", err);
     }
   };
-  // const moreInformation = (id) => {
-  //   navigate(ROUTES.MOREINFORMATIOMPAGE);
-  // };
-  //   try {
-  //     axios.get("/cards/cards").then(({ data }) => {
-  //       console.log("data", data);
-  //       //  console.log("'cardsarr:", cardsArrToFilter);
-  //       let dataArr = Object.entries(data);
-  //       console.log("dataArr before change", dataArr);
-  //       console.log("cardsArr after creating dataArr", data);
-  //       setCardsArr(
-  //         dataArr.filter((card) =>
-  //           card[1]["likes"].includes(jwt_decode(localStorage.token)._id)
-  //         )
-  //       );
-  //     });
-  //   } catch (err) {
-  //     console.log("err from axios", err);
-
-  //     toast.error("Oops");
-  //   }
-  //};
+  //let like = cardsArr[0][1].likes.includes(jwt_decode(localStorage.token)._id);
   return (
     <Card square raised>
       <CardActionArea onClick={handleInfoBtnClick}>
-        <CardMedia component="img" image={img} />
+        <CardMedia component="img" image={img} className="cardMedia" />
       </CardActionArea>
       <CardHeader
         title={title}
@@ -151,73 +133,12 @@ const CardComponent = ({
             aria-label="add to shopping cart"
             onClick={handleFavBtnClick}
           >
-            <FavoriteIcon />
+            <FavoriteIcon
+              style={favState ? { color: "red" } : { color: "blue" }}
+            />
           </IconButton>
         </Box>
       </CardActions>
-      {/* <Button
-          variant="text"
-          color="primary"
-          sx={{
-            flexGrow: 1,
-            flex: 1,
-            display: "flex",
-            justifyContent: "flex-end",
-          }}
-        >
-          <PhoneIcon
-            sx={{
-              flexGrow: 1,
-              flex: 1,
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-          />
-        </Button>
-        {isLoggedIn ? (
-          <Button
-            variant="text"
-            color="primary"
-            sx={{
-              flexGrow: 1,
-              flex: 1,
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-            onClick={handleFavBtnClick}
-          >
-            <FavoriteIcon
-              sx={{
-                flexGrow: 1,
-                flex: 1,
-                display: "flex",
-                justifyContent: "flex-end",
-              }}
-            />
-          </Button>
-        ) : (
-          ""
-        )}
-        {(canEdit || canEditPrivate) && payload._id === user_id ? (
-          <Fragment>
-           
-            <Button variant="text" color="warning" onClick={handleEditBtnClick}>
-              <EditIcon />
-            </Button>
-          </Fragment>
-        ) : (
-          ""
-        )}
-        {payload.isAdmin || (canEditPrivate && payload._id === user_id) ? (
-          <Fragment>
-            <Button variant="text" color="error" onClick={handleDeleteBtnClick}>
-              <DeleteIcon />
-            </Button>
-          </Fragment>
-        ) : (
-          ""
-        )}
-        */}
     </Card>
   );
 };

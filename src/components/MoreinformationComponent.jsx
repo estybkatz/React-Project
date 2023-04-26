@@ -3,13 +3,12 @@ import ControlledInput from "./controlledInput/ControlledInput";
 import PropTypes from "prop-types";
 import { Fragment } from "react";
 
-const InformationComponent = ({ item, inputState, key }) => {
+const InformationComponent = ({ item, inputState }) => {
   return (
     <Grid item xs={12}>
       <Typography>
-        <h4>{item}:</h4>
-        {inputState.item ? inputState.item : ""}
-        key={key}
+        {item}:<br></br>
+        {inputState[item] ? inputState[item] : ""}
       </Typography>
     </Grid>
   );
