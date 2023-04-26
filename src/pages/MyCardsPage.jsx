@@ -93,6 +93,12 @@ const MyCardsPage = () => {
     navigate(ROUTES.CREATE);
   };
 
+  const delete1 = () => {};
+
+  const handleMoreInformationFromInitialCardsArr = (id) => {
+    navigate(`/MInfo/${id}`); //localhost:3000/edit/123213
+  };
+
   if (!cardsArr) {
     return <CircularProgress />;
   }
@@ -118,13 +124,23 @@ const MyCardsPage = () => {
               <Grid item xs={4} key={item._id + Date.now()}>
                 <CardComponent
                   id={item._id}
+                  phone={item.phone}
+                  address={
+                    item.street + " " + item.houseNumber + ", " + item.city
+                  }
+                  cardNumber={item.bizNumber}
                   title={item.title}
                   subTitle={item.subTitle}
                   description={item.description}
                   img={item.image ? item.image.url : ""}
                   onDelete={handleDeleteFromInitialCardsArr}
+                  onDeletefav={delete1}
                   onEdit={handleEditFromInitialCardsArr}
-                  canEdit={payload && (payload.biz || payload.isAdmin)}
+                  onInfo={handleMoreInformationFromInitialCardsArr}
+                  canEdit={payload && payload.biz && payload.isAdmin}
+                  canEditPrivate={payload && payload.biz}
+                  card={item}
+                  user_id={item.user_id}
                   isFav={Boolean(
                     item.likes.includes(jwt_decode(localStorage.token)._id)
                   )}

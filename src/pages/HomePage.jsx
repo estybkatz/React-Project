@@ -98,24 +98,11 @@ const HomePage = () => {
     return <CircularProgress />;
   }
 
-  const delete1 = () => {
-    // cardsArr.find(item._id).((item) => {
-    //   if (item.likes.includes(jwt_decode(localStorage.token)._id)) {
-    //     setfavState(!favState);
-    //   } else {
-    //     setfavState(favState);
-    //   }
-    // });
-  };
-  // useEffect(() => {
-  //   setCardsArr(cardsArr);
-  // }, [favState]);
+  const delete1 = () => {};
 
   const createCard = () => {
     navigate(ROUTES.CREATE);
   };
-  //let keys = Object.keys(cardsArr);
-  //let like = cardsArr.likes.includes(jwt_decode(localStorage.token)._id);
   return (
     <Box>
       <h1>Cards page</h1>
@@ -159,30 +146,5 @@ const HomePage = () => {
     </Box>
   );
 };
-
-/*
-  <CardComponent
-              id={item.id}
-              title={item.title}
-              price={item.price}
-              ----
-              onDelete={handleDeleteFromInitialCardsArr}
-              onEdit={handleEditFromInitialCardsArr}
-            />
-  component 1:
-    <CardComponent
-              id={1}
-              ----
-              onDelete={handleDeleteFromInitialCardsArr}
-              onEdit={handleEditFromInitialCardsArr}
-            />
-  component 2:
-    <CardComponent
-              id={2}
-              ----
-              onDelete={handleDeleteFromInitialCardsArr}
-              onEdit={handleEditFromInitialCardsArr}
-            />
-*/
 
 export default HomePage;
