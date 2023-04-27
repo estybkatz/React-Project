@@ -48,6 +48,12 @@ const EditCardPage = () => {
         } else {
           newInputState.alt = "";
         }
+        // let dataArr = Object.keys(data);
+        // dataArr.map((item) => {
+        //   if (item == null) {
+        //     dataArr.item = "";
+        //   }
+        // });
         if (data.zipCode == null) {
           newInputState.zipCode = "";
         }

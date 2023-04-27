@@ -95,9 +95,9 @@ const MyCardsPage = () => {
 
   const delete1 = () => {};
 
-  const handleMoreInformationFromInitialCardsArr = (id) => {
-    navigate(`/MInfo/${id}`); //localhost:3000/edit/123213
-  };
+  // const handleMoreInformationFromInitialCardsArr = (id) => {
+  //   navigate(`/MInfo/${id}`); //localhost:3000/edit/123213
+  // };
 
   if (!cardsArr) {
     return <CircularProgress />;
@@ -136,14 +136,15 @@ const MyCardsPage = () => {
                   onDelete={handleDeleteFromInitialCardsArr}
                   onDeletefav={delete1}
                   onEdit={handleEditFromInitialCardsArr}
-                  onInfo={handleMoreInformationFromInitialCardsArr}
+                  //onInfo={handleMoreInformationFromInitialCardsArr}
                   canEdit={payload && payload.biz && payload.isAdmin}
                   canEditPrivate={payload && payload.biz}
                   card={item}
                   user_id={item.user_id}
-                  isFav={Boolean(
+                  isFav={
+                    localStorage.token &&
                     item.likes.includes(jwt_decode(localStorage.token)._id)
-                  )}
+                  }
                 />
               </Grid>
             ))}

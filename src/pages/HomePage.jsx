@@ -91,7 +91,7 @@ const HomePage = () => {
   };
 
   const handleMoreInformationFromInitialCardsArr = (id) => {
-    navigate(`/MInfo/${id}`); //localhost:3000/edit/123213
+    navigate(`/MInfo/${id}`);
   };
 
   if (!cardsArr) {
@@ -136,7 +136,10 @@ const HomePage = () => {
               canEditPrivate={payload && payload.biz}
               card={item}
               user_id={item.user_id}
-              isFav={payload && item.likes.includes(payload._id)}
+              isFav={
+                localStorage.token &&
+                item.likes.includes(jwt_decode(localStorage.token)._id)
+              }
             />
           </Grid>
         ))}

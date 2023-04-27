@@ -72,7 +72,7 @@ const CardComponent = ({
       onDeletefav(id);
       setfavState(!favState);
     } catch (err) {
-      console.log("error when change fav", err);
+      console.log("error when change fav", err.response.data);
     }
   };
   //let like = cardsArr[0][1].likes.includes(jwt_decode(localStorage.token)._id);
