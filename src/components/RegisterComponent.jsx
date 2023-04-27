@@ -30,6 +30,7 @@ const RegisterComponent = ({
           name={item}
           required
           fullWidth
+          type={item}
           autoFocus
           id={item}
           label={label}
@@ -52,6 +53,7 @@ const RegisterComponent = ({
         name={item}
         required
         fullWidth
+        type={item}
         id={item}
         label={label}
         value={inputState.item}
@@ -71,6 +73,7 @@ const RegisterComponent = ({
       <TextField
         name={item}
         fullWidth
+        type={item}
         id={item}
         label={label}
         value={inputState.item}

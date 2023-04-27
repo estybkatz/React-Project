@@ -136,9 +136,7 @@ const HomePage = () => {
               canEditPrivate={payload && payload.biz}
               card={item}
               user_id={item.user_id}
-              isFav={Boolean(
-                item.likes.includes(jwt_decode(localStorage.token)._id)
-              )}
+              isFav={payload && item.likes.includes(payload._id)}
             />
           </Grid>
         ))}
