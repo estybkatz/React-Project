@@ -12,7 +12,8 @@ import axios from "axios";
 import ROUTES from "../routes/ROUTES";
 
 import { CircularProgress } from "@mui/material";
-import atom from "../logo.svg";
+//import atom from "../logo.svg";
+//import atom from "../images/atom.png";
 
 import { toast } from "react-toastify";
 import InformationComponent from "../components/MoreinformationComponent";
@@ -44,8 +45,14 @@ const MoreInformationPage = () => {
         delete newInputState._id;
         delete newInputState.user_id;
         delete newInputState.bizNumber;
-
         delete newInputState.__v;
+
+        let dataArr = Object.keys(data);
+        dataArr.forEach((item) => {
+          if (dataArr[item] == "") {
+            delete inputState[item];
+          }
+        });
 
         setInputState(newInputState);
       } catch (err) {
@@ -62,6 +69,15 @@ const MoreInformationPage = () => {
     return <CircularProgress />;
   }
   let keys = Object.keys(inputState);
+  //  useEffect(() => {
+  //    console.log(item);
+  //    console.log(inputState);
+  //  }, []);
+  //  if ((inputState[item] = "")) {
+  //    return "";
+  //  }
+  console.log(keys);
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -81,25 +97,31 @@ const MoreInformationPage = () => {
         <Box
           component="img"
           sx={{
-            height: 233,
-            width: 350,
-            maxHeight: { xs: 233, md: 167 },
-            maxWidth: { xs: 350, md: 250 },
+            height: 180,
+            width: 250,
+            maxHeight: { xs: 180, md: 167 },
+            maxWidth: { xs: 250, md: 250 },
           }}
           alt={inputState.alt ? inputState.alt : ""}
-          src={inputState.url ? inputState.url : atom}
+          src={
+            inputState.url
+              ? inputState.url
+              : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+          }
         />
         <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            {keys.map((item) => (
-              <InformationComponent
-                item={item}
-                inputState={inputState}
-                key={item}
-              />
-            ))}
-
-            <Grid item xs={6}>
+            <Grid item xs={12}>
+              {keys.map((item) => (
+                <InformationComponent
+                  item={item}
+                  inputState={inputState}
+                  key={item}
+                  // {inputState[item]==""}
+                />
+              ))}
+            </Grid>
+            <Grid item xs={12}>
               <Button
                 fullWidth
                 variant="contained"

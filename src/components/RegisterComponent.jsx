@@ -23,67 +23,25 @@ const RegisterComponent = ({
 }) => {
   const isRequired = mustFields.includes(item);
   if (item === "biz") return;
-  if (item === "firstName")
-    return (
-      <Grid item xs={12} sm={6}>
-        <TextField
-          name={item}
-          required
-          fullWidth
-          type={item}
-          autoFocus
-          id={item}
-          label={label}
-          value={inputState.item}
-          onChange={onChange}
-          autoComplete="family-name"
-        />
-        {inputsErrorState && inputsErrorState.item && (
-          <Alert severity="warning">
-            {inputsErrorState.item.map((error) => (
-              <div key={"errors" + error}>{error}</div>
-            ))}
-          </Alert>
-        )}
-      </Grid>
-    );
-  return isRequired ? (
+  return (
     <Grid item xs={12} sm={6}>
       <TextField
         name={item}
-        required
+        required={isRequired}
         fullWidth
         type={item}
+        autoFocus={item === "firstName"}
         id={item}
         label={label}
-        value={inputState.item}
+        //value={inputState.item}
         onChange={onChange}
         autoComplete="family-name"
+        value={inputState[item] ? inputState[item] : ""}
       />
-      {inputsErrorState && inputsErrorState.item && (
+      {inputsErrorState && inputsErrorState[item] && (
         <Alert severity="warning">
-          {inputsErrorState.item.map((error) => (
-            <div key={"errors" + error}>{error}</div>
-          ))}
-        </Alert>
-      )}
-    </Grid>
-  ) : (
-    <Grid item xs={12} sm={6}>
-      <TextField
-        name={item}
-        fullWidth
-        type={item}
-        id={item}
-        label={label}
-        value={inputState.item}
-        onChange={onChange}
-        autoComplete="family-name"
-      />
-      {inputsErrorState && inputsErrorState.item && (
-        <Alert severity="warning">
-          {inputsErrorState.item.map((error) => (
-            <div key={"errors" + error}>{error}</div>
+          {inputsErrorState[item].map((error) => (
+            <div key={"errors" + error + item}>{error}</div>
           ))}
         </Alert>
       )}

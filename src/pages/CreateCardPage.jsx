@@ -12,11 +12,11 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ROUTES from "../routes/ROUTES";
 import validateCreateSchema from "../validation/createValidation";
-import atom from "../logo.svg";
+//import atom from "../images/atom.png";
 
 import { toast } from "react-toastify";
 import CachedIcon from "@mui/icons-material/Cached";
-import CreateEditComponent from "../components/Navbar/CreateAndEditComponent";
+import CreateEditComponent from "../components/CreateAndEditComponent";
 
 const CreateCardPage = () => {
   const [inputState, setInputState] = useState({
@@ -130,7 +130,11 @@ const CreateCardPage = () => {
             maxWidth: { xs: 350, md: 250 },
           }}
           alt={inputState.alt ? inputState.alt : ""}
-          src={inputState.url ? inputState.url : atom}
+          src={
+            inputState.url
+              ? inputState.url
+              : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+          }
         />
         <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>

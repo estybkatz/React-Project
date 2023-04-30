@@ -121,7 +121,7 @@ const MyCardsPage = () => {
           </Button>
           <Grid container spacing={2}>
             {cardsArr.map((item) => (
-              <Grid item xs={4} key={item._id + Date.now()}>
+              <Grid item sm={6} xs={12} md={4} key={item._id + Date.now()}>
                 <CardComponent
                   id={item._id}
                   phone={item.phone}

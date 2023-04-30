@@ -41,6 +41,9 @@ const RegisterPage = () => {
       if (joiResponse) {
         return;
       }
+      if (inputState.zipCode == "") {
+        inputState.zipCode = null;
+      }
       await axios.post("/users/register", {
         firstName: inputState.firstName,
         middleName: inputState.middleName,
@@ -56,6 +59,7 @@ const RegisterPage = () => {
         street: inputState.street,
         houseNumber: inputState.houseNumber,
         zipCode: inputState.zipCode,
+
         biz: inputState.biz,
       });
       navigate(ROUTES.LOGIN);
@@ -70,12 +74,14 @@ const RegisterPage = () => {
     setInputState(newInputState);
     joiResponse = validateRegisterSchema(inputState);
     setinputsErrorState(joiResponse);
+    console.log(joiResponse);
   };
   const handleBizChange = (ev) => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState["biz"] = ev.target.checked;
     setInputState(newInputState);
   };
+
   const resetForm = () => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState = {

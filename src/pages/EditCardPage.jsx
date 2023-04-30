@@ -16,9 +16,10 @@ import validateEditSchema, {
   validateEditCardParamsSchema,
 } from "../validation/editValidation";
 import { CircularProgress } from "@mui/material";
-import atom from "../logo.svg";
+//import atom from "../logo.svg";
+import atom from "../images/atom.png";
 import { toast } from "react-toastify";
-import CreateEditComponent from "../components/Navbar/CreateAndEditComponent";
+import CreateEditComponent from "../components/CreateAndEditComponent";
 
 const EditCardPage = () => {
   const { id } = useParams();
@@ -122,8 +123,8 @@ const EditCardPage = () => {
           sx={{
             height: 233,
             width: 350,
-            maxHeight: { xs: 233, md: 167 },
-            maxWidth: { xs: 350, md: 250 },
+            maxHeight: { xs: 180, md: 167 },
+            maxWidth: { xs: 250, md: 250 },
           }}
           alt={inputState.alt ? inputState.alt : ""}
           src={inputState.url ? inputState.url : atom}

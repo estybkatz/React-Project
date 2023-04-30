@@ -68,6 +68,10 @@ const LoginPage = () => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
+    joiResponse = validateLoginSchema(inputState);
+    setInputsErrorsState(joiResponse);
+    console.log("input state", inputState);
+    console.log("error inp state", inputsErrorsState);
   };
 
   return (
@@ -99,9 +103,9 @@ const LoginPage = () => {
                 value={inputState.email}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState && inputsErrorsState.email && (
+              {inputsErrorsState && inputsErrorsState["email"] && (
                 <Alert severity="warning">
-                  {inputsErrorsState.email.map((item) => (
+                  {inputsErrorsState["email"].map((item) => (
                     <div key={"email-errors" + item}>{item}</div>
                   ))}
                 </Alert>
@@ -119,16 +123,14 @@ const LoginPage = () => {
                 value={inputState.password}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState && inputsErrorsState.password && (
+              {inputsErrorsState && inputsErrorsState["password"] && (
                 <Alert severity="warning">
-                  {inputsErrorsState.password.map((item) => (
+                  {inputsErrorsState["password"].map((item) => (
                     <div key={"password-errors" + item}>{item}</div>
                   ))}
                 </Alert>
               )}
             </Grid>
-
-         
 
             <Grid item xs={12} sm={6}>
               <Button
