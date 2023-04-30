@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -14,6 +14,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import CachedIcon from "@mui/icons-material/Cached";
 import RegisterComponent from "../components/RegisterComponent";
+import { useSelector } from "react-redux";
+import validateProfileSchema from "../validation/profileValidation";
 const ProfilePage = () => {
   const [inputState, setInputState] = useState({
     firstName: "",
@@ -21,7 +23,6 @@ const ProfilePage = () => {
     lastName: "",
     phone: "",
     email: "",
-    password: "",
     imageUrl: "",
     imageAlt: "",
     state: "",
@@ -32,25 +33,54 @@ const ProfilePage = () => {
     zipCode: "",
     biz: false,
   });
-  let joiResponse = validateRegisterSchema(inputState);
+  let joiResponse = validateProfileSchema(inputState);
   const [inputsErrorState, setinputsErrorState] = useState(null);
   const navigate = useNavigate();
+  const payload = useSelector((bigPie) => bigPie.authSlice.payload);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get("/users/userInfo");
+        let newInputState = {
+          ...data,
+        };
+        if (data.zipCode == null) {
+          newInputState.zipCode = "";
+        }
+        delete newInputState._id;
+        delete newInputState.isAdmin;
+        delete newInputState.password;
+        setInputState(newInputState);
+        joiResponse = validateProfileSchema(newInputState);
+        setinputsErrorState(joiResponse);
+
+        console.log(joiResponse);
+        if (joiResponse) {
+          // there was errors = incorrect id
+          // navigate("/");
+          return;
+        }
+      } catch {
+        toast.error("opps");
+      }
+    })();
+  }, []);
   const handeleBtnClick = async (ev) => {
     try {
-      joiResponse = validateRegisterSchema(inputState);
+      joiResponse = validateProfileSchema(inputState);
       if (joiResponse) {
         return;
       }
       if (inputState.zipCode == "") {
         inputState.zipCode = null;
       }
-      await axios.post("/users/register", {
+      await axios.put("/users/userInfo", {
         firstName: inputState.firstName,
         middleName: inputState.middleName,
         lastName: inputState.lastName,
         phone: inputState.phone,
         email: inputState.email,
-        password: inputState.password,
         imageUrl: inputState.imageUrl,
         imageAlt: inputState.imageAlt,
         state: inputState.state,
@@ -59,9 +89,9 @@ const ProfilePage = () => {
         street: inputState.street,
         houseNumber: inputState.houseNumber,
         zipCode: inputState.zipCode,
-
         biz: inputState.biz,
       });
+      toast.success("The update was successful You must log in again");
       navigate(ROUTES.LOGIN);
     } catch (err) {
       console.log("error from axios", err.response.data);
@@ -72,7 +102,7 @@ const ProfilePage = () => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
-    joiResponse = validateRegisterSchema(inputState);
+    joiResponse = validateProfileSchema(inputState);
     setinputsErrorState(joiResponse);
     console.log(joiResponse);
   };
@@ -82,36 +112,35 @@ const ProfilePage = () => {
     setInputState(newInputState);
   };
 
-  const resetForm = () => {
-    let newInputState = JSON.parse(JSON.stringify(inputState));
-    newInputState = {
-      firstName: "",
-      middleName: "",
-      lastName: "",
-      phone: "",
-      email: "",
-      password: "",
-      imageUrl: "",
-      imageAlt: "",
-      state: "",
-      country: "",
-      city: "",
-      street: "",
-      houseNumber: "",
-      zipCode: "",
-      biz: false,
-    };
-    setInputState(newInputState);
-    joiResponse = validateRegisterSchema(inputState);
-    if (!joiResponse) {
-      return;
-    }
-    let newjoiResponse = JSON.parse(JSON.stringify(joiResponse));
-    Object.keys(newjoiResponse).forEach((index) => {
-      newjoiResponse[index] = "";
-    });
-    setinputsErrorState(newjoiResponse);
-  };
+  // const resetForm = () => {
+  //   let newInputState = JSON.parse(JSON.stringify(inputState));
+  //   newInputState = {
+  //     firstName: "",
+  //     middleName: "",
+  //     lastName: "",
+  //     phone: "",
+  //     email: "",
+  //     imageUrl: "",
+  //     imageAlt: "",
+  //     state: "",
+  //     country: "",
+  //     city: "",
+  //     street: "",
+  //     houseNumber: "",
+  //     zipCode: "",
+  //     biz: false,
+  //   };
+  //   setInputState(newInputState);
+  //   joiResponse = validateProfileSchema(inputState);
+  //   if (!joiResponse) {
+  //     return;
+  //   }
+  //   let newjoiResponse = JSON.parse(JSON.stringify(joiResponse));
+  //   Object.keys(newjoiResponse).forEach((index) => {
+  //     newjoiResponse[index] = "";
+  //   });
+  //   setinputsErrorState(newjoiResponse);
+  // };
   const keys = Object.keys(inputState);
   return (
     <Container component="main" maxWidth="xs">
@@ -125,7 +154,7 @@ const ProfilePage = () => {
         }}
       >
         <Typography component="h1" variant="h5">
-          Sign up
+          Profile
         </Typography>
         <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -135,6 +164,7 @@ const ProfilePage = () => {
                 label={key}
                 inputState={inputState}
                 onChange={handleInputChange}
+                onClick={handleInputChange}
                 inputsErrorState={inputsErrorState}
                 key={key}
               />
@@ -144,7 +174,7 @@ const ProfilePage = () => {
                 control={
                   <Checkbox
                     id="biz"
-                    value={inputState.biz}
+                    checked={inputState.biz}
                     color="primary"
                     onClick={handleBizChange}
                   />
@@ -163,7 +193,7 @@ const ProfilePage = () => {
                 CANCEL
               </Button>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
               <Button
                 size="large"
                 fullWidth
@@ -172,8 +202,8 @@ const ProfilePage = () => {
                 onClick={resetForm}
                 endIcon={<CachedIcon />}
               ></Button>
-            </Grid>
-            <Grid item xs={12}>
+            </Grid> */}
+            <Grid item xs={6}>
               <Button
                 fullWidth
                 variant="contained"

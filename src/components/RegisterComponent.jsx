@@ -20,6 +20,7 @@ const RegisterComponent = ({
   onChange,
   inputsErrorState,
   inputState,
+  onClick,
 }) => {
   const isRequired = mustFields.includes(item);
   if (item === "biz") return;
@@ -35,6 +36,7 @@ const RegisterComponent = ({
         label={label}
         //value={inputState.item}
         onChange={onChange}
+        onClick={onClick}
         autoComplete="family-name"
         value={inputState[item] ? inputState[item] : ""}
       />

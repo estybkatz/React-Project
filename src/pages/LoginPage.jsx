@@ -102,6 +102,7 @@ const LoginPage = () => {
                 autoComplete="email"
                 value={inputState.email}
                 onChange={handleInputChange}
+                onClick={handleInputChange}
               />
               {inputsErrorsState && inputsErrorsState["email"] && (
                 <Alert severity="warning">
@@ -122,6 +123,7 @@ const LoginPage = () => {
                 autoComplete="new-password"
                 value={inputState.password}
                 onChange={handleInputChange}
+                onClick={handleInputChange}
               />
               {inputsErrorsState && inputsErrorsState["password"] && (
                 <Alert severity="warning">

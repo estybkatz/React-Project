@@ -141,10 +141,7 @@ const MyCardsPage = () => {
                   canEditPrivate={payload && payload.biz}
                   card={item}
                   user_id={item.user_id}
-                  isFav={
-                    localStorage.token &&
-                    item.likes.includes(jwt_decode(localStorage.token)._id)
-                  }
+                  isFav={payload && item.likes.includes(payload._id)}
                 />
               </Grid>
             ))}

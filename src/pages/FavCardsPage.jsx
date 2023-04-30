@@ -36,9 +36,7 @@ const FavCardsPage = () => {
         console.log("dataArr before change", dataArr);
         console.log("cardsArr after creating dataArr", data);
         setCardsArr(
-          dataArr.filter((card) =>
-            card[1]["likes"].includes(jwt_decode(localStorage.token)._id)
-          )
+          dataArr.filter((card) => card[1]["likes"].includes(payload._id))
         );
       })
       // console.log("hi - cards Arr");

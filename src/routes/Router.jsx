@@ -40,12 +40,7 @@ const Router = () => {
       <Route
         path={ROUTES.FAV}
         element={
-          <SuperProtectedRoute
-            isAdmin={true}
-            isBiz={true}
-            isLoggedIn={true}
-            element={<FavCardsPage />}
-          />
+          <ProtectedRoute isLoggedIn={true} element={<FavCardsPage />} />
         }
       />
       <Route path={ROUTES.CREATE} element={<CreateCardPage />} />
@@ -64,7 +59,11 @@ const Router = () => {
       <Route
         path={ROUTES.SANDBOX}
         element={
-          <SuperProtectedRoute isAdmin={true} element={<SandboxPage />} />
+          <SuperProtectedRoute
+            isAdmin={true}
+            isBiz={false}
+            element={<SandboxPage />}
+          />
         }
       />
       <Route

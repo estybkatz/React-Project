@@ -31,7 +31,7 @@ import useQueryParams from "../../hooks/useQueryParams";
 // access to all
 const pages = [
   {
-    label: <img width={50} src="../logo.PNG" alt="logo" />,
+    label: <img width={50} src="/assets/images/atom.png" alt="logo" />,
     url: ROUTES.HOME,
   },
 ];
@@ -130,45 +130,45 @@ const MuiNavbar = () => {
     setAnchorAvatar(event.currentTarget);
   };
 
-  const filterFunc = (data) => {
-    if (!originalCardsArr && !data) {
-      return;
-    }
-    let filter = "";
-    if (qparams.filter) {
-      filter = qparams.filter;
-    }
-    if (!originalCardsArr && data) {
-      /*
-        when component loaded and states not loaded
-      */
-      setOriginalCardsArr(data);
-      setCardsArr(
-        data.filter(
-          (card) =>
-            card.title.startsWith(filter) || card.bizNumber.startsWith(filter)
-        )
-      );
-      return;
-    }
-    if (originalCardsArr) {
-      /*
+  // const filterFunc = (data) => {
+  //   if (!originalCardsArr && !data) {
+  //     return;
+  //   }
+  //   let filter = "";
+  //   if (qparams.filter) {
+  //     filter = qparams.filter;
+  //   }
+  //   if (!originalCardsArr && data) {
+  //     /*
+  //       when component loaded and states not loaded
+  //     */
+  //     setOriginalCardsArr(data);
+  //     setCardsArr(
+  //       data.filter(
+  //         (card) =>
+  //           card.title.startsWith(filter) || card.bizNumber.startsWith(filter)
+  //       )
+  //     );
+  //     return;
+  //   }
+  //   if (originalCardsArr) {
+  /*
         when all loaded and states loaded
       */
-      let newOriginalCardsArr = JSON.parse(JSON.stringify(originalCardsArr));
-      setCardsArr(
-        newOriginalCardsArr.filter(
-          (card) =>
-            card.title.startsWith(filter) || card.bizNumber.startsWith(filter)
-        )
-      );
-    }
-  };
+  //     let newOriginalCardsArr = JSON.parse(JSON.stringify(originalCardsArr));
+  //     setCardsArr(
+  //       newOriginalCardsArr.filter(
+  //         (card) =>
+  //           card.title.startsWith(filter) || card.bizNumber.startsWith(filter)
+  //       )
+  //     );
+  //   }
+  // };
 
-  const handleSearchInputChange = (event) => {
-    const newFilter = event.target.value;
-    filterFunc(newFilter);
-  };
+  // const handleSearchInputChange = (event) => {
+  //   const newFilter = event.target.value;
+  //   filterFunc(newFilter);
+  // };
   // const { onChange } = props;
 
   // const handleInput = (event) => {
@@ -207,7 +207,7 @@ const MuiNavbar = () => {
             />
           </Box> */}
           <Box>
-            <SearchPartial onChange={handleSearchInputChange} />
+            <SearchPartial />
           </Box>
           <Box
             sx={{

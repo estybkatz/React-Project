@@ -17,7 +17,7 @@ import validateEditSchema, {
 } from "../validation/editValidation";
 import { CircularProgress } from "@mui/material";
 //import atom from "../logo.svg";
-import atom from "../images/atom.png";
+//import atom from "../assets/images/atom.png";
 import { toast } from "react-toastify";
 import CreateEditComponent from "../components/CreateAndEditComponent";
 
@@ -127,7 +127,11 @@ const EditCardPage = () => {
             maxWidth: { xs: 250, md: 250 },
           }}
           alt={inputState.alt ? inputState.alt : ""}
-          src={inputState.url ? inputState.url : atom}
+          src={
+            inputState.url
+              ? inputState.url
+              : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+          }
         />
         <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>

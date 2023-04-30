@@ -48,7 +48,7 @@ const CardComponent = ({
   canFav,
   card,
 }) => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   // const { id } = useParams();
   const isLoggedIn = useSelector(
     (bigPieBigState) => bigPieBigState.authSlice.isLoggedIn
@@ -68,6 +68,9 @@ const CardComponent = ({
   };
   const handleFavBtnClick = async () => {
     try {
+      if (!payload) {
+        return;
+      }
       await axios.patch("/cards/card-like/" + id);
       onDeletefav(id);
       setfavState(!favState);
@@ -128,15 +131,19 @@ const CardComponent = ({
             <CallIcon />
           </IconButton>
           {/* <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} /> */}
-          <IconButton
-            color="primary"
-            aria-label="add to shopping cart"
-            onClick={handleFavBtnClick}
-          >
-            <FavoriteIcon
-              style={favState ? { color: "red" } : { color: "blue" }}
-            />
-          </IconButton>
+          {isLoggedIn ? (
+            <IconButton
+              color="primary"
+              aria-label="add to shopping cart"
+              onClick={handleFavBtnClick}
+            >
+              <FavoriteIcon
+                style={favState ? { color: "red" } : { color: "blue" }}
+              />
+            </IconButton>
+          ) : (
+            ""
+          )}
         </Box>
       </CardActions>
     </Card>
