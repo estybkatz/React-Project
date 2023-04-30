@@ -112,14 +112,17 @@ const MoreInformationPage = () => {
         <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              {keys.map((item) => (
-                <InformationComponent
-                  item={item}
-                  inputState={inputState}
-                  key={item}
-                  // {inputState[item]==""}
-                />
-              ))}
+              {keys.map(
+                (item) =>
+                  inputState[item] && (
+                    <InformationComponent
+                      item={item}
+                      inputState={inputState}
+                      key={item}
+                      // {inputState[item]==""}
+                    />
+                  )
+              )}
             </Grid>
             <Grid item xs={12}>
               <Button
