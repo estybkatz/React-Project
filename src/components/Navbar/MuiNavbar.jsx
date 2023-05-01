@@ -73,7 +73,6 @@ const MuiNavbar = () => {
     (bigPieBigState) => bigPieBigState.authSlice.isLoggedIn
   );
   const payload = useSelector((bigPie) => bigPie.authSlice.payload);
-  console.log(payload);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorAvatar, setAnchorAvatar] = React.useState(false);
   const dispatch = useDispatch();
@@ -83,18 +82,14 @@ const MuiNavbar = () => {
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-    console.log("open");
-    console.log("ancor", anchorElNav);
   };
 
   const handleCloseNavMenuAvatar = () => {
     setAnchorAvatar(null);
-    console.log("close");
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-    console.log("close");
   };
 
   const changeTheme = () => {

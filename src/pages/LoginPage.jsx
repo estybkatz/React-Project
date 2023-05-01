@@ -58,9 +58,10 @@ const LoginPage = () => {
       loggedIn();
       //move to homepage
       navigate(ROUTES.HOME);
-    } catch (err) {
-      console.log("login error", err);
-      toast.error("User does not exist in the system");
+    } catch {
+      toast.error(
+        "User does not exist in the syste, Or there is a problem connecting "
+      );
     }
   };
 
@@ -70,8 +71,6 @@ const LoginPage = () => {
     setInputState(newInputState);
     joiResponse = validateLoginSchema(inputState);
     setInputsErrorsState(joiResponse);
-    console.log("input state", inputState);
-    console.log("error inp state", inputsErrorsState);
   };
 
   return (
@@ -174,4 +173,3 @@ const LoginPage = () => {
   );
 };
 export default LoginPage;
-

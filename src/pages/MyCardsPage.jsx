@@ -23,14 +23,10 @@ const MyCardsPage = () => {
     axios
       .get("/cards/my-cards")
       .then(({ data }) => {
-        console.log("data", data);
-        // setCardsArr(data);
         filterFunc(data);
       })
-      .catch((err) => {
-        console.log("err from axios", err);
-
-        toast.error("Oops");
+      .catch(() => {
+        toast.error("Oops,Error retrieving data, please try again later");
       });
   }, []);
   const filterFunc = (data) => {
@@ -76,8 +72,9 @@ const MyCardsPage = () => {
       setCardsArr((newCardsArr) =>
         newCardsArr.filter((item) => item._id !== id)
       );
-    } catch (err) {
-      console.log("error when deleting", err.response.data);
+      toast.success("The card has been successfully deleted");
+    } catch {
+      toast.error("Oops, The item was not deleted");
     }
   };
   const handleEditFromInitialCardsArr = (id) => {

@@ -16,7 +16,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   let qparams = useQueryParams();
   const payload = useSelector((bigPie) => bigPie.authSlice.payload);
-  console.log(payload);
+
   useEffect(() => {
     /*
       useEffect cant handle async ()=>{}
@@ -25,14 +25,10 @@ const HomePage = () => {
     axios
       .get("/cards/cards")
       .then(({ data }) => {
-        console.log("data", data);
-        // setCardsArr(data);
         filterFunc(data);
       })
       .catch((err) => {
-        console.log("err from axios", err);
-
-        toast.error("Oops");
+        toast.error("Oops, Error retrieving data");
       });
   }, []);
   const filterFunc = (data) => {
@@ -78,8 +74,9 @@ const HomePage = () => {
       setCardsArr((newCardsArr) =>
         newCardsArr.filter((item) => item._id !== id)
       );
-    } catch (err) {
-      console.log("error when deleting", err.response.data);
+      toast.success("");
+    } catch {
+      toast.error("Oops, The item was not deleted");
     }
   };
   const handleEditFromInitialCardsArr = (id) => {

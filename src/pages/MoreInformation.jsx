@@ -14,6 +14,7 @@ import ROUTES from "../routes/ROUTES";
 import { CircularProgress } from "@mui/material";
 
 import InformationComponent from "../components/MoreinformationComponent";
+import { toast } from "react-toastify";
 
 const MoreInformationPage = () => {
   const { id } = useParams();
@@ -51,11 +52,11 @@ const MoreInformationPage = () => {
         });
 
         setInputState(newInputState);
-      } catch (err) {
-        console.log("error from axios", err);
+      } catch {
+        toast.error(
+          "There was a problem retrieving the data, please try again later"
+        );
       }
-
-      console.log(inputState);
     })();
   }, [id]);
   const handleCancelBtnClick = (ev) => {

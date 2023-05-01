@@ -61,8 +61,8 @@ const EditCardPage = () => {
         delete newInputState.__v;
 
         setInputState(newInputState);
-      } catch (err) {
-        console.log("error from axios", err);
+      } catch {
+        toast.error("Error retrieving data");
       }
     })();
   }, [id]);
@@ -70,14 +70,14 @@ const EditCardPage = () => {
     try {
       const joiResponse = validateEditSchema(inputState);
       setInputsErrorsState(joiResponse);
-      console.log(joiResponse);
+
       if (!joiResponse) {
         //move to homepage
         await axios.put("/cards/" + id, inputState);
+        toast.success("The changes were successfully saved");
         navigate(ROUTES.HOME);
       }
     } catch (err) {
-      console.log("err", err);
       toast.error("The changes you made were not saved");
     }
   };

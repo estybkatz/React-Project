@@ -62,8 +62,7 @@ const RegisterPage = () => {
         biz: inputState.biz,
       });
       navigate(ROUTES.LOGIN);
-    } catch (err) {
-      console.log("error from axios", err.response.data);
+    } catch {
       toast.error("registered user");
     }
   };
@@ -73,7 +72,6 @@ const RegisterPage = () => {
     setInputState(newInputState);
     joiResponse = validateRegisterSchema(inputState);
     setinputsErrorState(joiResponse);
-    console.log(joiResponse);
   };
   const handleBizChange = (ev) => {
     let newInputState = JSON.parse(JSON.stringify(inputState));

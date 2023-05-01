@@ -78,7 +78,7 @@ const FavCardsPage = () => {
   const handleDeleteFromInitialCardsArr = async (id) => {
     try {
       await axios.delete("/cards/" + id);
-      toast.success("Deleted successfully");
+
       setCardsArr((newCardsArr) =>
         newCardsArr.filter((item) => item._id !== id)
       );

@@ -56,7 +56,6 @@ const ProfilePage = () => {
         joiResponse = validateProfileSchema(newInputState);
         setinputsErrorState(joiResponse);
 
-        console.log(joiResponse);
         if (joiResponse) {
           // there was errors = incorrect id
           // navigate("/");
@@ -94,8 +93,7 @@ const ProfilePage = () => {
       });
       toast.success("The update was successful You must log in again");
       navigate(ROUTES.LOGIN);
-    } catch (err) {
-      console.log("error from axios", err.response.data);
+    } catch {
       toast.error("registered user");
     }
   };
@@ -105,7 +103,6 @@ const ProfilePage = () => {
     setInputState(newInputState);
     joiResponse = validateProfileSchema(inputState);
     setinputsErrorState(joiResponse);
-    console.log(joiResponse);
   };
   const handleBizChange = (ev) => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
@@ -113,7 +110,6 @@ const ProfilePage = () => {
     setInputState(newInputState);
   };
 
-  
   const keys = Object.keys(inputState);
   return (
     <Container component="main" maxWidth="xs">
@@ -169,7 +165,7 @@ const ProfilePage = () => {
                 CANCEL
               </Button>
             </Grid>
-            
+
             <Grid item xs={6}>
               <Button
                 fullWidth

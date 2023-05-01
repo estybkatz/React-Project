@@ -1,16 +1,17 @@
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 let intervalId;
 
 const NestedPage1 = () => {
   useEffect(() => {
-    console.log("component loaded");
+    toast.success("component loaded");
     intervalId = setInterval(() => {
-      console.log("yes");
+      toast.success("yes");
     }, 1000);
     return () => {
       clearInterval(intervalId);
-      console.log("component terminated");
+      toast.success("component terminated");
     };
   }, []);
   return <h2>Nested page 1</h2>;

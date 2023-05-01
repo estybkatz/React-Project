@@ -37,17 +37,16 @@ const CreateCardPage = () => {
   const handleSaveBtnClick = async (ev) => {
     try {
       const joiResponse = validateCreateSchema(inputState);
-      console.log("hi");
+
       setInputsErrorsState(joiResponse);
-      console.log(joiResponse);
+
       if (!joiResponse) {
         //move to homepage
         await axios.post("/cards/", inputState);
         toast.success("A new business card has been created");
         navigate(ROUTES.HOME);
       }
-    } catch (err) {
-      console.log("err", err);
+    } catch {
       toast.error("errrrrrror Your new card didn't saved");
     }
   };

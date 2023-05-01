@@ -19,6 +19,7 @@ import { Fragment, useState } from "react";
 import CallIcon from "@mui/icons-material/Call";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const CardComponent = ({
   img,
@@ -36,18 +37,13 @@ const CardComponent = ({
   canEditPrivate,
   user_id,
   isFav,
-  canDelete,
-  canFav,
-  card,
 }) => {
   const isLoggedIn = useSelector(
     (bigPieBigState) => bigPieBigState.authSlice.isLoggedIn
   );
   const payload = useSelector((bigPie) => bigPie.authSlice.payload);
   const [favState, setfavState] = useState(isFav);
-  console.log(payload);
   const handleDeleteBtnClick = () => {
-    console.log("id", id);
     onDelete(id);
   };
   const handleEditBtnClick = () => {
@@ -64,8 +60,9 @@ const CardComponent = ({
       await axios.patch("/cards/card-like/" + id);
       onDeletefav(id);
       setfavState(!favState);
-    } catch (err) {
-      console.log("error when change fav", err.response.data);
+      toast.success("The change was made successfully");
+    } catch {
+      toast.error("error when change favorites cards, try later again");
     }
   };
   return (
