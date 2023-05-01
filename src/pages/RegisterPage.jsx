@@ -59,7 +59,6 @@ const RegisterPage = () => {
         street: inputState.street,
         houseNumber: inputState.houseNumber,
         zipCode: inputState.zipCode,
-
         biz: inputState.biz,
       });
       navigate(ROUTES.LOGIN);
@@ -81,7 +80,6 @@ const RegisterPage = () => {
     newInputState["biz"] = ev.target.checked;
     setInputState(newInputState);
   };
-
   const resetForm = () => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState = {

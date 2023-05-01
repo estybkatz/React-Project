@@ -1,10 +1,5 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import jwt_decode from "jwt-decode";
-import { toast } from "react-toastify";
-import { authActions } from "../store/auth";
-import { useDispatch, useSelector } from "react-redux";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+
 import {
   Card,
   CardActionArea,
@@ -13,7 +8,6 @@ import {
   CardContent,
   Typography,
   CardActions,
-  Button,
   Box,
   IconButton,
 } from "@mui/material";
@@ -21,12 +15,10 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import CreateIcon from "@mui/icons-material/Create";
 import PropTypes from "prop-types";
 import { Fragment, useState } from "react";
-import PhoneIcon from "@mui/icons-material/Phone";
+
 import CallIcon from "@mui/icons-material/Call";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-import { Block } from "@mui/icons-material";
-import ROUTES from "../routes/ROUTES";
+import { useSelector } from "react-redux";
 
 const CardComponent = ({
   img,
@@ -48,8 +40,6 @@ const CardComponent = ({
   canFav,
   card,
 }) => {
-  //const navigate = useNavigate();
-  // const { id } = useParams();
   const isLoggedIn = useSelector(
     (bigPieBigState) => bigPieBigState.authSlice.isLoggedIn
   );
@@ -78,7 +68,6 @@ const CardComponent = ({
       console.log("error when change fav", err.response.data);
     }
   };
-  //let like = cardsArr[0][1].likes.includes(jwt_decode(localStorage.token)._id);
   return (
     <Card square raised>
       <CardActionArea onClick={handleInfoBtnClick}>

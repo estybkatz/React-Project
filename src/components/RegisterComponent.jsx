@@ -1,7 +1,4 @@
 import { Alert, Grid, TextField } from "@mui/material";
-import ControlledInput from "./controlledInput/ControlledInput";
-import PropTypes from "prop-types";
-import { Fragment } from "react";
 
 const mustFields = [
   "firstName",

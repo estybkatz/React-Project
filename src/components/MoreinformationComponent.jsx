@@ -1,7 +1,4 @@
-import { Alert, Box, Card, Grid, TextField, Typography } from "@mui/material";
-import ControlledInput from "./controlledInput/ControlledInput";
-import PropTypes from "prop-types";
-import { Fragment, useEffect } from "react";
+import { Box, Typography } from "@mui/material";
 
 const InformationComponent = ({ item, inputState }) => {
   return (

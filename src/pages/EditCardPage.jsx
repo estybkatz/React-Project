@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
 import EditIcon from "@mui/icons-material/Edit";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import ROUTES from "../routes/ROUTES";
@@ -16,8 +16,7 @@ import validateEditSchema, {
   validateEditCardParamsSchema,
 } from "../validation/editValidation";
 import { CircularProgress } from "@mui/material";
-//import atom from "../logo.svg";
-//import atom from "../assets/images/atom.png";
+
 import { toast } from "react-toastify";
 import CreateEditComponent from "../components/CreateAndEditComponent";
 
@@ -49,12 +48,7 @@ const EditCardPage = () => {
         } else {
           newInputState.alt = "";
         }
-        // let dataArr = Object.keys(data);
-        // dataArr.map((item) => {
-        //   if (item == null) {
-        //     dataArr.item = "";
-        //   }
-        // });
+
         if (data.zipCode == null) {
           newInputState.zipCode = "";
         }
@@ -84,7 +78,7 @@ const EditCardPage = () => {
       }
     } catch (err) {
       console.log("err", err);
-      toast.error("errrrrrrrrrrrrrrrror");
+      toast.error("The changes you made were not saved");
     }
   };
 

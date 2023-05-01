@@ -6,18 +6,14 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import ContactEmergencyIcon from "@mui/icons-material/ContactEmergency";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import ROUTES from "../routes/ROUTES";
 
 import { CircularProgress } from "@mui/material";
-//import atom from "../logo.svg";
-//import atom from "../images/atom.png";
 
-import { toast } from "react-toastify";
 import InformationComponent from "../components/MoreinformationComponent";
-import { object } from "joi";
 
 const MoreInformationPage = () => {
   const { id } = useParams();
@@ -49,7 +45,7 @@ const MoreInformationPage = () => {
 
         let dataArr = Object.keys(data);
         dataArr.forEach((item) => {
-          if (dataArr[item] == "") {
+          if (dataArr[item] === "") {
             delete inputState[item];
           }
         });
@@ -69,14 +65,6 @@ const MoreInformationPage = () => {
     return <CircularProgress />;
   }
   let keys = Object.keys(inputState);
-  //  useEffect(() => {
-  //    console.log(item);
-  //    console.log(inputState);
-  //  }, []);
-  //  if ((inputState[item] = "")) {
-  //    return "";
-  //  }
-  console.log(keys);
 
   return (
     <Container component="main" maxWidth="xs">

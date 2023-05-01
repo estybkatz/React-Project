@@ -26,34 +26,3 @@ const validateProfileSchema = (userInput) =>
 
 export default validateProfileSchema;
 
-/*const schema = Joi.object({
-  firstName: Joi.string().required(),
-  lastName: Joi.string().required(),
-  middleName: Joi.string(),
-  email: Joi.string().email().required(),
-  phone: Joi.string().required(),
-  password: Joi.string().required(),
-  imgUrl: Joi.string().uri(),
-  imgAlt: Joi.string(),
-  state: Joi.string(),
-  country: Joi.string(),
-  city: Joi.string(),
-  street: Joi.string(),
-  houseNumber: Joi.string(),
-  zip: Joi.string(),
-});
-
-function validate(formData) {
-  const { error, value } = schema.validate(formData, { abortEarly: false });
-  if (error) {
-    const errors = {};
-    error.details.forEach((detail) => {
-      errors[detail.context.key] = detail.message;
-    });
-    return errors;
-  }
-  return null;
-}*/
-
-// email: Joi.string().min(6).max(255).required().email(),
-//password: Joi.string().min(6).max(1024).required(),

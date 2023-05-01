@@ -1,16 +1,13 @@
 import { Box, Button, CircularProgress, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 import CardComponent from "../components/CardComponent";
-import ButtonComponent from "../components/ButtonComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
 import ROUTES from "../routes/ROUTES";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import jwt_decode from "jwt-decode";
 const MyCardsPage = () => {
   const [originalCardsArr, setOriginalCardsArr] = useState(null);
   const [cardsArr, setCardsArr] = useState(null);
@@ -74,13 +71,10 @@ const MyCardsPage = () => {
     filterFunc();
   }, [qparams.filter]);
   const handleDeleteFromInitialCardsArr = async (id) => {
-    // let newCardsArr = JSON.parse(JSON.stringify(cardsArr));
-    // newCardsArr = newCardsArr.filter((item) => item.id != id);
-    // setCardsArr(newCardsArr);
     try {
       await axios.delete("/cards/" + id); // /cards/:id
       setCardsArr((newCardsArr) =>
-        newCardsArr.filter((item) => item._id != id)
+        newCardsArr.filter((item) => item._id !== id)
       );
     } catch (err) {
       console.log("error when deleting", err.response.data);
@@ -94,10 +88,6 @@ const MyCardsPage = () => {
   };
 
   const delete1 = () => {};
-
-  // const handleMoreInformationFromInitialCardsArr = (id) => {
-  //   navigate(`/MInfo/${id}`); //localhost:3000/edit/123213
-  // };
 
   if (!cardsArr) {
     return <CircularProgress />;
@@ -136,7 +126,6 @@ const MyCardsPage = () => {
                   onDelete={handleDeleteFromInitialCardsArr}
                   onDeletefav={delete1}
                   onEdit={handleEditFromInitialCardsArr}
-                  //onInfo={handleMoreInformationFromInitialCardsArr}
                   canEdit={payload && payload.biz && payload.isAdmin}
                   canEditPrivate={payload && payload.biz}
                   card={item}

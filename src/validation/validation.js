@@ -1,14 +1,6 @@
-// const validation = (schema, userInput) =>
-// schema.validate(userInput, { abortEarly: false });
 const validation = (schema, userInput) => {
   let errorObjArr = {};
-  /*
-    errorObjArr = {
-      firstName: ["invalid first name", - - - ],
-      lastName: [],
-      - - -
-    }
-  */
+
   const { error } = schema.validate(userInput, { abortEarly: false });
   if (!error) {
     // no errors
@@ -27,9 +19,6 @@ const validation = (schema, userInput) => {
       ...errorObjArr[item.context.key],
       item.message,
     ];
-    /*
-      errorObjArr.email = [...errorObjArr.email, "invalid email"]
-    */
   }
   return errorObjArr;
 };

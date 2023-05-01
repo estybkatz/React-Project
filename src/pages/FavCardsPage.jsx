@@ -1,16 +1,11 @@
-import jwt_decode from "jwt-decode";
-
 import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 import CardComponent from "../components/CardComponent";
-//import ButtonComponent from "../components/ButtonComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
-import { blue } from "@mui/material/colors";
 
 const FavCardsPage = () => {
   const [originalCardsArr, setOriginalCardsArr] = useState(null);
@@ -18,10 +13,7 @@ const FavCardsPage = () => {
   const navigate = useNavigate();
   let qparams = useQueryParams();
   const payload = useSelector((bigPie) => bigPie.authSlice.payload);
-  // let [refresh, setRefresh] = useState(false);
-  // const doRefresh = () => {
-  //   setRefresh(!refresh);
-  // };
+
   useEffect(() => {
     /*
       useEffect cant handle async ()=>{}
@@ -30,31 +22,19 @@ const FavCardsPage = () => {
     axios
       .get("/cards/cards")
       .then(({ data }) => {
-        console.log("data", data);
-        //  console.log("'cardsarr:", cardsArrToFilter);
         let dataArr = Object.entries(data);
-        console.log("dataArr before change", dataArr);
-        console.log("cardsArr after creating dataArr", data);
         setCardsArr(
           dataArr.filter((card) => card[1]["likes"].includes(payload._id))
         );
       })
-      // console.log("hi - cards Arr");
-      // console.log("data Arr", dataArr);
-      // console.log("data after filter", data);
-      // console.log("cardes arr - :", cardsArr);
-      .catch((err) => {
-        console.log("err from axios", err);
 
+      .catch((err) => {
         toast.error("Oops");
       });
-    console.log("decrypted token -", jwt_decode(localStorage.token));
-    console.log("cards after change", cardsArr);
   }, []);
 
   const delete1 = (id) => {
     setCardsArr(cardsArr.filter((card) => card[1]._id !== id));
-    console.log("in delete", cardsArr);
   };
 
   const filterFunc = (data) => {
@@ -94,40 +74,33 @@ const FavCardsPage = () => {
   useEffect(() => {
     filterFunc();
   }, [qparams.filter]);
+
   const handleDeleteFromInitialCardsArr = async (id) => {
-    // let newCardsArr = JSON.parse(JSON.stringify(cardsArr));
-    // newCardsArr = newCardsArr.filter((item) => item.id != id);
-    // setCardsArr(newCardsArr);
     try {
-      await axios.delete("/cards/" + id); // /cards/:id
+      await axios.delete("/cards/" + id);
+      toast.success("Deleted successfully");
       setCardsArr((newCardsArr) =>
         newCardsArr.filter((item) => item._id !== id)
       );
     } catch (err) {
-      console.log("error when deleting", err.response.data);
+      toast.error("Error when deleting");
     }
-    // doRefresh();
   };
   const handleEditFromInitialCardsArr = (id) => {
-    navigate(`/edit/${id}`); //localhost:3000/edit/123213
+    navigate(`/edit/${id}`);
   };
 
   if (!cardsArr) {
     return <CircularProgress />;
   }
-  //let like = cardsArr[0][1].likes.includes(jwt_decode(localStorage.token)._id);
-  // const likes = () => {
-  //   if (cardsArr[likes].includes(jwt_decode(localStorage.token)._id)) {
-  //     like = true;
-  //   }
-  //};
+
   return (
     <Box>
       {cardsArr.length === 0 ? (
         <Typography>You don't have favorites cards</Typography>
       ) : (
         <Box>
-          <h1>fav page</h1>
+          <h1>Favorites Cards page</h1>
           <h3>Here you view your favorites cards</h3>
           <Grid container spacing={2}>
             {cardsArr.map((item) => (

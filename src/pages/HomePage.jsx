@@ -1,22 +1,18 @@
 import { Box, Button, CircularProgress, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 import CardComponent from "../components/CardComponent";
-import ButtonComponent from "../components/ButtonComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ROUTES from "../routes/ROUTES";
-//import { authActions } from "../../store/auth";
 
 const HomePage = () => {
   const [originalCardsArr, setOriginalCardsArr] = useState(null);
   const [cardsArr, setCardsArr] = useState(null);
 
-  const [newInputState, setNewInputState] = useState(null);
   const navigate = useNavigate();
   let qparams = useQueryParams();
   const payload = useSelector((bigPie) => bigPie.authSlice.payload);

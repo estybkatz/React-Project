@@ -16,6 +16,8 @@ import CachedIcon from "@mui/icons-material/Cached";
 import RegisterComponent from "../components/RegisterComponent";
 import { useSelector } from "react-redux";
 import validateProfileSchema from "../validation/profileValidation";
+import { Avatar } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 const ProfilePage = () => {
   const [inputState, setInputState] = useState({
     firstName: "",
@@ -36,7 +38,6 @@ const ProfilePage = () => {
   let joiResponse = validateProfileSchema(inputState);
   const [inputsErrorState, setinputsErrorState] = useState(null);
   const navigate = useNavigate();
-  const payload = useSelector((bigPie) => bigPie.authSlice.payload);
 
   useEffect(() => {
     (async () => {
@@ -112,35 +113,7 @@ const ProfilePage = () => {
     setInputState(newInputState);
   };
 
-  // const resetForm = () => {
-  //   let newInputState = JSON.parse(JSON.stringify(inputState));
-  //   newInputState = {
-  //     firstName: "",
-  //     middleName: "",
-  //     lastName: "",
-  //     phone: "",
-  //     email: "",
-  //     imageUrl: "",
-  //     imageAlt: "",
-  //     state: "",
-  //     country: "",
-  //     city: "",
-  //     street: "",
-  //     houseNumber: "",
-  //     zipCode: "",
-  //     biz: false,
-  //   };
-  //   setInputState(newInputState);
-  //   joiResponse = validateProfileSchema(inputState);
-  //   if (!joiResponse) {
-  //     return;
-  //   }
-  //   let newjoiResponse = JSON.parse(JSON.stringify(joiResponse));
-  //   Object.keys(newjoiResponse).forEach((index) => {
-  //     newjoiResponse[index] = "";
-  //   });
-  //   setinputsErrorState(newjoiResponse);
-  // };
+  
   const keys = Object.keys(inputState);
   return (
     <Container component="main" maxWidth="xs">
@@ -153,6 +126,9 @@ const ProfilePage = () => {
           alignItems: "center",
         }}
       >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <EditIcon />
+        </Avatar>
         <Typography component="h1" variant="h5">
           Profile
         </Typography>
@@ -193,16 +169,7 @@ const ProfilePage = () => {
                 CANCEL
               </Button>
             </Grid>
-            {/* <Grid item xs={12} sm={6}>
-              <Button
-                size="large"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 1, mb: 1 }}
-                onClick={resetForm}
-                endIcon={<CachedIcon />}
-              ></Button>
-            </Grid> */}
+            
             <Grid item xs={6}>
               <Button
                 fullWidth

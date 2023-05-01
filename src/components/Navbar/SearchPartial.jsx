@@ -75,4 +75,3 @@ const SearchPartial = () => {
   );
 };
 export default SearchPartial;
-//onSubmit={handleSearchSubmit}

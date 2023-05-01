@@ -43,14 +43,24 @@ const Router = () => {
           <ProtectedRoute isLoggedIn={true} element={<FavCardsPage />} />
         }
       />
-      <Route path={ROUTES.CREATE} element={<CreateCardPage />} />
+      <Route
+        path={ROUTES.CREATE}
+        element={
+          <SuperProtectedRoute
+            isAdmin={true}
+            isBiz={true}
+            isLoggedIn={false}
+            element={<CreateCardPage />}
+          />
+        }
+      />
       <Route
         path={ROUTES.MYCARDS}
         element={
           <SuperProtectedRoute
             isAdmin={true}
             isBiz={true}
-            isLoggedIn={true}
+            isLoggedIn={false}
             element={<MyCardsPage />}
           />
         }
@@ -75,6 +85,7 @@ const Router = () => {
         path={ROUTES.LOGOUT}
         element={<ProtectedRoute element={<LogoutPage />} />}
       />
+
       <Route
         path="/edit/:id"
         element={
@@ -92,16 +103,16 @@ const Router = () => {
         path={ROUTES.PROFILE}
         element={<ProtectedRoute element={<ProfilePage />} />}
       />
-      <Route
+      {/* <Route
         path="/createcard"
         element={
           <SuperProtectedRoute
-            isAdmin={false}
+            isAdmin={true}
             isBiz={true}
             element={<h1>Create card</h1>}
           />
         }
-      />
+      /> */}
       <Route path="/rrp" element={<ReRenderPage />} />
       <Route path="/usememo" element={<UseMemoPage />} />
       <Route path="/rp1" element={<RP1 />} />

@@ -4,12 +4,9 @@ import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ErrorIcon from "@mui/icons-material/Error";
 import CoPresentTwoToneIcon from "@mui/icons-material/CoPresentTwoTone";
 import InfoIcon from "@mui/icons-material/Info";
-import ROUTES from "../routes/ROUTES";
 import { useSelector } from "react-redux";
-//import About from "../pages/About";
 
 const Footer = () => {
   const [value, setValue] = React.useState(0);
@@ -20,11 +17,14 @@ const Footer = () => {
 
   return (
     <footer>
+      <br></br>
+      <br></br>
+
       <Box
         sx={{
           display: "flex",
           justifyContent: "center",
-          // position: "fixed",
+
           bottom: 0,
           left: 0,
           right: 0,
@@ -61,9 +61,7 @@ const Footer = () => {
           ) : (
             ""
           )}
-          {/* </Box> */}
 
-          {/* <Box> */}
           {isLoggedIn && (payload.biz || payload.isAdmin) ? (
             <BottomNavigationAction
               label="My Cards"
@@ -74,7 +72,6 @@ const Footer = () => {
           ) : (
             ""
           )}
-          {/* </Box> */}
         </BottomNavigation>
       </Box>
     </footer>
