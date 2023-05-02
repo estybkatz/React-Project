@@ -8,8 +8,6 @@ import ROUTES from "./ROUTES";
 import LoginPage from "../pages/LoginPage";
 import EditCardPage from "../pages/EditCardPage";
 import MyCardsPage from "../pages/MyCardsPage";
-import ReRenderPage from "../pages/ReRenderPage/ReRenderPage";
-import UseMemoPage from "../pages/ReRenderPage/UseMemoPage";
 import RP1 from "../pages/RP1";
 import RP2 from "../pages/RP2";
 import ProtectedRoute from "../components/ProtectedRoute";
@@ -23,6 +21,7 @@ import { formGroupClasses } from "@mui/material";
 import SandboxPage from "../pages/SandboxPage";
 import MoreInformationPage from "../pages/MoreInformation";
 import { useSelector } from "react-redux";
+import EditProtectedRoute from "../components/EditProtectedRoute";
 
 //element={<ProtectedRoute element={<LogoutPage />} />}
 
@@ -64,7 +63,6 @@ const Router = () => {
             element={<MyCardsPage />}
           />
         }
-        // element={<MyCardsPage />}
       />
       <Route
         path={ROUTES.SANDBOX}
@@ -89,7 +87,7 @@ const Router = () => {
       <Route
         path="/edit/:id"
         element={
-          <SuperProtectedRoute
+          <EditProtectedRoute
             isAdmin={true}
             isBiz={true}
             element={<EditCardPage />}
@@ -103,18 +101,7 @@ const Router = () => {
         path={ROUTES.PROFILE}
         element={<ProtectedRoute element={<ProfilePage />} />}
       />
-      {/* <Route
-        path="/createcard"
-        element={
-          <SuperProtectedRoute
-            isAdmin={true}
-            isBiz={true}
-            element={<h1>Create card</h1>}
-          />
-        }
-      /> */}
-      <Route path="/rrp" element={<ReRenderPage />} />
-      <Route path="/usememo" element={<UseMemoPage />} />
+
       <Route path="/rp1" element={<RP1 />} />
       <Route path="/rp2" element={<RP2 />} />
       <Route path="/sandbox" element={<SandboxPage />}>

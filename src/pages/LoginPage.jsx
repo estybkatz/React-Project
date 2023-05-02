@@ -150,7 +150,6 @@ const LoginPage = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 1, mb: 1 }}
-                //href={ROUTES.REGISTER}
                 onClick={resetForm}
                 endIcon={<CachedIcon />}
               ></Button>

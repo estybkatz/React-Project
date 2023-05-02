@@ -116,7 +116,6 @@ const CardComponent = ({
           <IconButton color="primary" aria-label="add to shopping cart">
             <CallIcon />
           </IconButton>
-          {/* <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} /> */}
           {isLoggedIn ? (
             <IconButton
               color="primary"

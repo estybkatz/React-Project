@@ -31,7 +31,6 @@ const RegisterComponent = ({
         autoFocus={item === "firstName"}
         id={item}
         label={label}
-        //value={inputState.item}
         onChange={onChange}
         onClick={onClick}
         autoComplete="family-name"

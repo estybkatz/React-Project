@@ -11,6 +11,7 @@ const ProtectedRoute = ({ element }) => {
   if (isLoggedIn) {
     return element;
   } else {
+    toast.error("You are not logged in");
     return <Navigate to={ROUTES.LOGIN} />;
   }
 };

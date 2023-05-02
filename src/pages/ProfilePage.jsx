@@ -14,10 +14,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import CachedIcon from "@mui/icons-material/Cached";
 import RegisterComponent from "../components/RegisterComponent";
-import { useSelector } from "react-redux";
 import validateProfileSchema from "../validation/profileValidation";
 import { Avatar } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../store/auth";
 const ProfilePage = () => {
   const [inputState, setInputState] = useState({
     firstName: "",
@@ -38,6 +39,8 @@ const ProfilePage = () => {
   let joiResponse = validateProfileSchema(inputState);
   const [inputsErrorState, setinputsErrorState] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const payload = useSelector((bigPie) => bigPie.authSlice.payload);
 
   useEffect(() => {
     (async () => {
@@ -52,6 +55,7 @@ const ProfilePage = () => {
         delete newInputState._id;
         delete newInputState.isAdmin;
         delete newInputState.password;
+        delete newInputState.biz;
         setInputState(newInputState);
         joiResponse = validateProfileSchema(newInputState);
         setinputsErrorState(joiResponse);
@@ -89,10 +93,11 @@ const ProfilePage = () => {
         street: inputState.street,
         houseNumber: inputState.houseNumber,
         zipCode: inputState.zipCode,
-        biz: inputState.biz,
       });
-      toast.success("The update was successful You must log in again");
-      navigate(ROUTES.LOGIN);
+      toast.success("The update was successful");
+      // localStorage.clear();
+      // dispatch(authActions.logout());
+      navigate(ROUTES.HOME);
     } catch {
       toast.error("registered user");
     }
@@ -104,11 +109,11 @@ const ProfilePage = () => {
     joiResponse = validateProfileSchema(inputState);
     setinputsErrorState(joiResponse);
   };
-  const handleBizChange = (ev) => {
-    let newInputState = JSON.parse(JSON.stringify(inputState));
-    newInputState["biz"] = ev.target.checked;
-    setInputState(newInputState);
-  };
+  // const handleBizChange = (ev) => {
+  //   let newInputState = JSON.parse(JSON.stringify(inputState));
+  //   newInputState["biz"] = ev.target.checked;
+  //   setInputState(newInputState);
+  // };
 
   const keys = Object.keys(inputState);
   return (
@@ -141,19 +146,8 @@ const ProfilePage = () => {
                 key={key}
               />
             ))}
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    id="biz"
-                    checked={inputState.biz}
-                    color="primary"
-                    onClick={handleBizChange}
-                  />
-                }
-                label="Signup as business."
-              />
-            </Grid>
+            <Grid item xs={12} sm={12}></Grid>
+
             <Grid item xs={12} sm={6}>
               <Button
                 variant="contained"

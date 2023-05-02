@@ -108,7 +108,6 @@ const MoreInformationPage = () => {
                       item={item}
                       inputState={inputState}
                       key={item}
-                      // {inputState[item]==""}
                     />
                   )
               )}

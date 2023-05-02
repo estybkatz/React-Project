@@ -18,11 +18,10 @@ const profileSchema = Joi.object({
   street: Joi.string().min(2).max(256).required(),
   houseNumber: Joi.string().min(1).max(256).required(),
   zipCode: Joi.number().min(1).max(999999999).allow(""),
-  biz: Joi.boolean(),
+  // biz: Joi.boolean(),
 });
 
 const validateProfileSchema = (userInput) =>
   validation(profileSchema, userInput);
 
 export default validateProfileSchema;
-

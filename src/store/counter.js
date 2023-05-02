@@ -26,22 +26,7 @@ const counterSlice = createSlice({
   },
 });
 
-/*
-    const initialState = {counter:0}
-    const [state, setState] = useState(initialState)
-    state.counter
 
-    createSlice({
-        name: "like react key",
-        initialState: {
-          counter: 0
-        },
-        reducers: {
-            functions to update the state
-            each function called action
-        },
-    });
-*/
 
 export const counterActions = counterSlice.actions;
 /*

@@ -1,7 +1,12 @@
 import { Fragment } from "react";
 import NavLinkComponent from "./NavLinkComponent";
 import MenuItem from "@mui/material/MenuItem";
-const NavArrayComponent = ({ linkArray = [], logoutClick, isMenu = false }) => {
+const NavArrayComponent = ({
+  linkArray = [],
+  logoutClick,
+  onClick,
+  isMenu = false,
+}) => {
   return (
     <Fragment>
       {isMenu
@@ -11,6 +16,7 @@ const NavArrayComponent = ({ linkArray = [], logoutClick, isMenu = false }) => {
                 key={page.url}
                 {...page}
                 logoutClick={logoutClick}
+                onClick={onClick}
               />
             </MenuItem>
           ))
@@ -18,6 +24,7 @@ const NavArrayComponent = ({ linkArray = [], logoutClick, isMenu = false }) => {
             <NavLinkComponent
               key={page.url}
               {...page}
+              onClick={onClick}
               logoutClick={logoutClick}
             />
           ))}
