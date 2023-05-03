@@ -21,23 +21,24 @@ const EditProtectedRoute = ({ element, isAdmin, isBiz }) => {
       .catch((err) => {
         toast.error("Oops, Error retrieving data");
       });
-  }, [id]);
 
-  if (isLoggedIn) {
-    if (
-      ((isAdmin && payload && payload.isAdmin) ||
-        (isBiz && payload && payload.biz)) &&
-      payload._id === userID
-    ) {
-      return element;
-    } else {
-      toast.error("invalid permissions");
-      return <Navigate to={ROUTES.LOGIN} />;
+    if (isLoggedIn) {
+      if (
+        ((isAdmin && payload && payload.isAdmin) ||
+          (isBiz && payload && payload.biz)) &&
+        payload._id === userID
+      ) {
+        return element;
+      } else {
+        toast.error("invalid permissions");
+        return <Navigate to={ROUTES.LOGIN} />;
+      }
     }
-  } else {
-    toast.error("invalid permissions");
-    return <Navigate to={ROUTES.LOGIN} />;
-  }
+  }, [id]);
+  // else {
+  //   toast.error("invalid permissions");
+  //   return <Navigate to={ROUTES.LOGIN} />;
+  // }
 };
 export default EditProtectedRoute;
 

@@ -1,24 +1,20 @@
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import { Link, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import validateRegisterSchema from "../validation/registerValidation";
 import ROUTES from "../routes/ROUTES";
 import axios from "axios";
 import { toast } from "react-toastify";
-import CachedIcon from "@mui/icons-material/Cached";
 import RegisterComponent from "../components/RegisterComponent";
 import validateProfileSchema from "../validation/profileValidation";
 import { Avatar } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../store/auth";
+
 const ProfilePage = () => {
   const [inputState, setInputState] = useState({
     firstName: "",
@@ -61,8 +57,6 @@ const ProfilePage = () => {
         setinputsErrorState(joiResponse);
 
         if (joiResponse) {
-          // there was errors = incorrect id
-          // navigate("/");
           return;
         }
       } catch {
@@ -95,8 +89,7 @@ const ProfilePage = () => {
         zipCode: inputState.zipCode,
       });
       toast.success("The update was successful");
-      // localStorage.clear();
-      // dispatch(authActions.logout());
+
       navigate(ROUTES.HOME);
     } catch {
       toast.error("registered user");
@@ -109,11 +102,6 @@ const ProfilePage = () => {
     joiResponse = validateProfileSchema(inputState);
     setinputsErrorState(joiResponse);
   };
-  // const handleBizChange = (ev) => {
-  //   let newInputState = JSON.parse(JSON.stringify(inputState));
-  //   newInputState["biz"] = ev.target.checked;
-  //   setInputState(newInputState);
-  // };
 
   const keys = Object.keys(inputState);
   return (

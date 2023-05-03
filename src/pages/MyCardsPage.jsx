@@ -23,6 +23,7 @@ const MyCardsPage = () => {
     axios
       .get("/cards/my-cards")
       .then(({ data }) => {
+        //setOriginalCardsArr(data);
         filterFunc(data);
       })
       .catch(() => {
