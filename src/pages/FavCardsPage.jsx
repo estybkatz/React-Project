@@ -80,7 +80,7 @@ const FavCardsPage = () => {
       await axios.delete("/cards/" + id);
 
       setCardsArr((newCardsArr) =>
-        newCardsArr.filter((item) => item._id !== id)
+        newCardsArr.filter((item) => item[1]._id !== id)
       );
     } catch (err) {
       toast.error("Error when deleting");
