@@ -20,13 +20,17 @@ const FavCardsPage = () => {
       this is why we use the old promise way
     */
     axios
-      .get("/cards/get-my-fav-cards")
+      .get("/cards/cards")
       .then(({ data }) => {
-        //setCardsArr(data.filter((card) => card.likes.includes(payload._id)));
         filterFunc(data);
+
+        // console.log(data);
+        let dataArr = Object.entries(data);
+        setCardsArr(data.filter((card) => card.likes.includes(payload._id)));
+
         //setOriginalCardsArr(dataArr.filter((card) => card[0] !== null));
-        //setOriginalCardsArr(cardsArr);
-        //console.log(originalCardsArr);
+        setOriginalCardsArr(cardsArr);
+        console.log(originalCardsArr);
         //setCardsArr(data.filter((card) => card.likes.includes(payload._id)));
       })
 
@@ -36,7 +40,7 @@ const FavCardsPage = () => {
   }, []);
 
   const delete1 = (id) => {
-    setCardsArr(cardsArr.filter((card) => card._id !== id));
+    setCardsArr(cardsArr.filter((card) => card[1]._id !== id));
   };
 
   const filterFunc = (data) => {
@@ -57,7 +61,8 @@ const FavCardsPage = () => {
       setCardsArr(
         data.filter(
           (card) =>
-            card.title.startsWith(filter) || card.bizNumber.startsWith(filter)
+            card[1].title.startsWith(filter) ||
+            card[1].bizNumber.startsWith(filter)
         )
       );
       return;
@@ -70,7 +75,8 @@ const FavCardsPage = () => {
       setCardsArr(
         newOriginalCardsArr.filter(
           (card) =>
-            card.title.startsWith(filter) || card.bizNumber.startsWith(filter)
+            card[1].title.startsWith(filter) ||
+            card[1].bizNumber.startsWith(filter)
         )
       );
     }
@@ -84,7 +90,7 @@ const FavCardsPage = () => {
       await axios.delete("/cards/" + id);
 
       setCardsArr((newCardsArr) =>
-        newCardsArr.filter((item) => item._id !== id)
+        newCardsArr.filter((item) => item[1]._id !== id)
       );
     } catch (err) {
       toast.error("Error when deleting");
@@ -108,24 +114,28 @@ const FavCardsPage = () => {
           <h3>Here you view your favorites cards</h3>
           <Grid container spacing={2}>
             {cardsArr.map((item) => (
-              <Grid item sm={6} xs={12} md={4} key={item._id + Date.now()}>
+              <Grid item sm={6} xs={12} md={4} key={item[1]._id + Date.now()}>
                 <CardComponent
-                  id={item._id}
-                  phone={item.phone}
+                  id={item[1]._id}
+                  phone={item[1].phone}
                   address={
-                    item.street + " " + item.houseNumber + ", " + item.city
+                    item[1].street +
+                    " " +
+                    item[1].houseNumber +
+                    ", " +
+                    item[1].city
                   }
-                  cardNumber={item.bizNumber}
-                  title={item.title}
-                  subTitle={item.subTitle}
-                  description={item.description}
-                  img={item.image ? item.image.url : ""}
+                  cardNumber={item[1].bizNumber}
+                  title={item[1].title}
+                  subTitle={item[1].subTitle}
+                  description={item[1].description}
+                  img={item[1].image ? item[1].image.url : ""}
                   onDeletefav={delete1}
                   onDelete={handleDeleteFromInitialCardsArr}
                   onEdit={handleEditFromInitialCardsArr}
                   canEdit={payload && (payload.biz || payload.isAdmin)}
                   canEditPrivate={payload && payload.biz}
-                  user_id={item.user_id}
+                  user_id={item[1].user_id}
                   isFav={true}
                 />
               </Grid>

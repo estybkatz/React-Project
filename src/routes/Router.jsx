@@ -86,6 +86,8 @@ const Router = () => {
 
       <Route
         path="/edit/:id"
+        // element={
+        //   <EditCardPage />
         element={
           <EditProtectedRoute
             isAdmin={true}

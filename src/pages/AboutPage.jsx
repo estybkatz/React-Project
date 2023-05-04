@@ -78,7 +78,7 @@ const AboutPage = () => {
         <br />
       </Typography>
 
-      <img src="../../public/assets/images/card" alt="card" />
+      <img src="/assets/images/card.PNG" alt="card" />
     </Fragment>
   );
 };

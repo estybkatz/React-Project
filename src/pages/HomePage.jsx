@@ -80,7 +80,8 @@ const HomePage = () => {
     }
   };
   const handleEditFromInitialCardsArr = (id) => {
-    navigate(`/edit/${id}`); //localhost:3000/edit/123213
+    const selectedCards = cardsArr.find((card) => card._id == id);
+    navigate(`/edit/${id}`, { state: { user_id: selectedCards.user_id } }); //localhost:3000/edit/123213
   };
 
   const handleMoreInformationFromInitialCardsArr = (id) => {
