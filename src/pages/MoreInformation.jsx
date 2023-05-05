@@ -60,7 +60,7 @@ const MoreInformationPage = () => {
     })();
   }, [id]);
   const handleCancelBtnClick = (ev) => {
-    navigate(ROUTES.HOME);
+    navigate(-1);
   };
   if (!inputState) {
     return <CircularProgress />;
@@ -119,7 +119,7 @@ const MoreInformationPage = () => {
                 sx={{ mt: 3, mb: 2 }}
                 onClick={handleCancelBtnClick}
               >
-                Return to HomePage
+                Return Back
               </Button>
             </Grid>
           </Grid>

@@ -1,6 +1,9 @@
 import { CardActionArea, Typography } from "@mui/material";
 import { Fragment } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import CreateIcon from "@mui/icons-material/Create";
 
 const AboutPage = () => {
   return (
@@ -28,11 +31,10 @@ const AboutPage = () => {
       <Typography variant="h5">How It Works</Typography>
       <Typography>
         Our platform is easy to use and requires no technical expertise. Simply
-        sign up for an account, choose a template that fits your brand, and
-        customize your card with your business name, logo, and contact
-        information. Once you're happy with your design, you can publish your
-        card and start sharing it with potential customers.
-        <br />
+        sign up for an account, and customize your card with your business name,
+        logo. Once you're happy with your design, you can publish your card and
+        start sharing it with potential customers.
+        <br /> <br />
       </Typography>
       <Typography variant="h5">Our Team</Typography>
       <Typography>
@@ -50,10 +52,54 @@ const AboutPage = () => {
         If you have any questions or feedback, we would love to hear from you.
         Please feel free to contact us at estybkatz@gmail.com .<br></br> We
         value your input and are always looking for ways to improve our platform
-        and better serve our users.
+        and better serve our users. <br />
+        <br />
+        <br />
       </Typography>
-
-      <Typography variant="h5"> User types and options </Typography>
+      <Typography variant="h4"> Site Structure</Typography>{" "}
+      <Typography>
+        <br />
+      </Typography>
+      <Typography variant="h5"> The Cards</Typography>
+      The cards show a picture chosen by the user, and the phone number and
+      address of the business which created the card, which are inputted by the
+      user <br /> <br />
+      Pressing on the cards moves you the the more information page, which
+      brings more information on the business that created the card.
+      <br />
+      Any user can favorite the cards using the <FavoriteIcon /> who's color is
+      changed according to it's status, red if it is favorite, and blue if not.
+      <br />
+      The user who created the card can edit it by pressing the <CreateIcon />
+      <br />
+      The user who created the card, and all admin users can delete the cards
+      pressing on the <DeleteOutlineIcon /> button
+      <Typography variant="h5"> The Navbar</Typography>
+      <Typography>
+        The site contains an upper navbar, which changes according to whatever
+        the user is logged in or not, which allows navigation to the pages
+        allowed for the user.
+        <br />
+        The Navbar contains a search function, which will search in the current
+        page.
+        <br />
+        If the user is logged in, the navbar contains an avatar which allows the
+        user to edit his profile, or logout.
+        <br /> The Navbar contains a sun or moon icon, to change the theme of
+        the site from dark to light. <br />
+        <br />
+      </Typography>
+      <Typography variant="h5"> The Card Pages</Typography>
+      The site has 3 different ways to view cards.
+      <br /> All the cards in the homepage.
+      <br />
+      The Fav Cards page, in which you can view your favorite cards.
+      <br />
+      My Cards page in which you can view the cards you created. <br /> <br />
+      <Typography variant="h5">The Footer</Typography>
+      The site contains a footer which links to the about page, and favorites
+      page and my cards. <br /> <br />
+      <Typography variant="h4"> User types and options </Typography>
       <Typography>
         Available options for users This site has 3 types of users, a regular
         user, a business user and an admin user.
@@ -63,11 +109,11 @@ const AboutPage = () => {
         red, while an unfavorited card has it colored blue. <br /> A user can
         view their favorite cards using favCards page.
         <br />
-        <br />
         A business user can add new cards using the <AddCircleIcon /> button,
         and view the cards he added in the My Cards page.
-        <br /> <br />
-        After creating a card, a business user can delete the cards he made.
+        <br />
+        After creating a card, a business user can edit or delete the cards he
+        made.
         <br />
         An Admin user is a business user, which can also delete cards that any
         user made.
@@ -76,8 +122,11 @@ const AboutPage = () => {
         you cannot become an admin user while registering. To become an admin
         contact us by mail.
         <br />
+        <br /> Any user can edit his profile pages. <br />
       </Typography>
-
+      <Typography variant="h5" color="yellow" position="center">
+        Here is an example of a card
+      </Typography>
       <img src="/assets/images/card.PNG" alt="card" />
     </Fragment>
   );

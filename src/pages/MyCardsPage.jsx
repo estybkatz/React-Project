@@ -81,6 +81,10 @@ const MyCardsPage = () => {
   const handleEditFromInitialCardsArr = (id) => {
     navigate(`/edit/${id}`); //localhost:3000/edit/123213
   };
+  const handleMoreInformationFromInitialCardsArr = (id) => {
+    navigate(`/MInfo/${id}`);
+  };
+
   const createCard = () => {
     navigate(ROUTES.CREATE);
   };
@@ -124,6 +128,7 @@ const MyCardsPage = () => {
                   onDelete={handleDeleteFromInitialCardsArr}
                   onDeletefav={delete1}
                   onEdit={handleEditFromInitialCardsArr}
+                  onInfo={handleMoreInformationFromInitialCardsArr}
                   canEdit={payload && payload.biz && payload.isAdmin}
                   canEditPrivate={payload && payload.biz}
                   card={item}

@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import ROUTES from "../../routes/ROUTES";
-import { useParams } from "react-router-dom";
+
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -60,15 +60,6 @@ const SearchPartial = () => {
     ev.preventDefault();
     let url = location.pathname;
 
-    // if (url.includes(ROUTES.FAV)) {
-    //   url = ROUTES.FAV;
-    // }
-    // if (url.includes(ROUTES.MYCARDS)) {
-    //   url = ROUTES.MYCARDS;
-    // } else {
-    //   url = ROUTES.HOME;
-    // }
-    console.log(url);
     if (searchInput) {
       navigate(`${url}?filter=${searchInput}`);
       setChanged(true);
@@ -79,26 +70,6 @@ const SearchPartial = () => {
       }
     }
   };
-  // let url = window.location.href;
-  // if (url.includes(ROUTES.FAV)) {
-  //   url = ROUTES.FAV;
-  // }
-  // if (url.includes(ROUTES.MYCARDS)) {
-  //   url = ROUTES.MYCARDS;
-  // } else {
-  //   url = ROUTES.HOME;
-  // }
-  // e.preventDefault();
-  // if (searchInput) {
-  //   navigate(`${url}?filter=${searchInput}`);
-  //   setChanged(true);
-  // } else {
-  //   if (changed) {
-  //     navigate(-1);
-  //     setChanged(false);
-  //   }
-  // }
-  // };
   return (
     <form onSubmit={handleSearchSubmit}>
       <Search>

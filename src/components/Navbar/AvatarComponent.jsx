@@ -25,7 +25,7 @@ const AvatarComponent = ({ logoutClick }) => {
   return (
     <React.Fragment>
       <IconButton size="large" onClick={handleOpenAvatarMenu} color="inherit">
-        <Avatar src="/broken-image.jpg" />
+        <Avatar />
       </IconButton>
       <Menu
         anchorEl={anchorAvatar}

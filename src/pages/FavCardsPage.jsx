@@ -22,12 +22,7 @@ const FavCardsPage = () => {
     axios
       .get("/cards/get-my-fav-cards")
       .then(({ data }) => {
-        //setCardsArr(data.filter((card) => card.likes.includes(payload._id)));
         filterFunc(data);
-        //setOriginalCardsArr(dataArr.filter((card) => card[0] !== null));
-        //setOriginalCardsArr(cardsArr);
-        //console.log(originalCardsArr);
-        //setCardsArr(data.filter((card) => card.likes.includes(payload._id)));
       })
 
       .catch((err) => {
@@ -60,6 +55,7 @@ const FavCardsPage = () => {
             card.title.startsWith(filter) || card.bizNumber.startsWith(filter)
         )
       );
+
       return;
     }
     if (originalCardsArr) {
@@ -93,7 +89,9 @@ const FavCardsPage = () => {
   const handleEditFromInitialCardsArr = (id) => {
     navigate(`/edit/${id}`);
   };
-
+  const handleMoreInformationFromInitialCardsArr = (id) => {
+    navigate(`/MInfo/${id}`);
+  };
   if (!cardsArr) {
     return <CircularProgress />;
   }
@@ -123,6 +121,7 @@ const FavCardsPage = () => {
                   onDeletefav={delete1}
                   onDelete={handleDeleteFromInitialCardsArr}
                   onEdit={handleEditFromInitialCardsArr}
+                  onInfo={handleMoreInformationFromInitialCardsArr}
                   canEdit={payload && (payload.biz || payload.isAdmin)}
                   canEditPrivate={payload && payload.biz}
                   user_id={item.user_id}
