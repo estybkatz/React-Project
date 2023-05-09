@@ -90,7 +90,7 @@ const ProfilePage = () => {
       });
       toast.success("The update was successful");
 
-      navigate(ROUTES.HOME);
+      navigate(-1);
     } catch {
       toast.error("registered user");
     }
@@ -99,8 +99,11 @@ const ProfilePage = () => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
-    joiResponse = validateProfileSchema(inputState);
+    joiResponse = validateProfileSchema(newInputState);
     setinputsErrorState(joiResponse);
+  };
+  const handleCancelBtnClick = (ev) => {
+    navigate(-1);
   };
 
   const keys = Object.keys(inputState);
@@ -120,7 +123,18 @@ const ProfilePage = () => {
         </Avatar>
         <Typography component="h1" variant="h5">
           Profile
-        </Typography>
+        </Typography>{" "}
+        <Box
+          component="img"
+          sx={{
+            height: 180,
+            width: 250,
+            maxHeight: { xs: 180, md: 167 },
+            maxWidth: { xs: 250, md: 250 },
+          }}
+          alt={inputState.imageAlt ? inputState.imageAlt : ""}
+          src={inputState.imageUrl ? inputState.imageUrl : ""}
+        />
         <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             {keys.map((key) => (
@@ -134,6 +148,7 @@ const ProfilePage = () => {
                 key={key}
               />
             ))}
+
             <Grid item xs={12} sm={12}></Grid>
 
             <Grid item xs={12} sm={6}>
@@ -142,13 +157,13 @@ const ProfilePage = () => {
                 fullWidth
                 sx={{ mt: 1, mb: 1 }}
                 color="primary"
-                href={ROUTES.HOME}
+                onClick={handleCancelBtnClick}
               >
                 CANCEL
               </Button>
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <Button
                 fullWidth
                 variant="contained"

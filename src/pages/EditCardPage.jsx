@@ -75,7 +75,7 @@ const EditCardPage = () => {
         //move to homepage
         await axios.put("/cards/" + id, inputState);
         toast.success("The changes were successfully saved");
-        navigate(ROUTES.HOME);
+        navigate(-1);
       }
     } catch (err) {
       toast.error("The changes you made were not saved");
@@ -83,13 +83,15 @@ const EditCardPage = () => {
   };
 
   const handleCancelBtnClick = (ev) => {
-    //move to homepage
-    navigate(ROUTES.HOME);
+    //move to previous page
+    navigate(-1);
   };
   const handleInputChange = (ev) => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
+    const joiResponse = validateEditSchema(newInputState);
+    setInputsErrorsState(joiResponse);
   };
 
   if (!inputState) {

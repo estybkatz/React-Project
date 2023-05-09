@@ -23,7 +23,6 @@ const MyCardsPage = () => {
     axios
       .get("/cards/my-cards")
       .then(({ data }) => {
-        //setOriginalCardsArr(data);
         filterFunc(data);
       })
       .catch(() => {
@@ -79,7 +78,8 @@ const MyCardsPage = () => {
     }
   };
   const handleEditFromInitialCardsArr = (id) => {
-    navigate(`/edit/${id}`); //localhost:3000/edit/123213
+    const selectedCards = cardsArr.find((card) => card._id == id);
+    navigate(`/edit/${id}`, { state: { user_id: selectedCards.user_id } }); //localhost:3000/edit/123213
   };
   const handleMoreInformationFromInitialCardsArr = (id) => {
     navigate(`/MInfo/${id}`);
@@ -97,9 +97,9 @@ const MyCardsPage = () => {
 
   return (
     <Box>
-      {cardsArr.length === 0 ? (
+      {originalCardsArr.length === 0 ? (
         <Box>
-          <Typography>You didn't created cards</Typography>
+          <Typography>You didn't create cards</Typography>
 
           <Button onClick={createCard}>
             <AddCircleIcon />

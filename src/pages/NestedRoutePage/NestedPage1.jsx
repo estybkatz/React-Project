@@ -9,6 +9,7 @@ const NestedPage1 = () => {
     intervalId = setInterval(() => {
       toast.success("yes");
     }, 1000);
+
     return () => {
       clearInterval(intervalId);
       toast.success("component terminated");

@@ -36,14 +36,19 @@
     transform: rotate(360deg);
   }
 }
-/* .logo {
-  width: 3vw;
-  height: 5vh;
-} */
 .body {
   overflow-y: hidden;
 }
 .cardMedia {
   width: 100%;
   height: 200px;
+}
+
+@media (max-width: 992px) {
+  .aboutCard {
+    width: 100%;
+  }
+  .aboutText {
+    font-size: 1.5rem !important ;
+  }
 }

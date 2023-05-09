@@ -44,6 +44,7 @@ const RegisterPage = () => {
       if (inputState.zipCode == "") {
         inputState.zipCode = null;
       }
+
       await axios.post("/users/register", {
         firstName: inputState.firstName,
         middleName: inputState.middleName,
@@ -61,6 +62,9 @@ const RegisterPage = () => {
         zipCode: inputState.zipCode,
         biz: inputState.biz,
       });
+      toast.success(
+        "Welcome " + inputState.firstName + " " + inputState.lastName
+      );
       navigate(ROUTES.LOGIN);
     } catch {
       toast.error("registered user");
@@ -70,7 +74,7 @@ const RegisterPage = () => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
-    joiResponse = validateRegisterSchema(inputState);
+    joiResponse = validateRegisterSchema(newInputState);
     setinputsErrorState(joiResponse);
   };
   const handleBizChange = (ev) => {
@@ -98,7 +102,7 @@ const RegisterPage = () => {
       biz: false,
     };
     setInputState(newInputState);
-    joiResponse = validateRegisterSchema(inputState);
+    joiResponse = validateRegisterSchema(newInputState);
     if (!joiResponse) {
       return;
     }

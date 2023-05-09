@@ -23,8 +23,6 @@ import MoreInformationPage from "../pages/MoreInformation";
 import { useSelector } from "react-redux";
 import EditProtectedRoute from "../components/EditProtectedRoute";
 
-//element={<ProtectedRoute element={<LogoutPage />} />}
-
 const Router = () => {
   const isLoggedIn = useSelector(
     (bigPieBigState) => bigPieBigState.authSlice.isLoggedIn
@@ -86,8 +84,6 @@ const Router = () => {
 
       <Route
         path="/edit/:id"
-        // element={
-        //   <EditCardPage />
         element={
           <EditProtectedRoute
             isAdmin={true}
@@ -103,10 +99,16 @@ const Router = () => {
         path={ROUTES.PROFILE}
         element={<ProtectedRoute element={<ProfilePage />} />}
       />
-
-      <Route path="/rp1" element={<RP1 />} />
-      <Route path="/rp2" element={<RP2 />} />
-      <Route path="/sandbox" element={<SandboxPage />}>
+      <Route
+        path="/sandbox"
+        element={
+          <SuperProtectedRoute
+            isAdmin={true}
+            isBiz={false}
+            element={<SandboxPage />}
+          />
+        }
+      >
         <Route path="nestedpage1" element={<NestedPage1 />} />
         <Route path="nestedpage2" element={<NestedPage2 />} />
         <Route path="RP1" element={<RP1 />} />

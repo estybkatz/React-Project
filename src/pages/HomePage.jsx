@@ -74,7 +74,7 @@ const HomePage = () => {
       setCardsArr((newCardsArr) =>
         newCardsArr.filter((item) => item._id !== id)
       );
-      toast.success("");
+      toast.success("Succesfully deleted card");
     } catch {
       toast.error("Oops, The item was not deleted");
     }

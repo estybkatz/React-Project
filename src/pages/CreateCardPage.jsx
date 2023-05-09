@@ -44,7 +44,7 @@ const CreateCardPage = () => {
         //move to homepage
         await axios.post("/cards/", inputState);
         toast.success("A new business card has been created");
-        navigate(ROUTES.HOME);
+        navigate(-1);
       }
     } catch {
       toast.error("errrrrrror Your new card didn't saved");
@@ -59,8 +59,8 @@ const CreateCardPage = () => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
-    //
-    joiResponse = validateCreateSchema(inputState);
+
+    joiResponse = validateCreateSchema(newInputState);
     setInputsErrorsState(joiResponse);
   };
 

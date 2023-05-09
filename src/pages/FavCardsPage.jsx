@@ -35,8 +35,6 @@ const FavCardsPage = () => {
   };
 
   const filterFunc = (data) => {
-    console.log("original", originalCardsArr);
-    console.log(data);
     if (!originalCardsArr && !data) {
       return;
     }
@@ -82,12 +80,14 @@ const FavCardsPage = () => {
       setCardsArr((newCardsArr) =>
         newCardsArr.filter((item) => item._id !== id)
       );
+      toast.success("Succesfully deleted card");
     } catch (err) {
       toast.error("Error when deleting");
     }
   };
   const handleEditFromInitialCardsArr = (id) => {
-    navigate(`/edit/${id}`);
+    const selectedCards = cardsArr.find((card) => card._id == id);
+    navigate(`/edit/${id}`, { state: { user_id: selectedCards.user_id } }); //localhost:3000/edit/123213
   };
   const handleMoreInformationFromInitialCardsArr = (id) => {
     navigate(`/MInfo/${id}`);
@@ -98,7 +98,7 @@ const FavCardsPage = () => {
 
   return (
     <Box>
-      {cardsArr.length === 0 ? (
+      {originalCardsArr.length === 0 ? (
         <Typography>You don't have favorites cards</Typography>
       ) : (
         <Box>

@@ -119,7 +119,6 @@ const MuiNavbar = () => {
               <DarkModeIcon onClick={changeTheme} />
             )}
           </Box>
-
           {isLoggedIn ? <AvatarComponent logoutClick={logoutClick} /> : ""}
 
           {/*hamburger with menu */}
@@ -173,7 +172,7 @@ const MuiNavbar = () => {
                 isMenu={true}
                 onClick={handleCloseNavMenu}
               />
-              {isLoggedIn ? <AvatarComponent logoutClick={logoutClick} /> : ""}
+              {/* {isLoggedIn ? <AvatarComponent logoutClick={logoutClick} /> : ""} */}
             </Menu>
           </Box>
         </Toolbar>

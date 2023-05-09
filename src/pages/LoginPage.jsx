@@ -35,7 +35,7 @@ const LoginPage = () => {
       password: "",
     };
     setInputState(newInputState);
-    joiResponse = validateLoginSchema(inputState);
+    joiResponse = validateLoginSchema(newInputState);
     if (!joiResponse) {
       return;
     }
@@ -60,7 +60,7 @@ const LoginPage = () => {
       navigate(ROUTES.HOME);
     } catch {
       toast.error(
-        "User does not exist in the syste, Or there is a problem connecting "
+        "User does not exist in the system, Or there is a problem connecting "
       );
     }
   };
@@ -69,7 +69,7 @@ const LoginPage = () => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
-    joiResponse = validateLoginSchema(inputState);
+    joiResponse = validateLoginSchema(newInputState);
     setInputsErrorsState(joiResponse);
   };
 
@@ -119,7 +119,7 @@ const LoginPage = () => {
                 label="Password"
                 type="password"
                 id="password"
-                autoComplete="new-password"
+                autoComplete="password"
                 value={inputState.password}
                 onChange={handleInputChange}
                 onClick={handleInputChange}
